@@ -861,67 +861,91 @@ input[type="range"]:active::-webkit-slider-thumb { cursor: grabbing; transform: 
 
 /* ============ 宠物 / 教练角落 / 五指山抽屉 ============ */
 
-/* ---------- 宠物 SVG ---------- */
-.pet-svg { display: block; overflow: visible; }
-.pet-svg .pet-body { transform-origin: 50% 90%; }
-.pet-svg.is-animated .pet-body { animation: pet-breathe 3.6s ease-in-out infinite; }
-.pet-svg.is-animated .pet-shadow { animation: shadow-breathe 3.6s ease-in-out infinite; }
+/* ---------- 宠物插画 ---------- */
+.pet-svg { display: block; overflow: visible; width: 100%; height: auto; }
+.pet-svg .pet-head,
+.pet-svg .pet-tail,
+.pet-svg .pet-ear,
+.pet-svg .pet-eyes,
+.pet-svg .pet-crown,
+.pet-svg .pet-aura { transform-box: fill-box; }
+.pet-svg .pet-head { transform-origin: 50% 82%; }
+.pet-svg .pet-tail { transform-origin: 12% 55%; }
+.pet-svg .pet-ear-l { transform-origin: 70% 90%; }
+.pet-svg .pet-ear-r { transform-origin: 30% 90%; }
+.pet-svg .pet-eyes { transform-origin: center; animation: pet-blink 6.4s infinite; }
+.pet-svg.is-animated .pet-head { animation: pet-head-bob 4.4s ease-in-out infinite; }
+.pet-svg.is-animated .pet-tail { animation: pet-tail-wag 2.6s ease-in-out infinite; }
+.pet-svg.is-animated .pet-ear-l { animation: pet-ear-twitch 4.6s ease-in-out infinite; }
+.pet-svg.is-animated .pet-ear-r { animation: pet-ear-twitch 4.6s ease-in-out 0.35s infinite; }
+.pet-svg.is-animated .pet-shadow { animation: shadow-breathe 4.4s ease-in-out infinite; }
 .pet-svg.is-animated .pet-aura { animation: aura-pulse 4s ease-in-out infinite; }
 .pet-svg.is-animated .pet-hearts { animation: float-up 2.6s ease-out infinite; }
 .pet-svg.is-animated .pet-sweat { animation: sweat-drop 2s ease-in infinite; }
 .pet-svg.is-animated .pet-zzz text { animation: zzz-float 2.8s ease-in-out infinite; }
 .pet-svg.is-animated .pet-zzz text:nth-child(2) { animation-delay: 0.4s; }
 .pet-svg.is-animated .pet-zzz text:nth-child(3) { animation-delay: 0.8s; }
-.pet-svg .pet-eyes { animation: pet-blink 5.2s infinite; transform-origin: 50% 50%; }
-.pet-svg .pet-crown { animation: crown-bob 3s ease-in-out infinite; }
-.pet-svg.mood-tired .pet-body { animation-duration: 5s; }
-.pet-svg.mood-hungry .pet-body { animation: pet-wobble 2.4s ease-in-out infinite; }
+.pet-svg.is-animated .pet-crown { animation: crown-bob 3s ease-in-out infinite; }
+.pet-svg.is-animated .pet-dust circle { animation: dust-float 7s ease-in-out infinite; }
+.pet-svg.is-animated .pet-dust circle:nth-child(2) { animation-delay: 1.2s; }
+.pet-svg.is-animated .pet-dust circle:nth-child(3) { animation-delay: 2.4s; }
+.pet-svg.is-animated .pet-dust circle:nth-child(4) { animation-delay: 3.6s; }
+.pet-svg.is-animated .pet-dust circle:nth-child(5) { animation-delay: 4.8s; }
+.pet-svg.mood-tired .pet-head { animation-duration: 6s; }
+.pet-svg.mood-hungry .pet-head { animation-name: pet-wobble; animation-duration: 2.6s; }
+.pet-svg.mood-bored .pet-tail { animation-duration: 4.6s; }
 
-@keyframes pet-breathe { 0%, 100% { transform: scaleY(1) translateY(0); } 50% { transform: scaleY(1.025) translateY(-2px); } }
-@keyframes shadow-breathe { 0%, 100% { rx: 66; opacity: 0.1; } 50% { rx: 60; opacity: 0.14; } }
-@keyframes aura-pulse { 0%, 100% { opacity: 0.7; transform: scale(1); } 50% { opacity: 1; transform: scale(1.06); } }
+@keyframes pet-head-bob { 0%, 100% { translate: 0 0; } 50% { translate: 0 -3px; } }
+@keyframes pet-tail-wag { 0%, 100% { rotate: -4deg; } 50% { rotate: 5deg; } }
+@keyframes pet-ear-twitch { 0%, 90%, 100% { rotate: 0deg; } 94% { rotate: -6deg; } 98% { rotate: 2deg; } }
+@keyframes pet-blink { 0%, 93%, 100% { scale: 1 1; } 96% { scale: 1 0.08; } }
+@keyframes shadow-breathe { 0%, 100% { opacity: 0.12; } 50% { opacity: 0.17; } }
+@keyframes aura-pulse { 0%, 100% { opacity: 0.7; scale: 1; } 50% { opacity: 1; scale: 1.04; } }
 @keyframes float-up { 0% { opacity: 0; transform: translateY(6px); } 40% { opacity: 0.9; } 100% { opacity: 0; transform: translateY(-22px); } }
 @keyframes sweat-drop { 0% { opacity: 0; transform: translateY(-4px); } 30% { opacity: 1; } 100% { opacity: 0; transform: translateY(14px); } }
 @keyframes zzz-float { 0%, 100% { opacity: 0.15; transform: translateY(2px); } 50% { opacity: 0.85; transform: translateY(-6px); } }
-@keyframes pet-blink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.08); } }
-@keyframes pet-wobble { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-1.4deg); } 75% { transform: rotate(1.4deg); } }
-@keyframes crown-bob { 0%, 100% { transform: translate(10px, 0); } 50% { transform: translate(10px, -2px); } }
+@keyframes pet-wobble { 0%, 100% { rotate: 0deg; } 25% { rotate: -1.2deg; } 75% { rotate: 1.2deg; } }
+@keyframes crown-bob { 0%, 100% { translate: 0 0; } 50% { translate: 0 -3px; } }
+@keyframes dust-float { 0%, 100% { translate: 0 0; opacity: 0.25; } 50% { translate: 0 -8px; opacity: 0.7; } }
+@media (prefers-reduced-motion: reduce) {
+  .pet-svg.is-animated *,
+  .pet-svg .pet-eyes { animation: none !important; }
+}
 
 /* 宠物舞台 */
 .pet-stage {
-  position: relative; display: grid; place-items: center;
-  min-height: 300px; border-radius: var(--radius-l);
-  background:
-    radial-gradient(60% 50% at 50% 72%, rgba(232, 176, 75, 0.18), transparent 70%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1));
-  overflow: hidden;
+  position: relative; display: flex; flex-direction: column; align-items: center; gap: 10px;
+  padding: 4px 0 2px; min-height: 0;
 }
-.pet-stage::before {
-  content: ""; position: absolute; left: 50%; bottom: 34px; transform: translateX(-50%);
-  width: 220px; height: 26px; border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(31, 27, 22, 0.12), transparent);
+.pet-figure-btn {
+  width: 100%; max-width: 430px; padding: 0; border: 0; background: none; cursor: pointer;
+  border-radius: 26px; display: grid; place-items: center; -webkit-tap-highlight-color: transparent;
 }
-.pet-stage-inner { position: relative; z-index: 1; transform-origin: bottom center; transition: transform 0.4s var(--ease); }
-.pet-stage .pet-name-tag {
-  position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
-  display: flex; align-items: center; gap: 8px; z-index: 2;
-}
-.pet-line {
-  position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
-  background: rgba(255, 255, 255, 0.9); border: 1px solid var(--line);
-  padding: 6px 16px; border-radius: 999px; font-size: 13px; white-space: nowrap;
-  box-shadow: var(--shadow-s); max-width: 90%; overflow: hidden; text-overflow: ellipsis;
-}
+.pet-figure-btn:focus-visible { outline: 2px solid var(--ochre); outline-offset: 4px; }
+.pet-stage-inner { width: 100%; display: grid; place-items: center; transform-origin: bottom center; transition: transform 0.35s var(--ease); }
+.pet-figure-btn:hover .pet-stage-inner { transform: scale(1.015) translateY(-2px); }
+.pet-stage-inner .pet-svg { max-width: 430px; }
 .pet-stage.is-happy .pet-stage-inner { animation: hop 0.6s var(--ease); }
+.pet-stage.is-tapped .pet-stage-inner { animation: hop 0.6s var(--ease); }
+.pet-stage-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+.pet-line {
+  background: rgba(255, 255, 255, 0.92); border: 1px solid var(--line);
+  padding: 7px 16px; border-radius: 999px; font-size: 13px; line-height: 1.5;
+  box-shadow: var(--shadow-s); max-width: 100%; text-align: center;
+}
+.pet-line.is-pop { animation: line-pop 0.35s var(--ease); }
+@keyframes line-pop { 0% { transform: scale(0.96); } 55% { transform: scale(1.03); } 100% { transform: scale(1); } }
 @keyframes hop { 0%, 100% { transform: translateY(0); } 40% { transform: translateY(-14px) scale(1.03); } 70% { transform: translateY(0) scale(0.98); } }
 @keyframes care-fly { 0% { opacity: 0; transform: translate(-50%, 0) scale(0.7); } 25% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -90px) scale(1.2); } }
 
 .pet-stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-.pet-stat { background: rgba(255, 255, 255, 0.55); border: 1px solid var(--line); border-radius: var(--radius); padding: 10px 12px; }
-.pet-stat .ps-label { font-size: 11px; color: var(--ink-3); display: flex; align-items: center; gap: 4px; }
-.pet-stat .ps-val { font-size: 18px; font-weight: 800; font-family: var(--font-serif); line-height: 1.2; }
-.pet-stat .ps-bar { height: 5px; border-radius: 4px; background: rgba(31, 27, 22, 0.1); margin-top: 6px; overflow: hidden; }
-.pet-stat .ps-bar i { display: block; height: 100%; border-radius: 4px; transition: width 0.6s var(--ease); }
+.pet-stat { background: linear-gradient(165deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.45)); border: 1px solid var(--line); border-radius: var(--radius); padding: 11px 13px; }
+.pet-stat .ps-top { display: flex; align-items: center; gap: 6px; }
+.pet-stat .ps-ico { font-size: 15px; line-height: 1; }
+.pet-stat .ps-label { font-size: 11px; color: var(--ink-3); }
+.pet-stat .ps-val { margin-left: auto; font-size: 20px; font-weight: 800; font-family: var(--font-serif); line-height: 1; }
+.pet-stat .ps-bar { height: 7px; border-radius: 5px; background: rgba(31, 27, 22, 0.09); margin-top: 8px; overflow: hidden; }
+.pet-stat .ps-bar i { display: block; height: 100%; border-radius: 5px; transition: width 0.6s var(--ease); }
 .ps-bar i.sat { background: linear-gradient(90deg, #e8a33b, #f0c96a); }
 .ps-bar i.mood { background: linear-gradient(90deg, #6fbf73, #a8d97f); }
 .ps-bar i.energy { background: linear-gradient(90deg, #2e86ab, #79c0dd); }
@@ -1709,7 +1733,7 @@ Object.assign(module.exports, { EQUIPMENTS, MUSCLES, PATTERNS, EXERCISES, EXERCI
 };
 
 __defs["data/pets.js"] = function (module, exports, __require) {
-/* 电子宠物：不同宠物 → 不同训练方向 → 不同教练建议侧重 */
+﻿/* 电子宠物：不同宠物 → 不同训练方向 → 不同教练建议侧重 */
 
 const PETS = [
   {
@@ -1722,7 +1746,7 @@ const PETS = [
     desc: '你多练一组，它多长一块胸肌。偷懒它会瘦，练狠它会膨胀。',
     advice: '肌肉是靠“渐进负荷 + 吃够”长出来的。你上肢练得太客气了。',
     priority: { A: 1.5, P: 1.3, H: 0.9, K: 0.7, M: 0.6 },
-    palette: { main: '#c98a4b', light: '#f0d2ae', dark: '#8a5a2b', accent: '#e2574c' },
+    palette: { main: '#F2A03D', light: '#FFE7C4', dark: '#2b1c12', accent: '#F2C14E' },
     accessory: 'dumbbell',
     likes: ['力量', '胸', '背'],
     tips: [
@@ -1741,7 +1765,7 @@ const PETS = [
     desc: '它靠你的心率活着。你一动，它就发光；你一瘫，它就掉毛。',
     advice: '减脂不是多练，是总消耗和摄入的账。你练完那杯奶茶，白练。',
     priority: { K: 1.5, C: 1.2, L: 1.1, M: 0.9, A: 0.8 },
-    palette: { main: '#8a8f98', light: '#d8dbe0', dark: '#4d5158', accent: '#f0a93b' },
+    palette: { main: '#6C7FA6', light: '#E8EDF5', dark: '#2A3040', accent: '#E8743B' },
     accessory: 'timer',
     likes: ['心肺', '低冲击', '减脂'],
     tips: [
@@ -1760,7 +1784,7 @@ const PETS = [
     desc: '它只在长距离里开心。你跑得越稳，它跳得越高。',
     advice: '耐力靠的是持续刺激和心率区间，不是今天冲爆明天躺平。',
     priority: { K: 1.4, M: 1.1, C: 1.0, L: 1.2, A: 0.9 },
-    palette: { main: '#f3f1ec', light: '#ffffff', dark: '#b8b2a6', accent: '#7bbf8a' },
+    palette: { main: '#F6F0E6', light: '#FFFFFF', dark: '#B8A99A', accent: '#7BC47F' },
     accessory: 'stopwatch',
     likes: ['心肺', '长距离', '节奏'],
     tips: [
@@ -1779,7 +1803,7 @@ const PETS = [
     desc: '它爬得慢，但从不拉伤。你越急，它越挂在你身上不动。',
     advice: '卡住的不是力量，是活动度。你连髋都打不开，还谈什么深蹲。',
     priority: { M: 1.6, C: 1.1, L: 0.9, H: 1.0, K: 0.6 },
-    palette: { main: '#a8a29e', light: '#e8e4df', dark: '#6b645e', accent: '#c4a35a' },
+    palette: { main: '#9BAC8C', light: '#E7EADF', dark: '#4F5747', accent: '#A8B59A' },
     accessory: 'leaf',
     likes: ['拉伸', '灵活度', '久坐救星'],
     tips: [
@@ -1798,7 +1822,7 @@ const PETS = [
     desc: '它只认杠铃片。你每加 2.5 公斤，它就厚一层。',
     advice: '力量是神经系统的事。你每组做到十五下，练的是耐力不是力量。',
     priority: { H: 1.5, L: 1.4, A: 1.2, C: 1.0, K: 0.6 },
-    palette: { main: '#7a5233', light: '#c9a480', dark: '#4a2f1c', accent: '#e0b04a' },
+    palette: { main: '#B4673C', light: '#F0D2B4', dark: '#3A2416', accent: '#E0B04A' },
     accessory: 'barbell',
     likes: ['力量', '大重量', '后链'],
     tips: [
@@ -1865,6 +1889,7 @@ function directionOverride(pet, goal) {
     note: `${pet.name} 是${pet.species}，它认的方向是「${DIRECTION_LABEL[want]}」。要按你的「${DIRECTION_LABEL[goal]}」练，它会长得很慢——你自己选。`,
   };
 }
+
 
 
 Object.assign(module.exports, { PETS, PET_BY_ID, DEFAULT_PET_ID, DIRECTION_LABEL, PET_STAGES, stageOf, MOODS, moodOf, directionOverride });
@@ -2514,6 +2539,7 @@ class App {
       case 'timer-reset': this.resetTimer(); break;
       case 'start-timer': this.startTimer(Number(node.dataset.sec) || 60); break;
       case 'care': this.care(node.dataset.care); break;
+      case 'pet-tap': this.tapPet(); break;
       case 'pick-pet': this.pickPet(node.dataset.pet); break;
       case 'adopt': this.adoptPet(); break;
       case 'switch-pet-view': this.switchPetView(node.dataset.pet); break;
@@ -2813,6 +2839,36 @@ class App {
     const stage2 = $('#pet-stage');
     if (stage2) stage2.classList.add('is-happy');
     setTimeout(() => { const s2 = $('#pet-stage'); if (s2) s2.classList.remove('is-happy'); }, 700);
+  }
+
+  tapPet() {
+    const pet = this.state.pet;
+    if (!pet) return;
+    const lines = {
+      ecstatic: ['它开心得原地转圈，差点撞到你。', '它把肚皮翻给你，这是最高信任。'],
+      happy: ['它把头往你手心里顶。', '它眯起眼，尾巴拍了两下地板。'],
+      calm: ['它看了你一眼，又靠过来一点。', '它安静地待着，但没走开。'],
+      bored: ['它打了个哈欠，示意你该带它练了。', '它把屁股对着你——不是讨厌你，是无聊。'],
+      hungry: ['它盯着你的手，发现没有吃的，有点失望。', '它舔了舔鼻子，提醒你它饿了。'],
+      tired: ['它半睁着眼蹭了蹭你，然后继续睡。', '它翻了个身，把爪子搭在你手上。'],
+    };
+    const mood = moodOf(pet);
+    const pool = lines[mood] || lines.calm;
+    const line = pool[Math.floor(Math.random() * pool.length)];
+    const stage = $('#pet-stage');
+    if (stage) {
+      stage.classList.add('is-tapped');
+      setTimeout(() => stage.classList.remove('is-tapped'), 700);
+    }
+    const lineEl = $('.pet-line');
+    if (lineEl) {
+      lineEl.textContent = `“${line}”`;
+      lineEl.classList.remove('is-pop');
+      void lineEl.offsetWidth;
+      lineEl.classList.add('is-pop');
+    }
+    this.animateCare('pet');
+    this.coachSays(line);
   }
 
   animateCare(action) {
@@ -5089,6 +5145,370 @@ function cycleSummary(week) {
 Object.assign(module.exports, { buildCycle, weekIndexFor, applyWeek, restoreBase, recommendLoad, cycleSummary });
 };
 
+__defs["js/pet-art.js"] = function (module, exports, __require) {
+﻿/**
+ * 宠物插画 v3（街头黑白 + 单一强调色）
+ *
+ * 参考风格：粗黑描边、纸白身体、黑色帽子/夹克、一个强调色、豆豆眼。
+ * 全部原创 SVG，无外部图片；同一页面多次渲染 id 唯一。
+ */
+
+const { moodOf, stageOf, PET_BY_ID } = __require("data/pets.js");
+
+let ART_UID = 0;
+const INK = '#151515';
+const PAPER = '#FFFDF8';
+const SOFT = '#F0EBE1';
+const LINE = 8;
+
+const MOOD_LABEL = { ecstatic: '兴奋', happy: '开心', calm: '平静', bored: '无聊', hungry: '饿了', tired: '困了' };
+
+/* ---------------- 表情：豆豆眼 ---------------- */
+function eyes(mood, accent, cfg = {}) {
+  const { dx = 22, dy = -6, big = false } = cfg;
+  const r = big ? 10 : 8;
+  if (mood === 'happy' || mood === 'ecstatic') {
+    const arcs = [-dx, dx].map((x) => `<path d="M${x - 13} ${dy + 2} q13 14 26 0" stroke="${INK}" stroke-width="7" fill="none" stroke-linecap="round"/>`).join('');
+    const spark = mood === 'ecstatic'
+      ? `<path d="M-48 -40 l3 8 l8 3 l-8 3 l-3 8 l-3 -8 l-8 -3 l8 -3 Z" fill="${accent}"/>
+         <path d="M44 -42 l2 6 l6 2 l-6 2 l-2 6 l-2 -6 l-6 -2 l6 -2 Z" fill="${accent}"/>`
+      : '';
+    return arcs + spark;
+  }
+  if (mood === 'tired') {
+    return [-dx, dx].map((x) => `<path d="M${x - 14} ${dy} q14 10 28 0" stroke="${INK}" stroke-width="7" fill="none" stroke-linecap="round"/>`).join('');
+  }
+  if (mood === 'bored') {
+    return [-dx, dx].map((x) => `<path d="M${x - 13} ${dy + 1} h26" stroke="${INK}" stroke-width="7" stroke-linecap="round"/>`).join('');
+  }
+  return [-dx, dx].map((x) => `<ellipse cx="${x}" cy="${dy}" rx="${r * 0.78}" ry="${r}" fill="${INK}"/>`).join('');
+}
+
+function mouth(mood, y = 24) {
+  if (mood === 'happy' || mood === 'ecstatic') return `<path d="M-8 ${y} q8 9 16 0" stroke="${INK}" stroke-width="5" fill="none" stroke-linecap="round"/>`;
+  if (mood === 'bored') return `<path d="M-7 ${y + 1} h14" stroke="${INK}" stroke-width="5" stroke-linecap="round"/>`;
+  if (mood === 'hungry') return `<path d="M-8 ${y} q4 5 8 0 q4 -5 8 0" stroke="${INK}" stroke-width="4.5" fill="none" stroke-linecap="round"/>`;
+  if (mood === 'tired') return `<ellipse cx="0" cy="${y}" rx="5" ry="4" fill="${INK}" opacity=".8"/>`;
+  return `<path d="M-4 ${y} q4 4 8 0" stroke="${INK}" stroke-width="5" fill="none" stroke-linecap="round"/>`;
+}
+
+function face(mood, accent, cfg = {}) {
+  return `<g class="pet-eyes">${eyes(mood, accent, cfg)}</g>${mouth(mood, cfg.mouthY ?? 24)}`;
+}
+
+/* ---------------- 通用部件 ---------------- */
+function cap(accent, { brimRight = true, logo = true } = {}) {
+  return `<g class="pet-headwear">
+    <path d="M-62 -34 q0 -46 62 -46 q62 0 62 46 l-6 10 q-56 -18 -112 0 Z" fill="${INK}"/>
+    <path d="M-60 -32 q56 -18 120 0" stroke="${accent}" stroke-width="7" fill="none"/>
+    ${brimRight
+      ? `<path d="M42 -30 q40 0 44 14 q-20 8 -48 2 Z" fill="${INK}"/>`
+      : `<path d="M-42 -30 q-40 0 -44 14 q20 8 48 2 Z" fill="${INK}"/>`}
+    ${logo ? `<circle cx="-18" cy="-44" r="7" fill="${PAPER}"/><path d="M-22 -44 h8" stroke="${INK}" stroke-width="2.6"/>` : ''}
+  </g>`;
+}
+
+function sneakers(pal) {
+  return `<ellipse cx="96" cy="252" rx="30" ry="12" fill="${INK}"/>
+    <ellipse cx="164" cy="252" rx="30" ry="12" fill="${INK}"/>
+    <path d="M74 250 h40 M150 250 h40" stroke="${PAPER}" stroke-width="3.4" stroke-linecap="round"/>`;
+}
+
+function sceneLayer(uid, pal) {
+  return `<g class="pet-scene">
+    <rect x="0" y="0" width="260" height="280" rx="30" fill="#FAF7F0"/>
+    <rect x="0" y="214" width="260" height="66" fill="#EDE7DC"/>
+    <path d="M0 214 h260" stroke="#D8CFC0" stroke-width="2"/>
+    <g fill="none" stroke="${INK}" stroke-width="4" opacity=".16">
+      <rect x="176" y="34" width="54" height="66" rx="8"/>
+      <path d="M203 38 v58 M180 66 h46"/>
+    </g>
+    <path d="M28 200 q0 -30 18 -38 q18 8 18 38 Z" fill="none" stroke="${INK}" stroke-width="4" opacity=".18"/>
+    <ellipse cx="130" cy="260" rx="82" ry="11" fill="${pal.accent}" opacity=".2"/>
+    <g fill="${pal.accent}" class="pet-dust">
+      <circle cx="36" cy="76" r="4"/><circle cx="66" cy="52" r="3"/>
+      <circle cx="224" cy="150" r="3.4"/><circle cx="198" cy="116" r="2.6"/>
+      <circle cx="118" cy="96" r="2.4"/>
+    </g>
+  </g>`;
+}
+
+function defs(uid, pal) {
+  return `<defs>
+    <radialGradient id="${uid}-aura" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="${pal.accent}" stop-opacity=".55"/><stop offset="100%" stop-color="${pal.accent}" stop-opacity="0"/>
+    </radialGradient>
+  </defs>`;
+}
+
+/* ---------------- 狗：夹克 + 挥手 ---------------- */
+function dogArt(uid, pal, mood, meta = {}) {
+  const tag = meta.streak ? String(Math.min(99, meta.streak)) : '';
+  return `
+  <ellipse class="pet-shadow" cx="130" cy="262" rx="80" ry="12" fill="${INK}" opacity=".12"/>
+  <g class="pet-tail"><path d="M182 218 q36 -2 32 -34 q-2 -20 -18 -16" fill="none" stroke="${INK}" stroke-width="16" stroke-linecap="round"/>
+    <path d="M182 218 q36 -2 32 -34 q-2 -20 -18 -16" fill="none" stroke="${PAPER}" stroke-width="8" stroke-linecap="round"/></g>
+  ${sneakers(pal)}
+  <g class="pet-jacket">
+    <path d="M96 166 q-3 -34 34 -34 q37 0 34 34 l-4 60 q-2 24 -30 24 q-28 0 -30 -24 Z" fill="${INK}"/>
+    <path d="M130 136 v110" stroke="${PAPER}" stroke-width="4" opacity=".9"/>
+    <path d="M104 152 q26 16 52 0" stroke="${pal.accent}" stroke-width="9" fill="none"/>
+    <path d="M100 172 q-22 4 -24 26 q-1 12 10 14" fill="${INK}" stroke="${INK}" stroke-width="4"/>
+    <circle cx="86" cy="214" r="13" fill="${PAPER}" stroke="${INK}" stroke-width="5"/>
+    <path d="M164 172 q20 -12 22 -38 q1 -12 -10 -12 q-10 0 -13 14" fill="${INK}" stroke="${INK}" stroke-width="4"/>
+    <circle cx="176" cy="114" r="14" fill="${PAPER}" stroke="${INK}" stroke-width="5"/>
+    <circle cx="176" cy="114" r="5" fill="${INK}" opacity=".4"/>
+  </g>
+  <g class="pet-head" transform="translate(130 96)">
+    <path class="pet-ear pet-ear-l" d="M-52 30 q-30 6 -32 44 q-1 26 18 27 q19 1 20 -32 q1 -22 -6 -39 Z" fill="${PAPER}" stroke="${INK}" stroke-width="${LINE}" stroke-linejoin="round"/>
+    <path class="pet-ear pet-ear-r" d="M52 30 q30 6 32 44 q1 26 -18 27 q-19 1 -20 -32 q-1 -22 6 -39 Z" fill="${PAPER}" stroke="${INK}" stroke-width="${LINE}" stroke-linejoin="round"/>
+    <path d="M-64 0 q0 -52 64 -52 q64 0 64 52 q0 46 -64 46 q-64 0 -64 -46 Z" fill="${PAPER}" stroke="${INK}" stroke-width="${LINE}"/>
+    ${cap(pal.accent)}
+    <ellipse cx="0" cy="22" rx="26" ry="17" fill="${SOFT}"/>
+    <ellipse cx="0" cy="16" rx="7" ry="5" fill="${INK}"/>
+    <g class="pet-face">${face(mood, pal.accent, { dx: 22, dy: -2, mouthY: 26 })}</g>
+    ${tag ? `<circle cx="-46" cy="58" r="12" fill="${pal.accent}" stroke="${INK}" stroke-width="4"/><text x="-46" y="63" text-anchor="middle" font-size="10" font-family="sans-serif" font-weight="800" fill="${INK}">${tag}</text>` : ''}
+  </g>`;
+}
+
+/* ---------------- 猫：卫衣 + 毛线帽 ---------------- */
+function catArt(uid, pal, mood) {
+  return `
+  <ellipse class="pet-shadow" cx="130" cy="262" rx="74" ry="11" fill="${INK}" opacity=".12"/>
+  <g class="pet-tail"><path d="M182 212 q40 6 40 -26 q0 -20 -18 -24" fill="none" stroke="${INK}" stroke-width="16" stroke-linecap="round"/>
+    <path d="M182 212 q40 6 40 -26 q0 -20 -18 -24" fill="none" stroke="${PAPER}" stroke-width="8" stroke-linecap="round"/></g>
+  ${sneakers(pal)}
+  <g class="pet-jacket">
+    <path d="M100 164 q-2 -32 30 -32 q32 0 30 32 l-3 62 q-2 24 -27 24 q-25 0 -27 -24 Z" fill="${INK}"/>
+    <path d="M112 146 q-4 26 0 44 M148 146 q4 26 0 44" stroke="${pal.accent}" stroke-width="6" fill="none"/>
+    <circle cx="112" cy="194" r="4" fill="${PAPER}"/><circle cx="148" cy="194" r="4" fill="${PAPER}"/>
+    <path d="M104 170 q-22 6 -22 30 q0 12 10 14" fill="${INK}"/>
+    <circle cx="92" cy="216" r="12" fill="${PAPER}" stroke="${INK}" stroke-width="5"/>
+    <path d="M156 170 q22 6 22 30 q0 12 -10 14" fill="${INK}"/>
+    <circle cx="168" cy="216" r="12" fill="${PAPER}" stroke="${INK}" stroke-width="5"/>
+  </g>
+  <g class="pet-head" transform="translate(130 96)">
+    <path class="pet-ear pet-ear-l" d="M-46 -30 L-58 -76 L-16 -52 Z" fill="${PAPER}" stroke="${INK}" stroke-width="${LINE}" stroke-linejoin="round"/>
+    <path class="pet-ear pet-ear-l" d="M-43 -39 L-50 -64 L-26 -52 Z" fill="${INK}"/>
+    <path class="pet-ear pet-ear-r" d="M46 -30 L58 -76 L16 -52 Z" fill="${PAPER}" stroke="${INK}" stroke-width="${LINE}" stroke-linejoin="round"/>
+    <path class="pet-ear pet-ear-r" d="M43 -39 L50 -64 L26 -52 Z" fill="${INK}"/>
+    <path d="M-62 0 q0 -50 62 -50 q62 0 62 50 q0 44 -62 44 q-62 0 -62 -44 Z" fill="${PAPER}" stroke="${INK}" stroke-width="${LINE}"/>
+    <g class="pet-headwear">
+      <path d="M-62 -24 q0 -34 62 -34 q62 0 62 34 l-4 8 q-58 -14 -116 0 Z" fill="${INK}"/>
+      <path d="M-60 -20 q58 -14 120 0" stroke="${pal.accent}" stroke-width="8" fill="none"/>
+      <circle cx="0" cy="-58" r="9" fill="${pal.accent}"/>
+    </g>
+    <g class="pet-face">${face(mood, pal.accent, { dx: 22, dy: 2, mouthY: 28 })}</g>
+    <path d="M-2 22 l5 -5 l5 5 l-5 4 Z" fill="${INK}"/>
+    <path d="M-34 24 h-24 M-34 31 h-22 M34 24 h24 M34 31 h22" stroke="${INK}" stroke-width="3" opacity=".65" stroke-linecap="round"/>
+    <circle cx="0" cy="52" r="8" fill="${pal.accent}" stroke="${INK}" stroke-width="4"/>
+  </g>`;
+}
+
+/* ---------------- 兔：运动夹克 + 发带 ---------------- */
+function rabbitArt(uid, pal, mood) {
+  return `
+  <ellipse class="pet-shadow" cx="130" cy="262" rx="70" ry="11" fill="${INK}" opacity=".12"/>
+  <g class="pet-tail"><circle cx="188" cy="220" r="17" fill="${PAPER}" stroke="${INK}" stroke-width="${LINE}"/></g>
+  ${sneakers(pal)}
+  <g class="pet-jacket">
+    <path d="M100 166 q-2 -32 30 -32 q32 0 30 32 l-3 58 q-2 24 -27 24 q-25 0 -27 -24 Z" fill="${INK}"/>
+    <path d="M104 154 q26 14 52 0" stroke="${pal.accent}" stroke-width="7" fill="none"/>
+    <path d="M112 166 v44 M148 166 v44" stroke="${PAPER}" stroke-width="3" opacity=".7"/>
+    <path d="M104 172 q-20 8 -18 30 q1 10 10 12" fill="${INK}"/>
+    <circle cx="94" cy="216" r="11" fill="${PAPER}" stroke="${INK}" stroke-width="5"/>
+    <path d="M156 172 q20 8 18 30 q-1 10 -10 12" fill="${INK}"/>
+    <circle cx="166" cy="216" r="11" fill="${PAPER}" stroke="${INK}" stroke-width="5"/>
+  </g>
+  <g class="pet-head" transform="translate(130 100)">
+    <g class="pet-ear pet-ear-l" transform="rotate(-10 -16 -34)">
+      <rect x="-34" y="-124" width="22" height="90" rx="11" fill="${PAPER}" stroke="${INK}" stroke-width="${LINE}"/>
+      <rect x="-34" y="-124" width="22" height="18" rx="9" fill="${INK}"/>
+    </g>
+    <g class="pet-ear pet-ear-r" transform="rotate(10 16 -34)">
+      <rect x="12" y="-124" width="22" height="90" rx="11" fill="${PAPER}" stroke="${INK}" stroke-width="${LINE}"/>
+      <rect x="12" y="-124" width="22" height="18" rx="9" fill="${INK}"/>
+    </g>
+    <path d="M-60 0 q0 -50 60 -50 q60 0 60 50 q0 44 -60 44 q-60 0 -60 -44 Z" fill="${PAPER}" stroke="${INK}" stroke-width="${LINE}"/>
+    <g class="pet-headwear">
+      <path d="M-60 -18 q60 -16 120 0 l0 12 q-60 -14 -120 0 Z" fill="${INK}"/>
+      <path d="M-58 -10 q58 -14 116 0" stroke="${pal.accent}" stroke-width="7" fill="none"/>
+    </g>
+    <g class="pet-face">${face(mood, pal.accent, { dx: 21, dy: 2, mouthY: 26 })}</g>
+    <path d="M-2 20 l5 -5 l5 5 l-5 4 Z" fill="${INK}"/>
+    <rect x="-7" y="30" width="7" height="11" rx="2.5" fill="${PAPER}" stroke="${INK}" stroke-width="3"/>
+    <rect x="0" y="30" width="7" height="11" rx="2.5" fill="${PAPER}" stroke="${INK}" stroke-width="3"/>
+    <circle cx="42" cy="50" r="11" fill="${PAPER}" stroke="${INK}" stroke-width="4"/>
+    <path d="M42 50 v-6 M42 50 l4 3" stroke="${INK}" stroke-width="2.6" stroke-linecap="round"/>
+  </g>`;
+}
+
+/* ---------------- 树懒：背心 + 毛线帽 ---------------- */
+function slothArt(uid, pal, mood) {
+  return `
+  <ellipse class="pet-shadow" cx="130" cy="262" rx="76" ry="11" fill="${INK}" opacity=".12"/>
+  <g class="pet-tail"><path d="M190 222 q22 12 8 28 q-10 10 -22 0" fill="none" stroke="${INK}" stroke-width="14" stroke-linecap="round"/>
+    <path d="M190 222 q22 12 8 28 q-10 10 -22 0" fill="none" stroke="${PAPER}" stroke-width="7" stroke-linecap="round"/></g>
+  ${sneakers(pal)}
+  <g class="pet-jacket">
+    <path d="M96 164 q-4 -34 34 -34 q38 0 34 34 l-5 62 q-2 24 -29 24 q-27 0 -29 -24 Z" fill="${INK}"/>
+    <path d="M130 136 v112" stroke="${pal.accent}" stroke-width="5"/>
+    <path d="M106 150 q-24 8 -22 34 q1 12 12 14" fill="${INK}"/>
+    <path d="M154 150 q24 8 22 34 q-1 12 -12 14" fill="${INK}"/>
+    <g class="pet-claws" stroke="${INK}" stroke-width="4" stroke-linecap="round">
+      <path d="M82 198 l-6 8 M90 200 l-2 10 M98 200 l2 10"/>
+      <path d="M178 198 l6 8 M170 200 l2 10 M162 200 l-2 10"/>
+    </g>
+    <path d="M110 188 h40" stroke="${PAPER}" stroke-width="4" opacity=".8"/>
+  </g>
+  <g class="pet-head" transform="translate(130 96)">
+    <ellipse class="pet-ear" cx="-56" cy="-6" rx="15" ry="17" fill="${PAPER}" stroke="${INK}" stroke-width="${LINE}"/>
+    <ellipse class="pet-ear" cx="56" cy="-6" rx="15" ry="17" fill="${PAPER}" stroke="${INK}" stroke-width="${LINE}"/>
+    <path d="M-60 0 q0 -50 60 -50 q60 0 60 50 q0 44 -60 44 q-60 0 -60 -44 Z" fill="${PAPER}" stroke="${INK}" stroke-width="${LINE}"/>
+    <ellipse cx="-24" cy="-4" rx="18" ry="15" fill="${INK}" opacity=".9"/>
+    <ellipse cx="24" cy="-4" rx="18" ry="15" fill="${INK}" opacity=".9"/>
+    <g class="pet-headwear">
+      <path d="M-58 -32 q0 -30 58 -30 q58 0 58 30 l-6 10 q-52 -16 -104 0 Z" fill="${INK}"/>
+      <path d="M-56 -24 q56 -14 112 0" stroke="${pal.accent}" stroke-width="8" fill="none"/>
+      <circle cx="0" cy="-62" r="8" fill="${pal.accent}"/>
+    </g>
+    <g class="pet-face">${face(mood, pal.accent, { dx: 24, dy: -2, mouthY: 26 })}</g>
+    <ellipse cx="0" cy="22" rx="17" ry="10" fill="${SOFT}"/>
+    <ellipse cx="0" cy="17" rx="6" ry="4" fill="${INK}"/>
+    <g class="pet-leaf" transform="translate(42 40) rotate(16)">
+      <path d="M0 0 q20 -12 32 3 q-15 17 -32 -3 Z" fill="${pal.accent}" stroke="${INK}" stroke-width="3"/>
+      <path d="M3 0 q13 2 24 2" stroke="${INK}" stroke-width="2" fill="none" opacity=".7"/>
+    </g>
+  </g>`;
+}
+
+/* ---------------- 熊：背心 + 举重腰带 ---------------- */
+function bearArt(uid, pal, mood) {
+  return `
+  <ellipse class="pet-shadow" cx="130" cy="262" rx="84" ry="12" fill="${INK}" opacity=".13"/>
+  ${sneakers(pal)}
+  <g class="pet-jacket">
+    <path d="M92 166 q-4 -36 38 -36 q42 0 38 36 l-5 60 q-2 26 -33 26 q-31 0 -33 -26 Z" fill="${INK}"/>
+    <path d="M104 152 q26 16 52 0" stroke="${pal.accent}" stroke-width="8" fill="none"/>
+    <rect x="104" y="196" width="52" height="18" rx="4" fill="${INK}" stroke="${pal.accent}" stroke-width="4"/>
+    <rect x="122" y="200" width="16" height="10" rx="2" fill="${pal.accent}"/>
+    <path d="M100 172 q-24 8 -22 34 q1 12 12 14" fill="${INK}"/>
+    <circle cx="86" cy="220" r="12" fill="${PAPER}" stroke="${INK}" stroke-width="5"/>
+    <path d="M160 172 q24 8 22 34 q-1 12 -12 14" fill="${INK}"/>
+    <circle cx="174" cy="220" r="12" fill="${PAPER}" stroke="${INK}" stroke-width="5"/>
+  </g>
+  <g class="pet-head" transform="translate(130 94)">
+    <circle class="pet-ear" cx="-50" cy="-34" r="19" fill="${PAPER}" stroke="${INK}" stroke-width="${LINE}"/>
+    <circle class="pet-ear" cx="50" cy="-34" r="19" fill="${PAPER}" stroke="${INK}" stroke-width="${LINE}"/>
+    <path d="M-64 0 q0 -52 64 -52 q64 0 64 52 q0 46 -64 46 q-64 0 -64 -46 Z" fill="${PAPER}" stroke="${INK}" stroke-width="${LINE}"/>
+    <g class="pet-headwear">
+      <path d="M-60 -26 q0 -40 60 -40 q60 0 60 40" fill="none" stroke="${INK}" stroke-width="13" stroke-linecap="round"/>
+      <rect x="-70" y="-30" width="20" height="40" rx="8" fill="${INK}"/>
+      <rect x="50" y="-30" width="20" height="40" rx="8" fill="${INK}"/>
+      <rect x="-66" y="-16" width="12" height="12" rx="3" fill="${pal.accent}"/>
+      <rect x="54" y="-16" width="12" height="12" rx="3" fill="${pal.accent}"/>
+    </g>
+    <ellipse cx="0" cy="22" rx="28" ry="18" fill="${SOFT}"/>
+    <ellipse cx="0" cy="15" rx="8" ry="6" fill="${INK}"/>
+    <g class="pet-face">${face(mood, pal.accent, { dx: 22, dy: -2, mouthY: 28 })}</g>
+  </g>`;
+}
+
+const ART = { dog: dogArt, cat: catArt, rabbit: rabbitArt, sloth: slothArt, bear: bearArt };
+
+function stageFx(stage, pal, uid) {
+  if (stage < 4) return '';
+  return `<circle cx="130" cy="150" r="116" fill="url(#${uid}-aura)" class="pet-aura"/>
+    <g class="pet-crown" transform="translate(130 22)">
+      <path d="M-26 0 l7 18 l19 -13 l19 13 l7 -18 l0 24 l-52 0 Z" fill="${pal.accent}" stroke="${INK}" stroke-width="4" stroke-linejoin="round"/>
+    </g>`;
+}
+
+function moodFx(mood, pal) {
+  if (mood === 'happy' || mood === 'ecstatic') {
+    return `<g class="pet-hearts" fill="${pal.accent}"><path d="M214 74 q-9 -11 0 -17 q8 -5 12 2 q4 -7 12 -2 q9 6 0 17 l-12 11 Z" stroke="${INK}" stroke-width="3"/></g>`;
+  }
+  if (mood === 'hungry') return `<g class="pet-sweat" fill="${PAPER}" stroke="${INK}" stroke-width="3"><path d="M218 84 q8 12 0 16 q-8 -4 0 -16 Z"/></g>`;
+  if (mood === 'tired') return `<g class="pet-zzz" fill="${INK}" font-family="serif" font-weight="700"><text x="198" y="72" font-size="16">z</text><text x="214" y="54" font-size="20" opacity=".8">z</text><text x="232" y="34" font-size="24" opacity=".6">z</text></g>`;
+  if (mood === 'bored') return `<g class="pet-bored-mark" stroke="${INK}" stroke-width="4" stroke-linecap="round" opacity=".5"><path d="M212 64 q9 9 0 18 M226 64 q-9 9 0 18"/></g>`;
+  return '';
+}
+
+function petSVG(typeId, opts = {}) {
+  const { pet = null, size = 220, animated = true, scene = false, showExtras = true, meta = {} } = opts;
+  const p = PET_BY_ID[typeId] || PET_BY_ID.dog;
+  const mood = pet ? moodOf(pet) : 'calm';
+  const stage = pet ? stageOf(pet.bond).stage : 1;
+  const uid = 'pet' + ++ART_UID;
+  const scale = [0.8, 0.9, 0.97, 1][stage - 1] ?? 1;
+  const art = (ART[p.id] || ART.dog)(uid, p.palette, mood, meta);
+  const label = MOOD_LABEL[mood] || '平静';
+
+  return `<svg class="pet-svg ${animated ? 'is-animated' : ''} ${scene ? 'has-scene' : ''} mood-${mood} stage-${stage} species-${p.id}" viewBox="0 0 260 280" width="${size}" height="${Math.round(size * 1.077)}" role="img" aria-label="${p.name}，${p.species}，${label}">
+  ${defs(uid, p.palette)}
+  ${scene ? sceneLayer(uid, p.palette) : ''}
+  ${stageFx(stage, p.palette, uid)}
+  <g class="pet-character" transform="translate(130 262) scale(${scale}) translate(-130 -262)">
+    ${art}
+  </g>
+  ${showExtras ? moodFx(mood, p.palette) : ''}
+</svg>`;
+}
+
+/* ---------------- 32px 头像 ---------------- */
+function miniHead(typeId, pal, mood) {
+  const eye = mood === 'happy' || mood === 'ecstatic'
+    ? `<path d="M-27 0 q9 9 18 0 M9 0 q9 9 18 0" stroke="${INK}" stroke-width="5" fill="none" stroke-linecap="round"/>`
+    : `<ellipse cx="-18" cy="0" rx="6.5" ry="8" fill="${INK}"/><ellipse cx="18" cy="0" rx="6.5" ry="8" fill="${INK}"/>`;
+  const m = `<path d="M-6 18 q6 5 12 0" stroke="${INK}" stroke-width="4" fill="none" stroke-linecap="round"/>`;
+  const head = `<path d="M-48 0 q0 -40 48 -40 q48 0 48 40 q0 36 -48 36 q-48 0 -48 -36 Z" fill="${PAPER}" stroke="${INK}" stroke-width="7"/>`;
+  const headwear = `<g class="pet-headwear"><path d="M-48 -22 q0 -22 48 -22 q48 0 48 22 l-5 7 q-44 -11 -86 0 Z" fill="${INK}"/><path d="M27 -15 q26 0 28 10 q-14 6 -34 2 Z" fill="${INK}"/><circle cx="-14" cy="-30" r="5" fill="${PAPER}"/></g>`;
+  if (typeId === 'cat') {
+    return `${head}${headwear}<path class="pet-ear" d="M-44 -20 L-52 -48 L-20 -32 Z" fill="${PAPER}" stroke="${INK}" stroke-width="6"/>
+      <path class="pet-ear" d="M44 -20 L52 -48 L20 -32 Z" fill="${PAPER}" stroke="${INK}" stroke-width="6"/>
+      ${eye}${m}<path d="M-28 10 h-18 M-28 16 h-16 M28 10 h18 M28 16 h16" stroke="${INK}" stroke-width="2.4" opacity=".6"/>`;
+  }
+  if (typeId === 'rabbit') {
+    return `<rect class="pet-ear" x="-30" y="-92" width="16" height="56" rx="8" fill="${PAPER}" stroke="${INK}" stroke-width="6" transform="rotate(-10 -22 -64)"/>
+      <rect class="pet-ear" x="14" y="-92" width="16" height="56" rx="8" fill="${PAPER}" stroke="${INK}" stroke-width="6" transform="rotate(10 22 -64)"/>
+      ${head}${headwear}${eye}${m}`;
+  }
+  if (typeId === 'sloth') {
+    return `${head}<ellipse cx="-18" cy="-4" rx="14" ry="11" fill="${INK}" opacity=".9"/>
+      <ellipse cx="18" cy="-4" rx="14" ry="11" fill="${INK}" opacity=".9"/>
+      ${headwear}${eye}${m}<path d="M30 16 q14 -10 22 0 q-10 12 -22 0 Z" fill="${pal.accent}" stroke="${INK}" stroke-width="3"/>`;
+  }
+  if (typeId === 'bear') {
+    return `<circle class="pet-ear" cx="-36" cy="-30" r="15" fill="${PAPER}" stroke="${INK}" stroke-width="6"/>
+      <circle class="pet-ear" cx="36" cy="-30" r="15" fill="${PAPER}" stroke="${INK}" stroke-width="6"/>
+      ${head}${headwear}${eye}${m}`;
+  }
+  return `${head}
+    <path class="pet-ear" d="M-46 -16 q-26 4 -28 38 q-1 22 14 22 q15 0 16 -28 q1 -18 -2 -32 Z" fill="${PAPER}" stroke="${INK}" stroke-width="6"/>
+    <path class="pet-ear" d="M46 -16 q26 4 28 38 q1 22 -14 22 q-15 0 -16 -28 q-1 -18 2 -32 Z" fill="${PAPER}" stroke="${INK}" stroke-width="6"/>
+    ${headwear}${eye}${m}`;
+}
+
+function petMini(typeId, pet, size = 74) {
+  const p = PET_BY_ID[typeId] || PET_BY_ID.dog;
+  const mood = pet ? moodOf(pet) : 'calm';
+  if (size < 48) {
+    const uid = 'mini' + ++ART_UID;
+    return `<svg class="pet-svg pet-mini-icon species-${p.id}" viewBox="0 0 120 120" width="${size}" height="${size}" role="img" aria-label="${p.name}">
+      ${defs(uid, p.palette)}
+      <circle cx="60" cy="64" r="56" fill="${p.palette.accent}" opacity=".18"/>
+      <g transform="translate(60 66)">${miniHead(p.id, p.palette, mood)}</g>
+    </svg>`;
+  }
+  return petSVG(typeId, { pet, size, showExtras: false });
+}
+
+
+
+
+Object.assign(module.exports, { petSVG, petMini });
+};
+
 __defs["js/pet.js"] = function (module, exports, __require) {
 /* 电子宠物逻辑：喂食 / 陪练 / 抚摸 / 休息 + 训练联动 + 昼夜状态 */
 
@@ -6480,165 +6900,16 @@ Object.assign(module.exports, { findSubstitutes, substitutionNetwork, substitute
 };
 
 __defs["js/svg.js"] = function (module, exports, __require) {
-/* 纯 SVG 宠物与角色视觉：不同物种不同轮廓，状态不同表情 */
+/* 纯 SVG 视觉：宠物插画（见 pet-art.js）、教练头像、五指山的手 */
 
-const { moodOf, stageOf } = __require("data/pets.js");
-const { PET_BY_ID } = __require("data/pets.js");
+const { petSVG, petMini } = __require("js/pet-art.js");
+
+
 
 function svgEl(html) {
   const div = document.createElement('div');
   div.innerHTML = html.trim();
   return div.firstElementChild;
-}
-
-const EYES = {
-  happy: (c) => `<path d="M-12 -2 q6 9 12 0" stroke="${c}" stroke-width="3.4" fill="none" stroke-linecap="round"/><path d="M8 -2 q6 9 12 0" stroke="${c}" stroke-width="3.4" fill="none" stroke-linecap="round"/>`,
-  ecstatic: (c) => `<path d="M-12 -3 q6 11 12 0" stroke="${c}" stroke-width="3.6" fill="none" stroke-linecap="round"/><path d="M8 -3 q6 11 12 0" stroke="${c}" stroke-width="3.6" fill="none" stroke-linecap="round"/><path d="M-14 -12 l4 4 M2 -12 l-4 4 M10 -12 l4 4 M24 -12 l-4 4" stroke="${c}" stroke-width="2" stroke-linecap="round"/>`,
-  calm: (c) => `<ellipse cx="-6" cy="0" rx="5" ry="6" fill="${c}"/><ellipse cx="14" cy="0" rx="5" ry="6" fill="${c}"/><circle cx="-4.4" cy="-2" r="1.7" fill="#fff"/><circle cx="15.6" cy="-2" r="1.7" fill="#fff"/>`,
-  bored: (c) => `<path d="M-12 1 h10" stroke="${c}" stroke-width="3.4" stroke-linecap="round"/><path d="M8 1 h10" stroke="${c}" stroke-width="3.4" stroke-linecap="round"/><path d="M-14 -8 h8 M10 -8 h8" stroke="${c}" stroke-width="2" opacity=".5" stroke-linecap="round"/>`,
-  hungry: (c) => `<ellipse cx="-6" cy="0" rx="5" ry="6.4" fill="${c}"/><ellipse cx="14" cy="0" rx="5" ry="6.4" fill="${c}"/><circle cx="-4.4" cy="-2.4" r="1.8" fill="#fff"/><circle cx="15.6" cy="-2.4" r="1.8" fill="#fff"/>`,
-  tired: (c) => `<path d="M-12 1 q6 5 12 0" stroke="${c}" stroke-width="3.4" fill="none" stroke-linecap="round"/><path d="M8 1 q6 5 12 0" stroke="${c}" stroke-width="3.4" fill="none" stroke-linecap="round"/>`,
-};
-
-const MOUTHS = {
-  happy: (c) => `<path d="M-2 16 q6 7 12 0" stroke="${c}" stroke-width="3" fill="none" stroke-linecap="round"/>`,
-  ecstatic: (c) => `<path d="M-4 15 q7 11 14 0 Z" fill="${c}" opacity=".85"/>`,
-  calm: (c) => `<path d="M0 16 q5 3 10 0" stroke="${c}" stroke-width="2.6" fill="none" stroke-linecap="round"/>`,
-  bored: (c) => `<path d="M-1 16 h10" stroke="${c}" stroke-width="2.6" stroke-linecap="round"/>`,
-  hungry: (c) => `<path d="M-3 16 q3 4 6 0 q3 -4 6 0" stroke="${c}" stroke-width="2.4" fill="none" stroke-linecap="round"/>`,
-  tired: (c) => `<path d="M-1 16 q5 -2 9 1" stroke="${c}" stroke-width="2.4" fill="none" stroke-linecap="round"/>`,
-};
-
-function face(mood, dark, light) {
-  return `
-    <g class="pet-eyes" transform="translate(10 4)">${(EYES[mood] || EYES.calm)(dark)}</g>
-    <g class="pet-mouth" transform="translate(10 4)">${(MOUTHS[mood] || MOUTHS.calm)(dark)}</g>
-    <ellipse cx="-18" cy="16" rx="7" ry="4.6" fill="${light}" opacity=".5"/>
-    <ellipse cx="28" cy="16" rx="7" ry="4.6" fill="${light}" opacity=".5"/>`;
-}
-
-function dogBody(pal, mood, stage) {
-  return `
-    <ellipse cx="10" cy="122" rx="60" ry="44" fill="${pal.main}"/>
-    <ellipse cx="10" cy="128" rx="38" ry="29" fill="${pal.light}" opacity=".75"/>
-    <ellipse cx="-46" cy="132" rx="15" ry="21" fill="${pal.dark}" opacity=".5"/>
-    <ellipse cx="66" cy="132" rx="15" ry="21" fill="${pal.dark}" opacity=".5"/>
-    <ellipse cx="10" cy="52" rx="50" ry="44" fill="${pal.main}"/>
-    <ellipse cx="10" cy="49" rx="46" ry="40" fill="${pal.light}" opacity=".22"/>
-    <path d="M-34 16 q-24 -22 -6 -30 q17 -4 16 26 Z" fill="${pal.dark}"/>
-    <path d="M54 16 q24 -22 6 -30 q-17 -4 -16 26 Z" fill="${pal.dark}"/>
-    <path d="M-30 14 q-12 -12 -3 -17 q8 -2 8 13 Z" fill="${pal.accent}" opacity=".35"/>
-    <path d="M50 14 q12 -12 3 -17 q-8 -2 -8 13 Z" fill="${pal.accent}" opacity=".35"/>
-    <ellipse cx="10" cy="64" rx="24" ry="16" fill="${pal.light}"/>
-    <ellipse cx="10" cy="57" rx="7.5" ry="5.6" fill="${pal.dark}"/>
-    <path d="M5 69 q5 5 10 0" stroke="${pal.dark}" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-    ${face(mood, pal.dark, pal.light)}
-    ${stage >= 3 ? `<rect x="-24" y="18" width="68" height="7" rx="3.5" fill="${pal.accent}" opacity=".85"/>` : ''}`;
-}
-
-function catBody(pal, mood, stage) {
-  return `
-    <path d="M58 132 q40 6 34 -30 q-2 -14 -14 -12 q-8 2 -6 12" fill="none" stroke="${pal.main}" stroke-width="12" stroke-linecap="round"/>
-    <ellipse cx="10" cy="122" rx="52" ry="42" fill="${pal.main}"/>
-    <ellipse cx="10" cy="128" rx="30" ry="26" fill="${pal.light}" opacity=".9"/>
-    <ellipse cx="10" cy="52" rx="48" ry="40" fill="${pal.main}"/>
-    <path d="M-28 22 L-22 -8 L-6 16 Z" fill="${pal.main}"/>
-    <path d="M48 22 L42 -8 L26 16 Z" fill="${pal.main}"/>
-    <path d="M-24 18 L-20 2 L-10 15 Z" fill="${pal.accent}" opacity=".6"/>
-    <path d="M44 18 L40 2 L30 15 Z" fill="${pal.accent}" opacity=".6"/>
-    <path d="M-2 62 h4 M6 70 h18 M6 78 h18 M6 86 h18" stroke="${pal.light}" stroke-width="1.6" opacity=".6"/>
-    ${face(mood, pal.dark, pal.light)}
-    ${stage >= 3 ? `<g><path d="M-34 128 l0 -14 l8 4 l-8 4" stroke="${pal.accent}" stroke-width="3" fill="none"/></g>` : ''}`;
-}
-
-function rabbitBody(pal, mood, stage) {
-  return `
-    <ellipse cx="10" cy="126" rx="46" ry="40" fill="${pal.main}"/>
-    <ellipse cx="10" cy="50" rx="46" ry="40" fill="${pal.main}"/>
-    <ellipse cx="-18" cy="2" rx="12" ry="40" fill="${pal.main}"/>
-    <ellipse cx="38" cy="2" rx="12" ry="40" fill="${pal.main}"/>
-    <ellipse cx="-18" cy="6" rx="6" ry="30" fill="${pal.accent}" opacity=".45"/>
-    <ellipse cx="38" cy="6" rx="6" ry="30" fill="${pal.accent}" opacity=".45"/>
-    <ellipse cx="10" cy="70" rx="18" ry="14" fill="${pal.light}" opacity=".7"/>
-    ${face(mood, pal.dark, pal.light)}
-    ${stage >= 3 ? `<circle cx="-40" cy="120" r="10" fill="none" stroke="${pal.accent}" stroke-width="3"/>` : ''}`;
-}
-
-function slothBody(pal, mood, stage) {
-  return `
-    <ellipse cx="10" cy="122" rx="58" ry="44" fill="${pal.main}"/>
-    <ellipse cx="10" cy="126" rx="34" ry="28" fill="${pal.light}" opacity=".7"/>
-    <ellipse cx="10" cy="50" rx="50" ry="42" fill="${pal.main}"/>
-    <path d="M-38 64 q10 -26 48 -26 q38 0 48 26 q-6 22 -48 24 q-42 -2 -48 -24 Z" fill="${pal.light}" opacity=".85"/>
-    <ellipse cx="-2" cy="46" rx="9" ry="7" fill="${pal.dark}" opacity=".55"/>
-    <ellipse cx="22" cy="46" rx="9" ry="7" fill="${pal.dark}" opacity=".55"/>
-    <path d="M-30 18 q-14 -12 -20 -2 q-4 10 12 12" fill="${pal.main}"/>
-    <path d="M50 18 q14 -12 20 -2 q4 10 -12 12" fill="${pal.main}"/>
-    ${face(mood, pal.dark, pal.light)}
-    ${stage >= 3 ? `<g transform="translate(66 44)"><path d="M0 0 q14 -18 26 0 q-12 16 -26 0 Z" fill="#6fbf73"/><path d="M0 0 l-14 8" stroke="#6fbf73" stroke-width="2"/></g>` : ''}`;
-}
-
-function bearBody(pal, mood, stage) {
-  return `
-    <ellipse cx="10" cy="120" rx="66" ry="50" fill="${pal.main}"/>
-    <ellipse cx="10" cy="126" rx="40" ry="34" fill="${pal.light}" opacity=".7"/>
-    <ellipse cx="10" cy="48" rx="56" ry="46" fill="${pal.main}"/>
-    <circle cx="-30" cy="8" r="17" fill="${pal.main}"/><circle cx="-30" cy="8" r="9" fill="${pal.dark}" opacity=".5"/>
-    <circle cx="50" cy="8" r="17" fill="${pal.main}"/><circle cx="50" cy="8" r="9" fill="${pal.dark}" opacity=".5"/>
-    <ellipse cx="10" cy="64" rx="28" ry="20" fill="${pal.light}"/>
-    <ellipse cx="10" cy="56" rx="9" ry="7" fill="${pal.dark}"/>
-    ${face(mood, pal.dark, pal.light)}
-    ${stage >= 3 ? `<g transform="translate(-48 124)"><rect x="-16" y="-3" width="32" height="5" rx="2" fill="${pal.dark}"/><rect x="-18" y="-9" width="7" height="16" rx="2" fill="${pal.accent}"/><rect x="11" y="-9" width="7" height="16" rx="2" fill="${pal.accent}"/></g>` : ''}`;
-}
-
-const BODIES = { dog: dogBody, cat: catBody, rabbit: rabbitBody, sloth: slothBody, bear: bearBody };
-
-function petSVG(typeId, opts = {}) {
-  const { pet = null, size = 220, animated = true, showExtras = true } = opts;
-  const p = PET_BY_ID[typeId] || PET_BY_ID.dog;
-  const mood = pet ? moodOf(pet) : 'calm';
-  const stage = pet ? stageOf(pet.bond).stage : 1;
-  const bodyFn = BODIES[p.id] || dogBody;
-  const extras = showExtras ? effects(p, mood, stage) : '';
-
-  return `
-  <svg class="pet-svg ${animated ? 'is-animated' : ''} mood-${mood}" viewBox="0 0 160 200" width="${size}" height="${size * 1.25}" role="img" aria-label="${p.name}，${p.species}">
-    <defs>
-      <radialGradient id="aura-${p.id}" cx="50%" cy="50%" r="50%">
-        <stop offset="0%" stop-color="${p.palette.accent}" stop-opacity="${stage >= 4 ? 0.5 : 0.22}"/>
-        <stop offset="100%" stop-color="${p.palette.accent}" stop-opacity="0"/>
-      </radialGradient>
-      <filter id="soft-${p.id}" x="-30%" y="-30%" width="160%" height="160%">
-        <feGaussianBlur stdDeviation="2.2"/>
-      </filter>
-    </defs>
-    <ellipse cx="10" cy="186" rx="66" ry="8" fill="#000" opacity=".1" class="pet-shadow"/>
-    ${stage >= 4 ? `<circle cx="10" cy="90" r="92" fill="url(#aura-${p.id})" class="pet-aura"/>` : ''}
-    <g class="pet-body">
-      ${bodyFn(p.palette, mood, stage)}
-    </g>
-    ${extras}
-    ${stage >= 4 ? `<g class="pet-crown" transform="translate(10 0)"><path d="M-18 -6 l4 10 l12 -9 l12 9 l4 -10 l0 12 l-32 0 Z" fill="#e8b04b" stroke="#b8860b" stroke-width="1.4"/></g>` : ''}
-  </svg>`;
-}
-
-function effects(p, mood, stage) {
-  const hearts = mood === 'happy' || mood === 'ecstatic'
-    ? `<g class="pet-hearts" fill="${p.palette.accent}">
-         <path d="M-58 44 q-6 -8 0 -12 q5 -3 8 2 q3 -5 8 -2 q6 4 0 12 l-8 8 Z" opacity=".8"/>
-       </g>` : '';
-  const sweat = mood === 'hungry'
-    ? `<g class="pet-sweat" fill="#8cc7e8"><path d="M62 58 q5 8 0 11 q-5 -3 0 -11 Z"/></g>` : '';
-  const zzz = mood === 'tired'
-    ? `<g class="pet-zzz" fill="${p.palette.dark}" font-family="serif" font-weight="700">
-         <text x="56" y="30" font-size="13">z</text><text x="66" y="20" font-size="17" opacity=".8">z</text><text x="78" y="10" font-size="21" opacity=".6">z</text>
-       </g>` : '';
-  const blink = `<g class="pet-blink"><rect x="-40" y="36" width="100" height="0" fill="${p.palette.main}"/></g>`;
-  return hearts + sweat + zzz + blink;
-}
-
-function petMini(typeId, pet, size = 74) {
-  return petSVG(typeId, { pet, size, showExtras: false });
 }
 
 /* ---------------- 教练头像 ---------------- */
@@ -6711,7 +6982,7 @@ function handSVG(active = null, size = 210) {
 }
 
 
-Object.assign(module.exports, { svgEl, petSVG, petMini, coachSVG, handSVG });
+Object.assign(module.exports, { svgEl, coachSVG, handSVG, petSVG, petMini });
 };
 
 __defs["js/training-log.js"] = function (module, exports, __require) {
@@ -7340,7 +7611,7 @@ Object.assign(module.exports, { renderHome });
 };
 
 __defs["js/views/pet.js"] = function (module, exports, __require) {
-/* 宠物页：养成 / 换宠 / 领养 */
+﻿/* 宠物页：养成 / 换宠 / 领养 */
 const { $, esc, percent } = __require("js/ui.js");
 const { PETS, PET_BY_ID, MOODS, DIRECTION_LABEL, stageOf, PET_STAGES } = __require("data/pets.js");
 const { petSummary, petLine, CARE_ACTIONS } = __require("js/pet.js");
@@ -7403,8 +7674,15 @@ function renderSanctuary(app) {
           </div>
 
           <div class="pet-stage" id="pet-stage">
-            <div class="pet-stage-inner" id="pet-stage-inner">${petSVG(pet.typeId, { pet, size: 210 })}</div>
+            <button class="pet-figure-btn" data-act="pet-tap" aria-label="摸摸${esc(pet.name)}">
+              <div class="pet-stage-inner" id="pet-stage-inner">${petSVG(pet.typeId, { pet, size: 268, scene: true, meta: { streak: s.streak || 0 } })}</div>
+            </button>
             <div class="pet-line">“${esc(petLine(pet))}”</div>
+            <div class="pet-stage-tags">
+              <span class="pill ghost">${esc(ps.stage.name)}</span>
+              <span class="pill ghost">羁绊 ${Math.round(pet.bond)}</span>
+              <span class="pill ghost">点它一下</span>
+            </div>
           </div>
 
           <div class="bond-track">
@@ -7413,9 +7691,9 @@ function renderSanctuary(app) {
           </div>
 
           <div class="pet-stat-row mt">
-            <div class="pet-stat"><div class="ps-label">🍖 饱食</div><div class="ps-val">${Math.round(pet.satiety)}</div><div class="ps-bar"><i class="sat" style="width:${pet.satiety}%"></i></div></div>
-            <div class="pet-stat"><div class="ps-label">😊 心情</div><div class="ps-val">${Math.round(pet.mood)}</div><div class="ps-bar"><i class="mood" style="width:${pet.mood}%"></i></div></div>
-            <div class="pet-stat"><div class="ps-label">⚡ 精力</div><div class="ps-val">${Math.round(pet.energy)}</div><div class="ps-bar"><i class="energy" style="width:${pet.energy}%"></i></div></div>
+            ${statCard('🍖', '饱食', pet.satiety, 'sat')}
+            ${statCard('😊', '心情', pet.mood, 'mood')}
+            ${statCard('⚡', '精力', pet.energy, 'energy')}
           </div>
         </div>
 
@@ -7499,8 +7777,15 @@ function renderSanctuary(app) {
   </div>`;
 }
 
-function petCoachLine(coach, pet, p) {
-  const mood = MOODS[pet.mood === undefined ? 'calm' : (pet.mood > 82 ? 'ecstatic' : pet.mood > 60 ? 'happy' : pet.mood > 40 ? 'calm' : 'bored')];
+function statCard(icon, label, value, cls) {
+  const v = Math.max(0, Math.min(100, Math.round(Number(value) || 0)));
+  return `<div class="pet-stat">
+    <div class="ps-top"><span class="ps-ico">${icon}</span><span class="ps-label">${label}</span><b class="ps-val">${v}</b></div>
+    <div class="ps-bar"><i class="${cls}" style="width:${v}%"></i></div>
+  </div>`;
+}
+
+function petCoachLine(coach, pet, p) {  const mood = MOODS[pet.mood === undefined ? 'calm' : (pet.mood > 82 ? 'ecstatic' : pet.mood > 60 ? 'happy' : pet.mood > 40 ? 'calm' : 'bored')];
   const base = {
     roast: `${p.name}跟着你，算它倒霉，也算它走运。${p.name}认${p.directionName.split(' · ')[0]}，你别拿它当电子相册。`,
     science: `${p.name}的状态是你训练依从性的外部指标：心情 ${Math.round(pet.mood)}，饱食 ${Math.round(pet.satiety)}。`,
@@ -7583,6 +7868,7 @@ function adoptAdvice(coach, petId) {
   }[coach.style];
   return p.advice + ' ' + base;
 }
+
 
 
 Object.assign(module.exports, { renderPet, renderAdopt });
