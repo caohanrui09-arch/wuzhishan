@@ -338,6 +338,20 @@ body.anno-on .anno-target::after {
   border: 1px solid rgba(232, 176, 75, 0.55); border-radius: var(--radius);
   padding: 12px 16px; box-shadow: var(--shadow-sm);
 }
+.habit-remind {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+  background: #fffdf8; border: 2px solid var(--ink); border-radius: 16px;
+  padding: 12px 16px; box-shadow: 5px 5px 0 rgba(21,21,21,.12);
+}
+.habit-remind-ico { font-size: 22px; flex: none; }
+.habit-remind-text { flex: 1; font-size: 13px; line-height: 1.7; color: var(--ink-2); }
+.habit-remind-actions { display: flex; gap: 8px; flex: none; }
+@media (max-width: 640px) {
+  .habit-remind { flex-wrap: wrap; }
+  .habit-remind-text { flex: 1 1 100%; order: 2; }
+  .habit-remind-actions { order: 3; width: 100%; }
+  .habit-remind-actions .btn { flex: 1; }
+}
 .backup-remind-icon { font-size: 22px; flex: none; }
 .backup-remind-text { flex: 1; font-size: 13px; line-height: 1.7; color: var(--ink-2); }
 .backup-remind .btn { flex: none; }
@@ -719,7 +733,31 @@ input[type="range"]:active::-webkit-slider-thumb { cursor: grabbing; transform: 
 
 .finish-card { border: 1px solid rgba(63, 125, 79, 0.3); background: linear-gradient(150deg, rgba(123, 191, 138, 0.16), rgba(255, 255, 255, 0.7)); }
 
-/* ---------------- 宠物页 ---------------- */
+/* ---------------- 数据可视化 ---------------- */
+.volume-chart { display: flex; align-items: flex-end; gap: 12px; height: 190px; padding: 4px 2px 0; }
+.vol-col { flex: 1; height: 100%; display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 0; }
+.vol-total { font-size: 10px; color: var(--ink-3); height: 14px; }
+.vol-stack { flex: 1; width: 100%; max-width: 44px; display: flex; flex-direction: column-reverse; border-radius: 6px; overflow: hidden; background: rgba(31, 27, 22, 0.06); }
+.vol-seg { width: 100%; min-height: 2px; }
+.vol-col.is-empty .vol-stack { background: transparent; border: 1px dashed var(--line); }
+.vol-col.is-empty .vol-total { opacity: 0; }
+.vol-label { font-size: 10px; color: var(--ink-3); white-space: nowrap; }
+.vol-legend { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; font-size: 11.5px; color: var(--ink-3); }
+.vol-legend span { display: inline-flex; align-items: center; gap: 5px; }
+.vol-legend i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+
+.pr-row { padding: 8px 0; border-bottom: 1px dashed var(--line); }
+.pr-row:last-child { border-bottom: 0; }
+.pr-head { display: flex; justify-content: space-between; gap: 8px; }
+.pr-events { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 5px; }
+.pr-dot { font-size: 10.5px; background: #fffdf8; border: 1px solid var(--line); border-radius: 999px; padding: 2px 8px; color: var(--ink-2); }
+
+.adh-chart { display: flex; align-items: flex-end; gap: 10px; height: 150px; padding-top: 8px; }
+.adh-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; height: 100%; }
+.adh-bars { position: relative; flex: 1; width: 26px; }
+.adh-plan { position: absolute; left: 0; right: 0; bottom: 0; background: #e7ddcb; border-radius: 4px; }
+.adh-actual { position: absolute; left: 6px; right: 6px; bottom: 0; background: var(--ink); border-radius: 4px; }
+.adh-label { font-size: 10px; color: var(--ink-3); }
 .pet-layout { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: 22px; align-items: start; }
 .pet-main-col { display: flex; flex-direction: column; gap: 16px; }
 .pet-side-col { display: flex; flex-direction: column; gap: 14px; }
@@ -907,6 +945,28 @@ input[type="range"]:active::-webkit-slider-thumb { cursor: grabbing; transform: 
 @keyframes pet-wobble { 0%, 100% { rotate: 0deg; } 25% { rotate: -1.2deg; } 75% { rotate: 1.2deg; } }
 @keyframes crown-bob { 0%, 100% { translate: 0 0; } 50% { translate: 0 -3px; } }
 @keyframes dust-float { 0%, 100% { translate: 0 0; opacity: 0.25; } 50% { translate: 0 -8px; opacity: 0.7; } }
+
+/* 待机小动作：由 App 定时加 class，2.4s 后移除 */
+.pet-stage-inner.idle-yawn .pet-head { animation: idle-yawn 2.4s ease-in-out; }
+.pet-stage-inner.idle-scratch .pet-head { animation: idle-scratch-head 2.4s ease-in-out; }
+.pet-stage-inner.idle-scratch .pet-ear-l { animation: idle-scratch-ear 2.4s ease-in-out; }
+.pet-stage-inner.idle-pace .pet-head { animation: idle-pace 2.4s ease-in-out; }
+.pet-stage-inner.idle-pace .pet-tail { animation: idle-pace-tail 2.4s ease-in-out; }
+.pet-stage-inner.idle-sniff .pet-head { animation: idle-sniff 2.4s ease-in-out; }
+.pet-stage-inner.idle-stretch .pet-head { animation: idle-stretch 2.4s ease-in-out; }
+.pet-stage-inner.idle-stretch .pet-ear-l,
+.pet-stage-inner.idle-stretch .pet-ear-r { animation: idle-stretch-ear 2.4s ease-in-out; }
+@keyframes idle-yawn { 0%, 100% { translate: 0 0; rotate: 0deg; } 35%, 70% { translate: 0 5px; rotate: -2deg; } }
+@keyframes idle-scratch-head { 0%, 100% { rotate: 0deg; } 25% { rotate: 4deg; } 55% { rotate: -3deg; } 80% { rotate: 2deg; } }
+@keyframes idle-scratch-ear { 0%, 100% { rotate: 0deg; } 20% { rotate: -18deg; } 40% { rotate: 8deg; } 60% { rotate: -14deg; } 80% { rotate: 4deg; } }
+@keyframes idle-pace { 0%, 100% { translate: 0 0; } 25% { translate: -6px 0; } 50% { translate: 0 0; } 75% { translate: 6px 0; } }
+@keyframes idle-pace-tail { 0%, 100% { rotate: -6deg; } 50% { rotate: 10deg; } }
+@keyframes idle-sniff { 0%, 100% { translate: 0 0; rotate: 0deg; } 30%, 65% { translate: 0 7px; rotate: 5deg; } }
+@keyframes idle-stretch { 0%, 100% { translate: 0 0; } 45%, 70% { translate: 0 -7px; } }
+@keyframes idle-stretch-ear { 0%, 100% { rotate: 0deg; } 45%, 70% { rotate: -7deg; } }
+@media (prefers-reduced-motion: reduce) {
+  .pet-stage-inner[class*="idle-"] * { animation: none !important; }
+}
 @media (prefers-reduced-motion: reduce) {
   .pet-svg.is-animated *,
   .pet-svg .pet-eyes { animation: none !important; }
@@ -922,7 +982,22 @@ input[type="range"]:active::-webkit-slider-thumb { cursor: grabbing; transform: 
   border-radius: 26px; display: grid; place-items: center; -webkit-tap-highlight-color: transparent;
 }
 .pet-figure-btn:focus-visible { outline: 2px solid var(--ochre); outline-offset: 4px; }
-.pet-stage-inner { width: 100%; display: grid; place-items: center; transform-origin: bottom center; transition: transform 0.35s var(--ease); }
+.pet-stage-inner { position: relative; width: 100%; display: grid; place-items: center; transform-origin: bottom center; transition: transform 0.35s var(--ease); }
+.pet-stage-inner .pet-character { transition: translate 0.9s var(--ease); }
+.pet-stage-inner[data-behavior="sleep"] .pet-head { translate: 0 8px; rotate: -4deg; }
+.pet-stage-inner[data-behavior="sleep"] .pet-ear { rotate: -10deg; }
+.pet-stage-inner[data-behavior="hungry"] .pet-head { translate: 0 7px; rotate: 3deg; }
+.pet-stage-inner[data-behavior="sulk"] .pet-head { translate: 0 7px; rotate: -6deg; }
+.pet-stage-inner[data-behavior="sulk"] .pet-tail { rotate: -14deg; }
+.pet-stage-inner[data-behavior="celebrate"] { animation: behave-hop 0.7s var(--ease) infinite; }
+.pet-stage-inner[data-behavior="play"] .pet-tail { animation: pet-tail-wag 0.7s ease-in-out infinite; }
+.pet-stage-inner[data-behavior="play"] .pet-head { animation: pet-head-bob 1.2s ease-in-out infinite; }
+.pet-stage-inner[data-behavior="sleep"]::after {
+  content: "z z z"; position: absolute; right: 13%; top: 16%;
+  font: 700 20px sans-serif; color: var(--ink); opacity: .55;
+  animation: zzz-float 2.8s ease-in-out infinite;
+}
+@keyframes behave-hop { 0%, 100% { transform: translateY(0); } 45% { transform: translateY(-10px); } }
 .pet-figure-btn:hover .pet-stage-inner { transform: scale(1.015) translateY(-2px); }
 .pet-stage-inner .pet-svg { max-width: 430px; }
 .pet-stage.is-happy .pet-stage-inner { animation: hop 0.6s var(--ease); }
@@ -950,6 +1025,39 @@ input[type="range"]:active::-webkit-slider-thumb { cursor: grabbing; transform: 
 .ps-bar i.mood { background: linear-gradient(90deg, #6fbf73, #a8d97f); }
 .ps-bar i.energy { background: linear-gradient(90deg, #2e86ab, #79c0dd); }
 .ps-bar i.bond { background: linear-gradient(90deg, #b8860b, #e8b04b); }
+
+/* 衣橱 */
+.wardrobe { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--line); }
+.wardrobe-label { font-size: 11.5px; color: var(--ink-3); font-weight: 700; letter-spacing: .08em; }
+.outfit-chip {
+  display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: 999px;
+  border: 1px solid var(--line); background: #fffdf8; font-size: 11.5px; color: var(--ink-2);
+  transition: all .2s var(--ease); cursor: pointer;
+}
+.outfit-chip i { width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--ink); display: inline-block; }
+.outfit-chip:hover:not(:disabled) { border-color: var(--ink); transform: translateY(-1px); }
+.outfit-chip.is-on { border-color: var(--ink); box-shadow: 2px 2px 0 var(--ink); color: var(--ink); font-weight: 700; }
+.outfit-chip.is-locked { opacity: .42; cursor: not-allowed; }
+
+/* 进化动画 */
+.pet-stage.is-evolving .pet-stage-inner { animation: evolve-pop 1.6s var(--ease); }
+.pet-stage.is-evolving::after {
+  content: "✦ ✦ ✦"; position: absolute; left: 50%; top: 16%;
+  transform: translateX(-50%); font-size: 22px; color: var(--ochre); letter-spacing: 8px;
+  animation: evolve-spark 1.6s ease-out both; pointer-events: none;
+}
+@keyframes evolve-pop {
+  0% { transform: scale(1); filter: brightness(1); }
+  18% { transform: scale(0.94); filter: brightness(1.5); }
+  42% { transform: scale(1.08); filter: brightness(1.9); }
+  70% { transform: scale(1.02); filter: brightness(1.2); }
+  100% { transform: scale(1); filter: brightness(1); }
+}
+@keyframes evolve-spark {
+  0% { opacity: 0; transform: translateX(-50%) translateY(8px) scale(.8); }
+  25% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-26px) scale(1.2); }
+}
 
 .care-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 10px; }
 .care-btn {
@@ -1941,6 +2049,132 @@ function trapFocus(event, root, doc = globalThis.document) {
 Object.assign(module.exports, { FOCUSABLE, wrapIndex, trapTarget, getFocusable, trapFocus });
 };
 
+__defs["js/analytics.js"] = function (module, exports, __require) {
+/** 数据可视化（P10）：肌群周容量 / PR 时间线 / 依从性 / CSV，全部纯函数 */
+const { getExercise } = __require("data/exercises.js");
+
+const MUSCLE_GROUPS = [
+  { key: 'chest', label: '胸', muscles: ['chest'], color: '#E2574C' },
+  { key: 'back', label: '背', muscles: ['back'], color: '#4C7FA6' },
+  { key: 'legs', label: '腿', muscles: ['quads', 'hamstrings', 'glutes', 'calves'], color: '#7BA05B' },
+  { key: 'shoulders', label: '肩', muscles: ['shoulders'], color: '#D9A441' },
+  { key: 'arms', label: '手臂', muscles: ['biceps', 'triceps', 'grip'], color: '#8C6BB1' },
+  { key: 'core', label: '核心', muscles: ['core'], color: '#4FA3A5' },
+];
+
+const DAY = 86400000;
+
+function parseKey(key) {
+  const [y, m, d] = String(key || '').split('-').map(Number);
+  if (!y || !m || !d) return null;
+  return new Date(y, m - 1, d);
+}
+
+function keyOf(date) {
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+}
+
+function mondayOf(date) {
+  const d = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  const shift = (d.getDay() + 6) % 7;
+  d.setDate(d.getDate() - shift);
+  return d;
+}
+
+function weekKeys(now, weeks) {
+  const current = mondayOf(new Date(now));
+  const out = [];
+  for (let i = weeks - 1; i >= 0; i--) {
+    const d = new Date(current.getTime() - i * 7 * DAY);
+    out.push({ key: keyOf(d), label: `${d.getMonth() + 1}/${d.getDate()}` });
+  }
+  return out;
+}
+
+function musclesFor(exerciseId) {
+  const ex = getExercise(exerciseId);
+  return Array.isArray(ex?.muscles) ? ex.muscles : [];
+}
+
+/** 近 N 周每个肌群的容量（重量 × 次数） */
+function weeklyMuscleVolume(setLogs = [], { now = Date.now(), weeks = 8 } = {}) {
+  const keys = weekKeys(now, weeks);
+  const index = new Map(keys.map((w, i) => [w.key, i]));
+  const rows = keys.map((w) => {
+    const values = Object.fromEntries(MUSCLE_GROUPS.map((g) => [g.key, 0]));
+    return { key: w.key, label: w.label, values, total: 0 };
+  });
+  for (const l of Array.isArray(setLogs) ? setLogs : []) {
+    const d = parseKey(l.date);
+    if (!d) continue;
+    const i = index.get(keyOf(mondayOf(d)));
+    if (i === undefined) continue;
+    const volume = (Number(l.weight) || 0) * (Number(l.reps) || 0);
+    if (!volume) continue;
+    const muscles = musclesFor(l.exerciseId);
+    for (const g of MUSCLE_GROUPS) {
+      if (g.muscles.some((m) => muscles.includes(m))) {
+        rows[i].values[g.key] += volume;
+      }
+    }
+    rows[i].total += volume;
+  }
+  const max = rows.reduce((m, r) => Math.max(m, r.total), 0);
+  return { weeks: rows, max, groups: MUSCLE_GROUPS };
+}
+
+/** 每个动作的 PR 时间线（e1RM 创新高的时刻） */
+function prTimeline(setLogs = [], { limit = 5 } = {}) {
+  const byExercise = new Map();
+  const logs = [...(Array.isArray(setLogs) ? setLogs : [])].sort((a, b) => String(a.date || '').localeCompare(String(b.date || '')) || (a.at || 0) - (b.at || 0));
+  for (const l of logs) {
+    if (!l.exerciseId) continue;
+    const entry = byExercise.get(l.exerciseId) || { exerciseId: l.exerciseId, name: l.exerciseName || l.exerciseId, events: [], best: 0 };
+    const e = Math.round((Number(l.weight) || 0) * (1 + (Number(l.reps) || 0) / 30));
+    if (e > entry.best) {
+      entry.best = e;
+      entry.events.push({ date: l.date, weight: Number(l.weight) || 0, reps: Number(l.reps) || 0, e1rm: e });
+    }
+    byExercise.set(l.exerciseId, entry);
+  }
+  return [...byExercise.values()]
+    .filter((e) => e.events.length)
+    .sort((a, b) => String(b.events.at(-1).date) .localeCompare(String(a.events.at(-1).date)))
+    .slice(0, limit);
+}
+
+/** 近 N 周的计划次数 vs 实际次数 */
+function adherenceTrend(state = {}, { now = Date.now(), weeks = 8 } = {}) {
+  const keys = weekKeys(now, weeks);
+  const planned = Number(state.plan?.days) || 0;
+  const sessions = state.sessions && typeof state.sessions === 'object' ? state.sessions : {};
+  const rows = keys.map((w) => {
+    const actual = Object.keys(sessions).filter((k) => String(k) >= w.key && String(k) < keyOf(new Date(parseKey(w.key).getTime() + 7 * DAY))).length;
+    return { key: w.key, label: w.label, planned, actual, ratio: planned ? Math.min(1, actual / planned) : 0 };
+  });
+  return { weeks: rows };
+}
+
+function csvCell(v) {
+  const s = String(v ?? '');
+  return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+}
+
+/** 导出训练记录为 CSV（带 BOM，Excel 直接打开） */
+function toCSV(setLogs = []) {
+  const rows = [...(Array.isArray(setLogs) ? setLogs : [])].sort((a, b) => String(a.date || '').localeCompare(String(b.date || '')) || (a.at || 0) - (b.at || 0));
+  const lines = ['日期,动作,重量kg,次数,RPE,容量kg'];
+  for (const l of rows) {
+    const volume = (Number(l.weight) || 0) * (Number(l.reps) || 0);
+    lines.push([l.date || '', l.exerciseName || l.exerciseId || '', l.weight ?? '', l.reps ?? '', l.rpe ?? '', volume].map(csvCell).join(','));
+  }
+  return '\uFEFF' + lines.join('\r\n');
+}
+
+
+Object.assign(module.exports, { MUSCLE_GROUPS, mondayOf, weeklyMuscleVolume, prTimeline, adherenceTrend, toCSV });
+};
+
 __defs["js/app.js"] = function (module, exports, __require) {
 /* 主控：状态、路由、五指山面板、对话、计时器、弹层 */
 const { $, $$, esc } = __require("js/ui.js");
@@ -1950,16 +2184,24 @@ const { PETS, PET_BY_ID, MOODS, moodOf, stageOf } = __require("data/pets.js");
 const { GOALS, LEVELS, INJURIES, EQUIPMENT_OPTIONS, generatePlan, replaceItem, suggestSwap, analyzePlan, planStats } = __require("js/plan-engine.js");
 const { EQUIPMENTS, getExercise, MUSCLES } = __require("data/exercises.js");
 const { findSubstitutes } = __require("js/substitutes.js");
-const { addSetLog, lastSetFor, bestSetFor, e1rm } = __require("js/training-log.js");
+const { addSetLog, lastSetFor, bestSetFor, e1rm, parseRest: parseRestSec } = __require("js/training-log.js");
 const { buildCycle, weekIndexFor, applyWeek, restoreBase, recommendLoad, cycleSummary } = __require("js/periodization.js");
 const { resolveShortcut, SHORTCUT_LIST } = __require("js/shortcuts.js");
 const { getArt, patternName, patternCue } = __require("js/exercise-art.js");
 const { buildReport, renderReportHTML } = __require("js/report.js");
 const { trapFocus, getFocusable } = __require("js/a11y.js");
 const { markExported } = __require("js/backup.js");
-const { tickPet, newPetState, interact, onWorkoutDone, petSummary } = __require("js/pet.js");
+const { tickPet, newPetState, interact, onWorkoutDone, petSummary, petLine } = __require("js/pet.js");
 const { buildFingers, applyFingerAction, chatReply, previewOthers, FINGERS } = __require("js/five-finger.js");
 const { petSVG, petMini, coachSVG, handSVG } = __require("js/svg.js");
+const { pickPetBehavior } = __require("js/pet-behavior.js");
+const { buildShareData, drawShareCard } = __require("js/share-card.js");
+const { plateBreakdown } = __require("js/plate-calc.js");
+const { canRepairStreak, repairStreak, shouldNotify } = __require("js/habit.js");
+const { initPwa, canInstall, promptInstall, notifyDue } = __require("js/pwa.js");
+const { suggestNextLoad } = __require("js/autoreg.js");
+const { toCSV } = __require("js/analytics.js");
+const { canUseOutfit, activeOutfit } = __require("js/pet-outfit.js");
 const { renderHome } = __require("js/views/home.js");
 const { renderPlan } = __require("js/views/plan.js");
 const { renderTrain, fmtSec } = __require("js/views/train.js");
@@ -1993,6 +2235,16 @@ class App {
   boot() {
     this.state.pet = this.state.pet ? tickPet(this.state.pet) : this.state.pet;
     this.syncWeek();
+    initPwa();
+    this.installAvailable = canInstall();
+    window.addEventListener('wuzhishan-installable', () => {
+      this.installAvailable = true;
+      if (this.view === 'home') {
+        this.renderView();
+        this.afterRender();
+      }
+    });
+    setTimeout(() => this.maybeNotify(), 2500);
     this.routeFromHash();
     this.bindGlobal();
     this.updateChrome();
@@ -2390,6 +2642,13 @@ class App {
       r.addEventListener('input', upd);
       r.addEventListener('change', () => this.pickProfile(r.dataset.range || 'minutes', Number(r.value)));
     });
+    if (this.view === 'pet' && this.state.pet) {
+      this.checkPetEvolution();
+      this.startPetBehavior();
+    } else {
+      this.stopPetBehavior();
+      this.stopPetIdle();
+    }
   }
 
   /* ---------- 档案交互 ---------- */
@@ -2540,6 +2799,13 @@ class App {
       case 'start-timer': this.startTimer(Number(node.dataset.sec) || 60); break;
       case 'care': this.care(node.dataset.care); break;
       case 'pet-tap': this.tapPet(); break;
+      case 'share-card': this.shareCard(); break;
+      case 'share-week': this.shareCard(); break;
+      case 'repair-streak': this.repairStreak(); break;
+      case 'enable-remind': this.enableRemind(); break;
+      case 'install-app': this.installApp(); break;
+      case 'export-csv': this.exportCsv(); break;
+      case 'set-outfit': this.setOutfit(node.dataset.outfit); break;
       case 'pick-pet': this.pickPet(node.dataset.pet); break;
       case 'adopt': this.adoptPet(); break;
       case 'switch-pet-view': this.switchPetView(node.dataset.pet); break;
@@ -2831,14 +3097,72 @@ class App {
     const stage = $('#pet-stage');
     if (stage) {
       stage.classList.add('is-happy');
-      setTimeout(() => stage.classList.remove('is-happy'), 700);
       this.animateCare(action);
     }
-    this.renderView();
-    this.afterRender();
+    // 局部更新：只改受影响的节点，不整页重绘，避免打断待机/行为
+    this.patchPetView();
     const stage2 = $('#pet-stage');
     if (stage2) stage2.classList.add('is-happy');
     setTimeout(() => { const s2 = $('#pet-stage'); if (s2) s2.classList.remove('is-happy'); }, 700);
+  }
+
+  patchPetView() {
+    const pet = this.state.pet;
+    if (!pet) return;
+    const ps = petSummary(pet);
+    const s = this.state;
+    const sub = $('[data-role="pet-sub"]');
+    if (sub) sub.textContent = `${ps.type.species} · ${ps.stage.name} · 羁绊 ${Math.round(pet.bond)}`;
+
+    const moodInfo = MOODS[ps.mood];
+    const pill = $('.pet-mood-pill');
+    if (pill && moodInfo) {
+      pill.className = `pill pet-mood-pill ${ps.mood === 'hungry' ? 'red' : ps.mood === 'ecstatic' ? 'gold' : 'jade'}`;
+      pill.textContent = `${moodInfo.emoji} ${moodInfo.label}`;
+    }
+
+    $$('.ap-dot').forEach((el, i) => el.classList.toggle('is-on', i < (pet.carePoints || 0)));
+
+    for (const [key, val] of [['sat', pet.satiety], ['mood', pet.mood], ['energy', pet.energy]]) {
+      const card = $(`[data-stat="${key}"]`);
+      if (!card) continue;
+      const v = Math.max(0, Math.min(100, Math.round(Number(val) || 0)));
+      const num = card.querySelector('.ps-val');
+      if (num) num.textContent = v;
+      const bar = card.querySelector('.ps-bar i');
+      if (bar) bar.style.width = `${v}%`;
+    }
+
+    const bestWeight = (s.setLogs || []).reduce((m, l) => Math.max(m, Number(l.weight) || 0), 0);
+    const stageInner = $('#pet-stage-inner');
+    if (stageInner) {
+      stageInner.innerHTML = petSVG(pet.typeId, {
+        pet, size: 268, scene: true, outfit: activeOutfit(pet),
+        meta: { streak: s.streak || 0, weekSessions: s.weekSessions || 0, totalSessions: s.totalSessions || 0, bestWeight },
+      });
+    }
+
+    const line = $('.pet-line');
+    if (line) {
+      line.textContent = `“${petLine(pet)}”`;
+      this._petBaseLine = line.textContent;
+    }
+
+    const bond = $('[data-role="bond-track"]');
+    if (bond) {
+      bond.innerHTML = `<div class="bt-row"><span>${esc(ps.stage.name)}</span><span>${ps.nextStage ? `下一阶段「${esc(ps.nextStage.name)}」还差 ${ps.nextStage.min - Math.round(pet.bond)}` : '已满级'}</span></div>
+        <div class="bt-bar"><i style="width:${Math.round(ps.stageProgress * 100)}%"></i></div>`;
+    }
+    const tags = $('[data-role="pet-stage-tags"]');
+    if (tags) {
+      tags.innerHTML = `<span class="pill ghost">${esc(ps.stage.name)}</span><span class="pill ghost">羁绊 ${Math.round(pet.bond)}</span><span class="pill ghost">点它一下</span>`;
+    }
+    const cp = $('[data-role="care-points"]');
+    if (cp) cp.textContent = `行动点 ${pet.carePoints || 0}/5`;
+    $$('.care-btn').forEach((b) => b.classList.toggle('is-dim', (pet.carePoints || 0) < (Number(b.dataset.cost) || 0)));
+
+    this.checkPetEvolution();
+    this.applyPetBehavior(this.petBehaviorNow());
   }
 
   tapPet() {
@@ -2881,6 +3205,208 @@ class App {
     fly.style.cssText = 'position:absolute;left:50%;top:70%;font-size:26px;z-index:5;pointer-events:none;transform:translateX(-50%);animation:care-fly .9s ease-out forwards;';
     stage.appendChild(fly);
     setTimeout(() => fly.remove(), 950);
+  }
+
+  /* ---------- 宠物行为状态机 ---------- */
+  petBehaviorNow() {
+    return pickPetBehavior(this.state.pet || {}, {
+      trainedToday: Boolean(this.state.sessions?.[this.todayKey]),
+      streak: this.state.streak || 0,
+    });
+  }
+
+  startPetBehavior() {
+    this.stopPetBehavior();
+    if (this.view !== 'pet' || !this.state.pet) return;
+    this._petBaseLine = $('.pet-line')?.textContent || '';
+    const tick = () => {
+      if (this.view !== 'pet' || !$('#pet-stage-inner')) return;
+      this.applyPetBehavior(this.petBehaviorNow());
+      this._petBehaviorTimer = setTimeout(tick, 9000 + Math.random() * 5000);
+    };
+    this._petBehaviorTimer = setTimeout(tick, 1200);
+  }
+
+  stopPetBehavior() {
+    clearTimeout(this._petBehaviorTimer);
+    this._petBehaviorTimer = null;
+  }
+
+  applyPetBehavior(b) {
+    const inner = $('#pet-stage-inner');
+    if (!inner || !b) return;
+    inner.dataset.behavior = b.key;
+    const ch = inner.querySelector('.pet-character');
+    if (ch) ch.style.translate = `${b.x}px 0`;
+    const line = $('.pet-line');
+    if (b.line && line) {
+      line.textContent = `“${b.line}”`;
+      line.classList.remove('is-pop');
+      void line.offsetWidth;
+      line.classList.add('is-pop');
+    } else if (!b.line && line && this._petBaseLine) {
+      line.textContent = this._petBaseLine;
+    }
+    if (b.key === 'idle') this.petIdleTick();
+  }
+
+  repairStreak() {
+    const check = canRepairStreak(this.state);
+    if (!check.ok) {
+      this.toast(check.reason, this.coach.id);
+      return;
+    }
+    this.state = repairStreak(this.state, Date.now());
+    this.save();
+    this.renderView();
+    this.afterRender();
+    this.toast('补签成功。连续天数回来了，下次别断。', this.coach.id);
+  }
+
+  async enableRemind() {
+    if (typeof Notification === 'undefined') {
+      this.toast('这个浏览器不支持通知。先收藏页面吧。', this.coach.id);
+      return;
+    }
+    let permission = 'denied';
+    try {
+      permission = await Notification.requestPermission();
+    } catch (e) {
+      permission = 'denied';
+    }
+    this.state.settings = { ...this.state.settings, remind: permission === 'granted' };
+    this.save();
+    this.renderView();
+    this.afterRender();
+    if (permission === 'granted') {
+      this.toast('提醒开了。三天没练，我会喊你。', this.coach.id);
+      this.maybeNotify();
+    } else {
+      this.toast('没开成。你可以在浏览器设置里允许通知后再试。', this.coach.id);
+    }
+  }
+
+  async installApp() {
+    const ok = await promptInstall();
+    this.installAvailable = canInstall();
+    if (ok) this.toast('安装入口已打开。装到桌面，打开更快。', this.coach.id);
+    else this.toast('浏览器还没给安装入口，多访问两次再试。', this.coach.id);
+    this.renderView();
+    this.afterRender();
+  }
+
+  maybeNotify() {
+    if (!this.state.settings?.remind) return;
+    if (typeof Notification === 'undefined') return;
+    const decision = shouldNotify(this.state, {
+      permission: Notification.permission,
+      lastNotified: this.state.lastRemindedDate || '',
+    });
+    if (!decision.notify) return;
+    notifyDue(decision.title, decision.body);
+    this.state.lastRemindedDate = this.todayKey;
+    this.save();
+  }
+
+  exportCsv() {
+    const csv = toCSV(this.state.setLogs || []);
+    this.lastCsv = csv;
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `wuzhishan-log-${todayKey()}.csv`;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    this.toast('CSV 导出了，Excel 能直接开。', this.coach.id);
+  }
+
+  setOutfit(key) {
+    if (!this.state.pet) return;
+    if (!canUseOutfit(key, this.state)) {
+      this.toast('这件还没解锁。多练几次。', this.coach.id);
+      return;
+    }
+    this.state.pet = { ...this.state.pet, outfit: { key } };
+    this.save();
+    this.renderView();
+    this.afterRender();
+    this.toast('换好了。', this.coach.id);
+  }
+
+  checkPetEvolution() {
+    const pet = this.state.pet;
+    if (!pet) return;
+    const stage = stageOf(pet.bond).stage;
+    if (this._petStageSeen && stage > this._petStageSeen) {
+      const el = $('#pet-stage');
+      if (el) {
+        el.classList.add('is-evolving');
+        setTimeout(() => el.classList.remove('is-evolving'), 2200);
+      }
+      this.coachSays('它长大了。别光看着，继续练。');
+    }
+    this._petStageSeen = stage;
+  }
+
+  async shareCard() {
+    if (!this.state.pet) return this.go('adopt');
+    const data = buildShareData(this.state, this.coach);
+    const meta = {
+      streak: data.streak,
+      weekSessions: data.weekSessions,
+      totalSessions: data.totalSessions,
+      bestWeight: data.bestWeight,
+    };
+    const svg = petSVG(this.state.pet.typeId, { pet: this.state.pet, size: 520, animated: false, scene: false, meta });
+    const canvas = document.createElement('canvas');
+    try {
+      await drawShareCard(canvas, data, svg);
+    } catch (e) {
+      this.toast('分享卡生成失败：' + e.message, this.coach.id);
+      return;
+    }
+    this.lastShareDataUrl = canvas.toDataURL('image/png');
+    const a = document.createElement('a');
+    a.href = this.lastShareDataUrl;
+    a.download = `五指山-${data.date}.png`;
+    a.click();
+    this.toast('分享卡生成了。发出去，别只存着。', this.coach.id);
+  }
+
+  /* ---------- 宠物待机 ---------- */
+  startPetIdle() {
+    this.stopPetIdle();
+    if (this.view !== 'pet' || !this.state.pet) return;
+    const loop = () => {
+      if (this.view !== 'pet' || !$('#pet-stage-inner')) return;
+      const actions = ['yawn', 'scratch', 'pace', 'sniff', 'stretch'];
+      this.petIdleTick(actions[Math.floor(Math.random() * actions.length)]);
+      this._petIdleTimer = setTimeout(loop, 7000 + Math.random() * 5000);
+    };
+    this._petIdleTimer = setTimeout(loop, 2200);
+  }
+
+  stopPetIdle() {
+    clearTimeout(this._petIdleTimer);
+    clearTimeout(this._petIdleOff);
+    this._petIdleTimer = null;
+    this._petIdleOff = null;
+    const el = $('#pet-stage-inner');
+    if (!el) return;
+    ['yawn', 'scratch', 'pace', 'sniff', 'stretch'].forEach((a) => el.classList.remove('idle-' + a));
+  }
+
+  petIdleTick(name) {
+    const el = $('#pet-stage-inner');
+    if (!el) return null;
+    const actions = ['yawn', 'scratch', 'pace', 'sniff', 'stretch'];
+    const a = actions.includes(name) ? name : actions[Math.floor(Math.random() * actions.length)];
+    actions.forEach((x) => el.classList.remove('idle-' + x));
+    void el.offsetWidth;
+    el.classList.add('idle-' + a);
+    clearTimeout(this._petIdleOff);
+    this._petIdleOff = setTimeout(() => el.classList.remove('idle-' + a), 2400);
+    return a;
   }
 
   pickPet(id) {
@@ -3061,8 +3587,12 @@ class App {
     const repsFromPlan = parseInt(item.reps, 10) || 8;
     const ci = this.cycleInfo();
     const suggested = ci ? recommendLoad(this.state.setLogs || [], itemId, ci.week.loadPct) : null;
-    const weightVal = last?.weight ?? suggested ?? '';
     const repsVal = last?.reps ?? repsFromPlan;
+    const rpeVal = last?.rpe ?? (Number(item.rpe) || 8);
+    const rangeMatch = String(item.reps || '').match(/(\d+)\s*[–-]\s*(\d+)/);
+    const repRange = rangeMatch ? [Number(rangeMatch[1]), Number(rangeMatch[2])] : [8, 12];
+    const auto = last?.rpe ? suggestNextLoad({ weight: last.weight, reps: last.reps, rpe: last.rpe, repRange }) : null;
+    const weightVal = last?.rpe && auto ? auto.nextWeight : (last?.weight ?? suggested ?? '');
     const doneNow = session?.doneSets?.[itemId] || 0;
     this.openModal(`
       <div class="modal-head">
@@ -3083,10 +3613,18 @@ class App {
           <input class="input" id="log-reps" type="number" inputmode="numeric" min="1" max="100" step="1" value="${repsVal}" />
         </div>
       </div>
+      <div class="field mt-s">
+        <label for="log-rpe">RPE（这组有多难，6–10）</label>
+        <select class="select" id="log-rpe">
+          ${[6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10].map((n) => `<option value="${n}" ${Number(rpeVal) === n ? 'selected' : ''}>RPE ${n}</option>`).join('')}
+        </select>
+      </div>
+      <div class="tiny muted mt-s" id="plate-preview" style="line-height:1.7"></div>
       <div class="tiny muted mt-s" style="line-height:1.7">
         ${last ? `上次：${last.weight}kg × ${last.reps}（估算 1RM ${e1rm(last.weight, last.reps)}）` : '这是第一次记这个动作。'}
         ${pr ? ` · 最好：${pr.weight}kg × ${pr.reps}（估算 1RM ${e1rm(pr.weight, pr.reps)}）` : ''}
         ${suggested ? `<br/><span style="color:var(--ochre);font-weight:700">本周建议 ${suggested}kg</span> · 第 ${ci.week.week} 周 ${Math.round(ci.week.loadPct * 100)}% 强度` : ''}
+        ${auto ? `<br/><span style="color:var(--ink);font-weight:700">上次 RPE ${last.rpe} → 建议下次 ${auto.nextWeight}kg（${auto.reason}）</span>` : ''}
       </div>
       <div class="modal-foot" style="flex-wrap:wrap;gap:8px">
         <button class="btn btn-ghost" data-act="skip-weight" data-item="${itemId}">不记重量，只完成</button>
@@ -3095,6 +3633,22 @@ class App {
       </div>
     `, 'is-hand');
     setTimeout(() => $('#log-weight')?.focus(), 60);
+    const updatePlate = () => {
+      const el = $('#plate-preview');
+      if (!el) return;
+      const bar = getExercise(item.id)?.equipment?.includes('barbell');
+      if (!bar) {
+        el.textContent = '';
+        return;
+      }
+      const w = Number($('#log-weight')?.value);
+      const r = plateBreakdown(w, { bar: 20 });
+      el.innerHTML = r.ok
+        ? `🏋️ 杠铃片：每边 <b>${r.text === '空杆' ? '不加片' : esc(r.text)}</b>（空杆 20kg）`
+        : `<span style="color:var(--cinnabar)">${esc(r.text)}${r.remainder ? `，还差 ${r.remainder}kg 凑不齐` : ''}</span>`;
+    };
+    $('#log-weight')?.addEventListener('input', updatePlate);
+    updatePlate();
   }
 
   saveSetLog(itemId, markDone = true) {
@@ -3110,6 +3664,7 @@ class App {
       setIndex: (session?.doneSets?.[itemId] || 0) + 1,
       weight: Number(rawWeight),
       reps: Number(rawReps),
+      rpe: Number($('#log-rpe')?.value) || null,
     });
     if (!entry) {
       this.toast('重量 0–500kg、次数 1–100 才算数。', this.coach.id);
@@ -3120,6 +3675,12 @@ class App {
     if (markDone) this.completeSet(itemId);
     else { this.renderView(); this.afterRender(); }
     this.toast(`记下了：${entry.weight}kg × ${entry.reps}`, this.coach.id);
+    if (item && entry.rpe) {
+      const rm = String(item.reps || '').match(/(\d+)\s*[–-]\s*(\d+)/);
+      const rr = rm ? [Number(rm[1]), Number(rm[2])] : [8, 12];
+      const next = suggestNextLoad({ weight: entry.weight, reps: entry.reps, rpe: entry.rpe, repRange: rr });
+      if (next.delta !== 0) this.toast(`记下了：${entry.weight}kg × ${entry.reps} · 下次建议 ${next.nextWeight}kg（${next.reason}）`, this.coach.id);
+    }
   }
 
   /** 当前周期信息：第几周、本周处方、整条周期 */
@@ -3840,13 +4401,7 @@ class App {
   }
 }
 
-/* 工具：从 rest 字符串解析秒数（训练页里也有一个，保持一致） */
-function parseRestSec(rest) {
-  if (!rest) return 60;
-  if (/min/.test(rest)) return (parseInt(rest, 10) || 2) * 60;
-  const m = rest.match(/(\d+)/);
-  return m ? parseInt(m[1], 10) : 60;
-}
+/* 工具：从 rest 字符串解析秒数（统一在 training-log.js） */
 
 function commonMistake(ex) {
   const map = {
@@ -3867,6 +4422,46 @@ window.__app = app;
 app.boot();
 
 
+
+
+};
+
+__defs["js/autoreg.js"] = function (module, exports, __require) {
+/** RPE 自动调节（P7）：根据上一组 RPE 与完成次数，给下次重量建议 */
+const STEP = 2.5;
+
+function roundTo(w, step = STEP) {
+  return Math.max(0, Math.round(w / step) * step);
+}
+
+/**
+ * @param {{weight:number,reps:number,rpe:number,repRange?:number[]}} input
+ * @returns {{nextWeight:number, delta:number, reason:string}}
+ */
+function suggestNextLoad({ weight, reps, rpe, repRange = [8, 12] } = {}) {
+  const w = Number(weight) || 0;
+  const r = Number(reps) || 0;
+  const effort = Number(rpe) || 0;
+  if (w <= 0) return { nextWeight: 0, delta: 0, reason: '徒手动作，不加片' };
+
+  if (effort >= 9.5) {
+    const next = roundTo(w * 0.95);
+    return { nextWeight: next, delta: Math.round((next - w) * 100) / 100, reason: 'RPE 9.5+，降 5% 再练' };
+  }
+  if (effort >= 9) {
+    const next = roundTo(w - STEP);
+    return { nextWeight: next, delta: Math.round((next - w) * 100) / 100, reason: 'RPE 9，降一片' };
+  }
+  const upper = Array.isArray(repRange) && repRange.length >= 2 ? Number(repRange[1]) : 12;
+  if (effort > 0 && effort <= 7 && r >= upper) {
+    const next = roundTo(w + STEP);
+    return { nextWeight: next, delta: Math.round((next - w) * 100) / 100, reason: 'RPE 有余量且达到次数上限，加一片' };
+  }
+  return { nextWeight: roundTo(w), delta: Math.round((roundTo(w) - w) * 100) / 100, reason: '维持当前重量' };
+}
+
+
+Object.assign(module.exports, { suggestNextLoad });
 };
 
 __defs["js/backup.js"] = function (module, exports, __require) {
@@ -4980,6 +5575,83 @@ function composeFallback(text, ctx) {
 Object.assign(module.exports, { FINGERS, buildFingers, previewOthers, applyFingerAction, chatReply, FINGER_DEFS: FINGERS, moodOf, MOODS, stageOf });
 };
 
+__defs["js/habit.js"] = function (module, exports, __require) {
+/** 习惯闭环（P7）：提醒与断签补签，纯函数 */
+const { todayKey } = __require("js/store.js");
+
+const DAY = 86400000;
+const REPAIR_COOLDOWN = 7 * DAY;
+const MAX_REPAIR_DAYS = 3;
+
+function dayKeyOf(date) {
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+}
+
+function daysSince(dateKey, now = Date.now()) {
+  if (!dateKey) return null;
+  const [y, m, d] = String(dateKey).split('-').map(Number);
+  if (!y || !m || !d) return null;
+  const last = new Date(y, m - 1, d).getTime();
+  const today = new Date(now);
+  today.setHours(0, 0, 0, 0);
+  return Math.max(0, Math.round((today.getTime() - last) / DAY));
+}
+
+/** 超过 2 天没训练就提醒 */
+function reminderStatus(state = {}, now = Date.now()) {
+  const days = daysSince(state.lastTrainedDate, now);
+  if (days === null) return { due: false, days: null, reason: 'no-record' };
+  return { due: days >= 2, days, reason: days >= 2 ? 'inactive' : '' };
+}
+
+/** 断签 3 天内、且 7 天没补过，可以补一次 */
+function canRepairStreak(state = {}, now = Date.now()) {
+  if (!state.lastTrainedDate) return { ok: false, reason: '还没有训练记录' };
+  if ((state.streak || 0) > 0) return { ok: false, reason: '连续还没断' };
+  const sinceRepair = now - (Number(state.lastRepairAt) || 0);
+  if (state.lastRepairAt && sinceRepair < REPAIR_COOLDOWN) return { ok: false, reason: '本周已经补过了' };
+  const days = daysSince(state.lastTrainedDate, now);
+  if (days === null || days > MAX_REPAIR_DAYS) return { ok: false, reason: '断太久了，补不回来' };
+  return { ok: true, reason: '' };
+}
+
+/** 补签：把连续恢复到 1，并把上次训练记为昨天，下一次训练能接上 */
+function repairStreak(state = {}, now = Date.now()) {
+  const y = new Date(now);
+  y.setDate(y.getDate() - 1);
+  return {
+    ...state,
+    streak: Math.max(1, Number(state.streak) || 0),
+    lastRepairAt: now,
+    lastTrainedDate: dayKeyOf(y),
+  };
+}
+
+/**
+ * 是否该发系统通知：已到期 + 有权限 + 今天还没提醒过
+ * @param {{now?:number, lastNotified?:string, permission?:string}} ctx
+ */
+function shouldNotify(state = {}, ctx = {}) {
+  const now = Number(ctx.now) || Date.now();
+  const permission = ctx.permission || 'default';
+  const lastNotified = ctx.lastNotified || '';
+  const status = reminderStatus(state, now);
+  if (!status.due) return { notify: false, reason: 'not-due', title: '', body: '' };
+  if (permission !== 'granted') return { notify: false, reason: 'no-permission', title: '', body: '' };
+  const today = dayKeyOf(new Date(now));
+  if (lastNotified === today) return { notify: false, reason: 'already-notified', title: '', body: '' };
+  return {
+    notify: true,
+    reason: 'due',
+    title: '该练了',
+    body: `已经 ${status.days} 天没训练。今天练一次，连续天数就接回来了。`,
+  };
+}
+
+
+Object.assign(module.exports, { reminderStatus, canRepairStreak, repairStreak, shouldNotify });
+};
+
 __defs["js/periodization.js"] = function (module, exports, __require) {
 /**
  * 计划周期化（P1）
@@ -5154,6 +5826,7 @@ __defs["js/pet-art.js"] = function (module, exports, __require) {
  */
 
 const { moodOf, stageOf, PET_BY_ID } = __require("data/pets.js");
+const { outfitAccent } = __require("js/pet-outfit.js");
 
 let ART_UID = 0;
 const INK = '#151515';
@@ -5214,7 +5887,7 @@ function sneakers(pal) {
     <path d="M74 250 h40 M150 250 h40" stroke="${PAPER}" stroke-width="3.4" stroke-linecap="round"/>`;
 }
 
-function sceneLayer(uid, pal) {
+function sceneLayer(uid, pal, stage = 1) {
   return `<g class="pet-scene">
     <rect x="0" y="0" width="260" height="280" rx="30" fill="#FAF7F0"/>
     <rect x="0" y="214" width="260" height="66" fill="#EDE7DC"/>
@@ -5225,6 +5898,19 @@ function sceneLayer(uid, pal) {
     </g>
     <path d="M28 200 q0 -30 18 -38 q18 8 18 38 Z" fill="none" stroke="${INK}" stroke-width="4" opacity=".18"/>
     <ellipse cx="130" cy="260" rx="82" ry="11" fill="${pal.accent}" opacity=".2"/>
+    <g class="pet-prop-bowl" fill="none" stroke="${INK}" stroke-width="4" opacity=".75">
+      <path d="M66 246 h36 l-5 14 h-26 Z"/><ellipse cx="84" cy="246" rx="18" ry="5" fill="${pal.accent}" opacity=".5"/>
+    </g>
+    ${stage >= 3 ? `<g class="pet-prop-bed" fill="none" stroke="${INK}" stroke-width="4" opacity=".55">
+      <rect x="42" y="240" width="50" height="14" rx="7"/>
+    </g>` : ''}
+    ${stage >= 2 ? `<g class="pet-prop-lamp" fill="none" stroke="${INK}" stroke-width="4" opacity=".5">
+      <path d="M214 236 v-30"/><path d="M200 206 h28 l-6 -12 h-16 Z" fill="${pal.accent}" opacity=".35"/>
+    </g>` : ''}
+    ${stage >= 4 ? `<rect class="pet-prop-rug" x="76" y="236" width="108" height="18" rx="9" fill="${pal.accent}" opacity=".22"/>` : ''}
+    <g class="pet-prop-gear" fill="none" stroke="${INK}" stroke-width="4" opacity=".6">
+      <path d="M178 250 h34 M176 244 v12 M214 244 v12"/>
+    </g>
     <g fill="${pal.accent}" class="pet-dust">
       <circle cx="36" cy="76" r="4"/><circle cx="66" cy="52" r="3"/>
       <circle cx="224" cy="150" r="3.4"/><circle cx="198" cy="116" r="2.6"/>
@@ -5242,7 +5928,7 @@ function defs(uid, pal) {
 }
 
 /* ---------------- 狗：夹克 + 挥手 ---------------- */
-function dogArt(uid, pal, mood, meta = {}) {
+function dogArt(uid, pal, mood, meta = {}, stage = 1) {
   const tag = meta.streak ? String(Math.min(99, meta.streak)) : '';
   return `
   <ellipse class="pet-shadow" cx="130" cy="262" rx="80" ry="12" fill="${INK}" opacity=".12"/>
@@ -5267,12 +5953,15 @@ function dogArt(uid, pal, mood, meta = {}) {
     <ellipse cx="0" cy="22" rx="26" ry="17" fill="${SOFT}"/>
     <ellipse cx="0" cy="16" rx="7" ry="5" fill="${INK}"/>
     <g class="pet-face">${face(mood, pal.accent, { dx: 22, dy: -2, mouthY: 26 })}</g>
-    ${tag ? `<circle cx="-46" cy="58" r="12" fill="${pal.accent}" stroke="${INK}" stroke-width="4"/><text x="-46" y="63" text-anchor="middle" font-size="10" font-family="sans-serif" font-weight="800" fill="${INK}">${tag}</text>` : ''}
+    ${stage >= 3 ? `<g class="pet-accessory ${stage >= 4 ? 'pet-gold' : ''}">
+      <circle cx="-46" cy="58" r="13" fill="${pal.accent}" stroke="${INK}" stroke-width="4"/>
+      <text x="-46" y="63" text-anchor="middle" font-size="10" font-family="sans-serif" font-weight="800" fill="${INK}">${tag || '★'}</text>
+    </g>` : ''}
   </g>`;
 }
 
 /* ---------------- 猫：卫衣 + 毛线帽 ---------------- */
-function catArt(uid, pal, mood) {
+function catArt(uid, pal, mood, meta = {}, stage = 1) {
   return `
   <ellipse class="pet-shadow" cx="130" cy="262" rx="74" ry="11" fill="${INK}" opacity=".12"/>
   <g class="pet-tail"><path d="M182 212 q40 6 40 -26 q0 -20 -18 -24" fill="none" stroke="${INK}" stroke-width="16" stroke-linecap="round"/>
@@ -5301,12 +5990,15 @@ function catArt(uid, pal, mood) {
     <g class="pet-face">${face(mood, pal.accent, { dx: 22, dy: 2, mouthY: 28 })}</g>
     <path d="M-2 22 l5 -5 l5 5 l-5 4 Z" fill="${INK}"/>
     <path d="M-34 24 h-24 M-34 31 h-22 M34 24 h24 M34 31 h22" stroke="${INK}" stroke-width="3" opacity=".65" stroke-linecap="round"/>
-    <circle cx="0" cy="52" r="8" fill="${pal.accent}" stroke="${INK}" stroke-width="4"/>
+    ${stage >= 3 ? `<g class="pet-accessory ${stage >= 4 ? 'pet-gold' : ''}">
+      <circle cx="0" cy="52" r="10" fill="${pal.accent}" stroke="${INK}" stroke-width="4"/>
+      <text x="0" y="56" text-anchor="middle" font-size="9" font-family="sans-serif" font-weight="800" fill="${INK}">${meta.weekSessions || '♪'}</text>
+    </g>` : ''}
   </g>`;
 }
 
 /* ---------------- 兔：运动夹克 + 发带 ---------------- */
-function rabbitArt(uid, pal, mood) {
+function rabbitArt(uid, pal, mood, meta = {}, stage = 1) {
   return `
   <ellipse class="pet-shadow" cx="130" cy="262" rx="70" ry="11" fill="${INK}" opacity=".12"/>
   <g class="pet-tail"><circle cx="188" cy="220" r="17" fill="${PAPER}" stroke="${INK}" stroke-width="${LINE}"/></g>
@@ -5338,13 +6030,16 @@ function rabbitArt(uid, pal, mood) {
     <path d="M-2 20 l5 -5 l5 5 l-5 4 Z" fill="${INK}"/>
     <rect x="-7" y="30" width="7" height="11" rx="2.5" fill="${PAPER}" stroke="${INK}" stroke-width="3"/>
     <rect x="0" y="30" width="7" height="11" rx="2.5" fill="${PAPER}" stroke="${INK}" stroke-width="3"/>
-    <circle cx="42" cy="50" r="11" fill="${PAPER}" stroke="${INK}" stroke-width="4"/>
-    <path d="M42 50 v-6 M42 50 l4 3" stroke="${INK}" stroke-width="2.6" stroke-linecap="round"/>
+    ${stage >= 3 ? `<g class="pet-accessory ${stage >= 4 ? 'pet-gold' : ''}">
+      <circle cx="42" cy="50" r="13" fill="${PAPER}" stroke="${stage >= 4 ? '#e8b04b' : INK}" stroke-width="4"/>
+      <path d="M42 50 v-6 M42 50 l4 3" stroke="${INK}" stroke-width="2.6" stroke-linecap="round"/>
+      <text x="42" y="64" text-anchor="middle" font-size="8" font-family="sans-serif" font-weight="700" fill="${INK}">${meta.totalSessions || 0}</text>
+    </g>` : ''}
   </g>`;
 }
 
 /* ---------------- 树懒：背心 + 毛线帽 ---------------- */
-function slothArt(uid, pal, mood) {
+function slothArt(uid, pal, mood, meta = {}, stage = 1) {
   return `
   <ellipse class="pet-shadow" cx="130" cy="262" rx="76" ry="11" fill="${INK}" opacity=".12"/>
   <g class="pet-tail"><path d="M190 222 q22 12 8 28 q-10 10 -22 0" fill="none" stroke="${INK}" stroke-width="14" stroke-linecap="round"/>
@@ -5375,23 +6070,26 @@ function slothArt(uid, pal, mood) {
     <g class="pet-face">${face(mood, pal.accent, { dx: 24, dy: -2, mouthY: 26 })}</g>
     <ellipse cx="0" cy="22" rx="17" ry="10" fill="${SOFT}"/>
     <ellipse cx="0" cy="17" rx="6" ry="4" fill="${INK}"/>
-    <g class="pet-leaf" transform="translate(42 40) rotate(16)">
-      <path d="M0 0 q20 -12 32 3 q-15 17 -32 -3 Z" fill="${pal.accent}" stroke="${INK}" stroke-width="3"/>
+    ${stage >= 3 ? `<g class="pet-leaf pet-accessory ${stage >= 4 ? 'pet-gold' : ''}" transform="translate(42 40) rotate(16)">
+      <path d="M0 0 q20 -12 32 3 q-15 17 -32 -3 Z" fill="${pal.accent}" stroke="${stage >= 4 ? '#e8b04b' : INK}" stroke-width="3"/>
       <path d="M3 0 q13 2 24 2" stroke="${INK}" stroke-width="2" fill="none" opacity=".7"/>
-    </g>
+    </g>` : ''}
   </g>`;
 }
 
 /* ---------------- 熊：背心 + 举重腰带 ---------------- */
-function bearArt(uid, pal, mood) {
+function bearArt(uid, pal, mood, meta = {}, stage = 1) {
   return `
   <ellipse class="pet-shadow" cx="130" cy="262" rx="84" ry="12" fill="${INK}" opacity=".13"/>
   ${sneakers(pal)}
   <g class="pet-jacket">
     <path d="M92 166 q-4 -36 38 -36 q42 0 38 36 l-5 60 q-2 26 -33 26 q-31 0 -33 -26 Z" fill="${INK}"/>
     <path d="M104 152 q26 16 52 0" stroke="${pal.accent}" stroke-width="8" fill="none"/>
-    <rect x="104" y="196" width="52" height="18" rx="4" fill="${INK}" stroke="${pal.accent}" stroke-width="4"/>
-    <rect x="122" y="200" width="16" height="10" rx="2" fill="${pal.accent}"/>
+    ${stage >= 3 ? `<g class="pet-accessory ${stage >= 4 ? 'pet-gold' : ''}">
+      <rect x="104" y="196" width="52" height="18" rx="4" fill="${INK}" stroke="${pal.accent}" stroke-width="4"/>
+      <rect x="120" y="200" width="20" height="10" rx="2" fill="${pal.accent}"/>
+      <text x="130" y="209" text-anchor="middle" font-size="7" font-family="sans-serif" font-weight="700" fill="${INK}">${meta.bestWeight || '—'}</text>
+    </g>` : ''}
     <path d="M100 172 q-24 8 -22 34 q1 12 12 14" fill="${INK}"/>
     <circle cx="86" cy="220" r="12" fill="${PAPER}" stroke="${INK}" stroke-width="5"/>
     <path d="M160 172 q24 8 22 34 q-1 12 -12 14" fill="${INK}"/>
@@ -5441,17 +6139,21 @@ function petSVG(typeId, opts = {}) {
   const stage = pet ? stageOf(pet.bond).stage : 1;
   const uid = 'pet' + ++ART_UID;
   const scale = [0.8, 0.9, 0.97, 1][stage - 1] ?? 1;
-  const art = (ART[p.id] || ART.dog)(uid, p.palette, mood, meta);
+  const outfitKey = opts.outfit || pet?.outfit?.key || 'default';
+  const baseAccent = stage >= 4 ? '#e8b04b' : p.palette.accent;
+  const accent = outfitAccent(outfitKey, baseAccent);
+  const pal = { ...p.palette, accent };
+  const art = (ART[p.id] || ART.dog)(uid, pal, mood, meta, stage);
   const label = MOOD_LABEL[mood] || '平静';
 
-  return `<svg class="pet-svg ${animated ? 'is-animated' : ''} ${scene ? 'has-scene' : ''} mood-${mood} stage-${stage} species-${p.id}" viewBox="0 0 260 280" width="${size}" height="${Math.round(size * 1.077)}" role="img" aria-label="${p.name}，${p.species}，${label}">
+  return `<svg xmlns="http://www.w3.org/2000/svg" class="pet-svg ${animated ? 'is-animated' : ''} ${scene ? 'has-scene' : ''} mood-${mood} stage-${stage} species-${p.id}" viewBox="0 0 260 280" width="${size}" height="${Math.round(size * 1.077)}" role="img" aria-label="${p.name}，${p.species}，${label}">
   ${defs(uid, p.palette)}
-  ${scene ? sceneLayer(uid, p.palette) : ''}
-  ${stageFx(stage, p.palette, uid)}
+  ${scene ? sceneLayer(uid, pal, stage) : ''}
+  ${stageFx(stage, pal, uid)}
   <g class="pet-character" transform="translate(130 262) scale(${scale}) translate(-130 -262)">
     ${art}
   </g>
-  ${showExtras ? moodFx(mood, p.palette) : ''}
+  ${showExtras ? moodFx(mood, pal) : ''}
 </svg>`;
 }
 
@@ -5494,7 +6196,7 @@ function petMini(typeId, pet, size = 74) {
   const mood = pet ? moodOf(pet) : 'calm';
   if (size < 48) {
     const uid = 'mini' + ++ART_UID;
-    return `<svg class="pet-svg pet-mini-icon species-${p.id}" viewBox="0 0 120 120" width="${size}" height="${size}" role="img" aria-label="${p.name}">
+    return `<svg xmlns="http://www.w3.org/2000/svg" class="pet-svg pet-mini-icon species-${p.id}" viewBox="0 0 120 120" width="${size}" height="${size}" role="img" aria-label="${p.name}">
       ${defs(uid, p.palette)}
       <circle cx="60" cy="64" r="56" fill="${p.palette.accent}" opacity=".18"/>
       <g transform="translate(60 66)">${miniHead(p.id, p.palette, mood)}</g>
@@ -5506,7 +6208,99 @@ function petMini(typeId, pet, size = 74) {
 
 
 
+
+
 Object.assign(module.exports, { petSVG, petMini });
+};
+
+__defs["js/pet-behavior.js"] = function (module, exports, __require) {
+/**
+ * 宠物行为状态机（P6）
+ * 纯函数：根据宠物状态 + 今天是否训练 + 连续天数，决定它该待在哪、做什么。
+ */
+
+const BEHAVIOR_POINTS = {
+  center: 0,
+  bowl: -62,
+  bed: -50,
+  window: 64,
+  gear: 56,
+};
+
+const LINES = {
+  hungry: '它蹲在饭盆边，回头看了你一眼，又看了一眼盆。',
+  sleep: '它把身体摊平，呼吸慢下来，尾巴也不动了。',
+  sulk: '它背对着你，耳朵垂着。你没来，它记得。',
+  celebrate: '它记得你今天练过，原地蹦了两下，还拍了拍肚子。',
+  play: '它叼着玩具在器械边转圈，示意你陪它玩一会儿。',
+  idle: '',
+};
+
+/**
+ * @param {object} pet 宠物状态
+ * @param {{trainedToday?:boolean, streak?:number}} ctx
+ * @returns {{key:string, point:string, x:number, line:string}}
+ */
+function pickPetBehavior(pet = {}, ctx = {}) {
+  const satiety = Number(pet.satiety ?? 70);
+  const mood = Number(pet.mood ?? 70);
+  const energy = Number(pet.energy ?? 70);
+  const streak = Number(ctx.streak ?? 0);
+
+  let key = 'idle';
+  let point = 'center';
+  if (satiety < 30) {
+    key = 'hungry';
+    point = 'bowl';
+  } else if (energy < 25) {
+    key = 'sleep';
+    point = 'bed';
+  } else if (mood < 35) {
+    key = 'sulk';
+    point = 'window';
+  } else if (ctx.trainedToday) {
+    key = 'celebrate';
+    point = 'gear';
+  } else if (streak >= 3 && mood >= 55) {
+    key = 'play';
+    point = 'gear';
+  }
+  return { key, point, x: BEHAVIOR_POINTS[point] ?? 0, line: LINES[key] || '' };
+}
+
+
+Object.assign(module.exports, { BEHAVIOR_POINTS, pickPetBehavior });
+};
+
+__defs["js/pet-outfit.js"] = function (module, exports, __require) {
+/** 宠物衣橱（P11）：配饰解锁与强调色 */
+const OUTFITS = [
+  { key: 'default', label: '原色', threshold: 0, color: null },
+  { key: 'mono', label: '纯白', threshold: 10, color: '#FFFDF8' },
+  { key: 'gold', label: '金边', threshold: 30, color: '#E8B04B' },
+];
+
+function outfitOptions(state = {}) {
+  const n = Number(state.totalSessions) || 0;
+  return OUTFITS.map((o) => ({ ...o, unlocked: n >= o.threshold }));
+}
+
+function canUseOutfit(key, state = {}) {
+  const opt = outfitOptions(state).find((o) => o.key === key);
+  return Boolean(opt && opt.unlocked);
+}
+
+function activeOutfit(pet) {
+  return pet?.outfit?.key || 'default';
+}
+
+function outfitAccent(key, baseAccent) {
+  const opt = OUTFITS.find((o) => o.key === key);
+  return opt?.color || baseAccent;
+}
+
+
+Object.assign(module.exports, { OUTFITS, outfitOptions, canUseOutfit, activeOutfit, outfitAccent });
 };
 
 __defs["js/pet.js"] = function (module, exports, __require) {
@@ -6276,6 +7070,109 @@ function replaceItem(plan, sessionIndex, itemId, newExerciseId) {
 Object.assign(module.exports, { GOALS, LEVELS, INJURIES, EQUIPMENT_OPTIONS, estimateMinutes, generatePlan, planStats, analyzePlan, suggestSwap, replaceItem });
 };
 
+__defs["js/plate-calc.js"] = function (module, exports, __require) {
+/** 杠铃片计算（P7）：给定总重量，算每边要加哪些片 */
+const DEFAULT_PLATES = [25, 20, 15, 10, 5, 2.5, 1.25];
+
+/**
+ * @param {number} target 总重量（含杠铃杆）
+ * @param {{bar?:number, plates?:number[]}} opts
+ * @returns {{ok:boolean, plates:number[], remainder:number, text:string, bar:number}}
+ */
+function plateBreakdown(target, opts = {}) {
+  const bar = Number.isFinite(Number(opts.bar)) ? Number(opts.bar) : 20;
+  const plates = Array.isArray(opts.plates) && opts.plates.length ? opts.plates : DEFAULT_PLATES;
+  const t = Number(target);
+  if (!Number.isFinite(t) || t < 0) return { ok: false, plates: [], remainder: 0, text: '重量不正确', bar };
+  if (t === 0) return { ok: true, plates: [], remainder: 0, text: '徒手 / 空手', bar: 0 };
+  if (t < bar) return { ok: false, plates: [], remainder: t, text: `低于空杆 ${bar}kg`, bar };
+
+  let side = (t - bar) / 2;
+  const out = [];
+  for (const p of plates) {
+    while (side >= p - 1e-9) {
+      out.push(p);
+      side -= p;
+    }
+  }
+  side = Math.round(side * 100) / 100;
+  const ok = side <= 0.01;
+  const text = out.length ? out.map((n) => (Number.isInteger(n) ? n : n.toFixed(2).replace(/0$/, ''))).join(' + ') : '空杆';
+  return { ok, plates: out, remainder: ok ? 0 : side, text, bar };
+}
+
+
+Object.assign(module.exports, { DEFAULT_PLATES, plateBreakdown });
+};
+
+__defs["js/pwa.js"] = function (module, exports, __require) {
+/** PWA：公网域名启用安装/离线缓存；通知在权限允许时可用 */
+let deferredPrompt = null;
+
+function initPwa() {
+  try {
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      window.dispatchEvent(new CustomEvent('wuzhishan-installable'));
+    });
+    if (location.protocol !== 'https:' || !location.hostname.endsWith('github.io')) return;
+    if (!document.querySelector('link[rel="manifest"]')) {
+      const link = document.createElement('link');
+      link.rel = 'manifest';
+      link.href = 'manifest.webmanifest';
+      document.head.appendChild(link);
+    }
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+      let refreshing = false;
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (refreshing) return;
+        refreshing = true;
+        location.reload();
+      });
+    }
+  } catch (e) {
+    /* 增强项，失败不影响主流程 */
+  }
+}
+
+function canInstall() {
+  return Boolean(deferredPrompt);
+}
+
+async function promptInstall() {
+  if (!deferredPrompt) return false;
+  try {
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+  } catch (e) {
+    /* 忽略 */
+  }
+  deferredPrompt = null;
+  return true;
+}
+
+async function notifyDue(title, body) {
+  try {
+    if (typeof Notification === 'undefined' || Notification.permission !== 'granted') return false;
+    const opts = { body, icon: 'icon-192.png', badge: 'icon-192.png', tag: 'wuzhishan-remind' };
+    const reg = 'serviceWorker' in navigator ? await navigator.serviceWorker.getRegistration() : null;
+    if (reg && reg.showNotification) {
+      await reg.showNotification(title, opts);
+      return true;
+    }
+    new Notification(title, opts);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+
+Object.assign(module.exports, { initPwa, canInstall, promptInstall, notifyDue });
+};
+
 __defs["js/report.js"] = function (module, exports, __require) {
 /**
  * 训练报告（P2）
@@ -6527,6 +7424,184 @@ function renderReportHTML(report, opts = {}) {
 Object.assign(module.exports, { buildReport, renderReportHTML });
 };
 
+__defs["js/share-card.js"] = function (module, exports, __require) {
+/**
+ * 分享卡片（P6）
+ * buildShareData 是纯函数，可测；drawShareCard 负责 Canvas 绘制。
+ */
+const { todayKey, startOfWeek } = __require("js/store.js");
+const { SHARE_QR } = __require("js/share-qr.js");
+
+const SHARE_URL = 'https://caohanrui09-arch.github.io/wuzhishan/';
+
+const COACH_LINES = {
+  roast: (d) => `${d.petName} 看着呢。本周 ${d.weekSessions} 次，容量 ${d.volume}kg，连续 ${d.streak} 天。别装死。`,
+  science: (d) => `本周 ${d.weekSessions} 次训练，总容量 ${d.volume}kg，连续 ${d.streak} 天。数据不会撒谎。`,
+  warm: (d) => `${d.petName} 陪你练了 ${d.weekSessions} 次，累计 ${d.volume}kg。慢一点也算在走。`,
+  drill: (d) => `记录：本周 ${d.weekSessions} 次 / ${d.volume}kg / 连续 ${d.streak} 天。执行完毕。`,
+};
+
+function buildShareData(state = {}, coach = null, now = Date.now()) {
+  const pet = state.pet || {};
+  const logs = Array.isArray(state.setLogs) ? state.setLogs : [];
+  const weekStart = todayKey(new Date(startOfWeek(new Date(now))));
+  const sessions = state.sessions && typeof state.sessions === 'object' ? state.sessions : {};
+  const weekSessionCount = Object.keys(sessions).filter((k) => String(k) >= weekStart).length;
+  const weekLogs = logs.filter((l) => String(l.date || '') >= weekStart);
+  const volume = weekLogs.reduce((sum, l) => sum + (Number(l.weight) || 0) * (Number(l.reps) || 0), 0);
+  const bestWeight = weekLogs.reduce((m, l) => Math.max(m, Number(l.weight) || 0), 0);
+  const data = {
+    petName: pet.name || '它',
+    species: pet.typeId || 'dog',
+    streak: Number(state.streak) || 0,
+    weekSessions: weekSessionCount,
+    totalSessions: Number(state.totalSessions) || 0,
+    volume: Math.round(volume),
+    bestWeight: Math.round(bestWeight),
+    date: todayKey(new Date(now)),
+    url: SHARE_URL,
+    coachName: coach?.name || '谭师',
+    line: '',
+  };
+  const style = coach?.style || 'roast';
+  data.line = (COACH_LINES[style] || COACH_LINES.roast)(data);
+  return data;
+}
+
+function loadImage(src) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = () => reject(new Error('图片加载失败'));
+    img.src = src;
+  });
+}
+
+function loadSvg(svg) {
+  return new Promise((resolve, reject) => {
+    const url = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = () => reject(new Error('宠物图加载失败'));
+    img.src = url;
+  });
+}
+
+async function drawShareCard(canvas, data, petSvg) {
+  const W = 1080;
+  const H = 1440;
+  canvas.width = W;
+  canvas.height = H;
+  const ctx = canvas.getContext('2d');
+  const ink = '#151515';
+  const paper = '#F6F1E7';
+
+  ctx.fillStyle = paper;
+  ctx.fillRect(0, 0, W, H);
+  ctx.strokeStyle = ink;
+  ctx.lineWidth = 6;
+  ctx.strokeRect(24, 24, W - 48, H - 48);
+
+  ctx.fillStyle = ink;
+  ctx.textAlign = 'left';
+  ctx.font = '700 34px "Songti SC", serif';
+  ctx.fillText('五指山 · 谭师道场', 64, 100);
+  ctx.font = '400 22px "Songti SC", serif';
+  ctx.fillStyle = '#6b6157';
+  ctx.fillText(`${data.date} · 本周训练卡`, 64, 138);
+
+  const petImg = await loadSvg(petSvg);
+  ctx.drawImage(petImg, (W - 560) / 2, 170, 560, 600);
+
+  ctx.fillStyle = ink;
+  ctx.textAlign = 'center';
+  ctx.font = '800 58px "Songti SC", serif';
+  ctx.fillText(data.petName, W / 2, 830);
+
+  const stats = [
+    { label: '本周训练', value: `${data.weekSessions}`, unit: '次' },
+    { label: '总容量', value: `${data.volume}`, unit: 'kg' },
+    { label: '连续', value: `${data.streak}`, unit: '天' },
+  ];
+  const boxW = 280;
+  const gap = 24;
+  const startX = (W - boxW * 3 - gap * 2) / 2;
+  stats.forEach((s, i) => {
+    const x = startX + i * (boxW + gap);
+    ctx.strokeStyle = ink;
+    ctx.lineWidth = 4;
+    ctx.strokeRect(x, 880, boxW, 160);
+    ctx.fillStyle = '#6b6157';
+    ctx.font = '400 22px "Songti SC", serif';
+    ctx.fillText(s.label, x + boxW / 2, 922);
+    ctx.fillStyle = ink;
+    ctx.font = '800 54px "Songti SC", serif';
+    ctx.fillText(`${s.value}${s.unit}`, x + boxW / 2, 996);
+  });
+
+  ctx.fillStyle = '#FFFDF8';
+  ctx.strokeStyle = ink;
+  ctx.lineWidth = 4;
+  ctx.beginPath();
+  ctx.roundRect(80, 1060, W - 160, 180, 18);
+  ctx.fill();
+  ctx.stroke();
+  ctx.fillStyle = ink;
+  ctx.textAlign = 'left';
+  ctx.font = '700 26px "Songti SC", serif';
+  ctx.fillText(`${data.coachName}：`, 110, 1116);
+  ctx.font = '400 28px "Songti SC", serif';
+  const line = data.line;
+  const maxWidth = W - 260;
+  let text = '';
+  let y = 1160;
+  for (const ch of line) {
+    if (ctx.measureText(text + ch).width > maxWidth) {
+      ctx.fillText(text, 110, y);
+      text = '';
+      y += 40;
+    }
+    text += ch;
+  }
+  if (text) ctx.fillText(text, 110, y);
+
+  const qrImg = await loadImage(SHARE_QR);
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(848, 1250, 150, 150);
+  ctx.drawImage(qrImg, 856, 1258, 134, 134);
+  ctx.strokeStyle = ink;
+  ctx.lineWidth = 3;
+  ctx.strokeRect(848, 1250, 150, 150);
+
+  ctx.textAlign = 'left';
+  ctx.fillStyle = '#6b6157';
+  ctx.font = '400 21px "Songti SC", serif';
+  ctx.fillText('练不练，数据都会留下。', 90, 1310);
+  ctx.fillStyle = ink;
+  ctx.font = '700 22px "Songti SC", serif';
+  ctx.fillText(data.url, 90, 1352);
+  ctx.font = '400 18px "Songti SC", serif';
+  ctx.fillStyle = '#6b6157';
+  ctx.fillText('扫码打开 · 数据只存本地', 90, 1390);
+
+  return canvas;
+}
+
+
+
+
+
+Object.assign(module.exports, { SHARE_URL, buildShareData, drawShareCard });
+};
+
+__defs["js/share-qr.js"] = function (module, exports, __require) {
+/** 公网地址二维码（构建期用 Python qrcode 生成，MIT） */
+const SHARE_QR = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASgAAAEoCAIAAABkZftOAAAFQ0lEQVR42u3dS4pbSxBF0SNTYzDueP4Dc8d4BOqI8giKQpBxI0Jaq+2nV/psbkKQmbfPxz3AtX74CEB4IDxAeCA8QHggPEB4IDxAeCA8EB4gPBAeIDzY5uPZ/+Dnr98r3ti/v3+OvK/q16n+96e+x2mf5/bfmyceWGqC8ADhgfAA4YHwgBye4+XQHOOUU3OeU3//s6/TNa979v9bPa97t9+bJx5YaoLwAOGB8ADhgfCAXDTHy5I5W/XcqXpuNm2uuOXznzYn9MQDS00QHiA8EB4gPBAekOY53hZd5zdWz4uq52Zd++I88QDhgfAA4YHwQHiA8CDmeGTv/jH32nniAcID4YHwAOGB8ADhQczx8j77tabtc+s6T3L7OaKeeGCpCQgPhAcID4QHCA/y4nO87fuvnp07nfr3Xffvdf39fm+eeCA8EB4gPBAeIDwQHpCSOZ770F7j83l2DtY1D3zV35snHggPhAcID4QHCA+EB3zj9vm4Z/M5ihl2f92pz6HrfMtp53lu//144oGlJggPEB4IDxAeCA9I83686nlX9Xzpq9evni9Vv6/qfXfT5mPV39epz8cTDyw1QXiA8EB4gPBAeEAuuh8vTfOQaffRTdvvt2V/3anzNk/tS6z+3j3xwFIThAcID4QHCA+EB+SiOV7XvrLq/YHT5lH21+WSeaknHlhqAsID4QHCA+EBwoMsux8vw/bvZdjcacv7mjbX6jons2v/pyceWGqC8ADhgfAA4YHwgBzej7f9nMlTr3/q8+k6J7P6dbb8/Wmac3rigaUmCA8QHggPEB4ID8hF52p2nd+4Za44bf9e9fe4fc5W/f164oGlJggPEB4IDxAeCA9I87maXXOw7edwVs8nu/6eafO3rs/ZEw8sNUF4gPBAeIDwQHhALprjTZvXVc+Xps0bp+0PPHWvXfXrdP3ePPHAUhOEBwgPhAcID4QH5KL78bJkfpKmfWtp2j/WNTebNl+ddj6qJx5YaoLwAOGB8ADhgfCAHN6P1zWnyrBzF7N8/rZl3jXt9+Z+PLDUBIQHwgOEB8ID4QF58Tlehs2jpp1jueV+vFf9fqvv0/PEA0tNEB4gPBAeIDwQHpCL7sfLknvhpt1HVz2v27Kvr/rznLZPzxMPLDVBeIDwQHiA8EB4QC7aj1e9f2nLuZRZsv9t+3y1a15qPx5YagLCA+EBwgPhgfCAi3xkyTmTWT7f67qHbdr+tGnnhXbtk/TEA0tNEB4gPBAeIDwQHpDmOV6K5yTV/z7D9qFNO4eza//h9vfriQfCA+EBwgPhAcID4QEZeq5mhp3HuGV/3bvdN5gl81XnaoKlJiA8EB4IDxAeCA9I8xxvu677/abNRbPkHNRp36/78cBSExAeCA8QHggPhAdk6LmaW/ZffTVXebd53fZ9gNPu03M/HlhqAsID4QHCA+GB8IAsux+va65y6n656vnSqXv8pt2nt2UO2fW9e+KBpSYIDxAeCA8QHggPSPMcL8Xzk645Ydecp+v+va77DLv2eZ6ar3rigaUmIDwQHggPEB4ID8iyOd67qT6389T+t1P7BjNsflu9X9F+PLDUBIQHwgOEB8ID4QExx8vk+VuWnAvatQ/w1Bzs1N9TPUf1xANLTUB4IDwQHiA8EB5w2O3zcc+k+9bSdI7ltNdP8Vxuyzmfr3qOqyceWGqC8ADhgfAA4YHwgFy0H6/rfrMt99eleB9g9fvq+ny6zjWtnt964oGlJggPEB4IDxAeCA/I4f14gCceCA8QHggPEB4ID4QHCA+EBwgPhAcID4QHCA+EB2/oP1h7BV6zB7TSAAAAAElFTkSuQmCC";
+
+
+Object.assign(module.exports, { SHARE_QR });
+};
+
 __defs["js/shortcuts.js"] = function (module, exports, __require) {
 /**
  * 键盘快捷键（P1）
@@ -6594,6 +7669,7 @@ Object.assign(module.exports, { FINGER_KEYS, SHORTCUT_LIST, resolveShortcut });
 __defs["js/store.js"] = function (module, exports, __require) {
 /* 存储与状态 */
 const KEY = 'wuzhishan_tanshi_v1';
+const SCHEMA_VERSION = 3;
 
 const DEFAULT_PROFILE = {
   goal: 'muscle',
@@ -6621,6 +7697,7 @@ function loadState() {
 function freshState() {
   return {
     version: 1,
+    schemaVersion: SCHEMA_VERSION,
     profile: { ...DEFAULT_PROFILE },
     plan: null,
     pet: null,
@@ -6636,7 +7713,7 @@ function freshState() {
     bookmarks: [],
     chat: [],            // {role, coachId, text, at}
     backup: { lastExportAt: 0, sessionsAtExport: 0 },
-    settings: { anno: false, sound: false },
+    settings: { anno: false, sound: false, remind: false },
     activeSession: null, // {index, date, doneSets:{itemId:count}}
     seenTips: [],
     createdAt: Date.now(),
@@ -6644,17 +7721,36 @@ function freshState() {
 }
 
 function migrate(s) {
+  return migrateState(s);
+}
+
+/**
+ * 存档迁移：旧字段补默认值、结构归位，并写入 schemaVersion。
+ * 纯函数，不改传入对象。
+ */
+function migrateState(s) {
+  const source = s && typeof s === 'object' ? s : {};
   const base = freshState();
   const merged = {
     ...base,
-    ...s,
-    profile: { ...base.profile, ...(s.profile || {}) },
-    settings: { ...base.settings, ...(s.settings || {}) },
-    bookmarks: Array.isArray(s.bookmarks) ? s.bookmarks : [],
-    chat: Array.isArray(s.chat) ? s.chat : [],
-    setLogs: Array.isArray(s.setLogs) ? s.setLogs : [],
-    backup: { ...base.backup, ...(s.backup || {}) },
+    ...source,
+    profile: { ...base.profile, ...(source.profile || {}) },
+    settings: { ...base.settings, ...(source.settings || {}) },
+    bookmarks: Array.isArray(source.bookmarks) ? source.bookmarks : [],
+    chat: Array.isArray(source.chat) ? source.chat : [],
+    setLogs: Array.isArray(source.setLogs) ? source.setLogs : [],
+    backup: { ...base.backup, ...(source.backup || {}) },
   };
+  const from = Number(source.schemaVersion) || 1;
+  if (from < 2) {
+    merged.settings = { ...merged.settings, remind: Boolean(merged.settings.remind) };
+    merged.lastRemindedDate = source.lastRemindedDate || '';
+  }
+  if (from < 3) {
+    merged.pet = merged.pet ? { ...merged.pet, outfit: merged.pet.outfit || { key: 'default' } } : merged.pet;
+    merged.schemaVersion = SCHEMA_VERSION;
+  }
+  merged.schemaVersion = SCHEMA_VERSION;
   return merged;
 }
 
@@ -6729,7 +7825,8 @@ function uid(prefix = 'id') {
 }
 
 
-Object.assign(module.exports, { DEFAULT_PROFILE, loadState, freshState, validateBackup, saveState, resetState, startOfWeek, todayKey, daysBetween, uid });
+
+Object.assign(module.exports, { SCHEMA_VERSION, DEFAULT_PROFILE, loadState, freshState, migrateState, validateBackup, saveState, resetState, startOfWeek, todayKey, daysBetween, uid });
 };
 
 __defs["js/substitutes.js"] = function (module, exports, __require) {
@@ -7070,6 +8167,14 @@ function addSetLog(state, entry = {}) {
   return row;
 }
 
+/** 从 rest 字符串解析秒数（如 "2–4min" → 120，"90s" → 90） */
+function parseRest(rest) {
+  if (!rest) return 60;
+  if (/min/.test(rest)) return (parseInt(rest, 10) || 2) * 60;
+  const m = String(rest).match(/(\d+)/);
+  return m ? parseInt(m[1], 10) : 60;
+}
+
 function removeSetLog(state, id) {
   ensureLogs(state);
   const before = state.setLogs.length;
@@ -7145,7 +8250,7 @@ function topExercises(setLogs = [], limit = 5) {
 }
 
 
-Object.assign(module.exports, { WEIGHT_MIN, WEIGHT_MAX, REPS_MIN, REPS_MAX, LOG_LIMIT, validateSet, e1rm, volumeOf, ensureLogs, pruneLogs, addSetLog, removeSetLog, historyFor, bestSetFor, personalRecord, lastSetFor, trendFor, volumeFor, sessionSummary, topExercises });
+Object.assign(module.exports, { WEIGHT_MIN, WEIGHT_MAX, REPS_MIN, REPS_MAX, LOG_LIMIT, validateSet, e1rm, volumeOf, ensureLogs, pruneLogs, addSetLog, parseRest, removeSetLog, historyFor, bestSetFor, personalRecord, lastSetFor, trendFor, volumeFor, sessionSummary, topExercises });
 };
 
 __defs["js/ui.js"] = function (module, exports, __require) {
@@ -7387,6 +8492,7 @@ const { PET_BY_ID, moodOf, MOODS, stageOf } = __require("data/pets.js");
 const { petSummary, petLine } = __require("js/pet.js");
 const { petMini, coachSVG } = __require("js/svg.js");
 const { buildFingers } = __require("js/five-finger.js");
+const { reminderStatus, canRepairStreak } = __require("js/habit.js");
 
 function coachLine(app) {
   const s = app.state;
@@ -7441,6 +8547,8 @@ function renderHome(app) {
   const doneToday = s.sessions?.[app.todayKey] ? s.sessions[app.todayKey].ratio > 0 : false;
   const weekSessions = s.weekSessions || 0;
   const target = plan?.days || 3;
+  const remind = reminderStatus(s);
+  const repair = canRepairStreak(s);
 
   // 手指预览（前三条）
   const data = buildFingers('home', app.fingerCtx());
@@ -7448,6 +8556,15 @@ function renderHome(app) {
 
   return `
   <div class="page home-page">
+    ${remind.due ? `<div class="habit-remind">
+      <span class="habit-remind-ico" aria-hidden="true">🕒</span>
+      <span class="habit-remind-text">已经 <b>${remind.days}</b> 天没练了。${repair.ok ? '可以补签一次，把连续接回来。' : '别让它变成「下周再说」。'}</span>
+      <div class="habit-remind-actions">
+        <button class="btn btn-primary btn-sm" data-act="start-today">今天练</button>
+        ${typeof Notification !== 'undefined' && !s.settings?.remind ? '<button class="btn btn-ghost btn-sm" data-act="enable-remind">开启提醒</button>' : ''}
+        ${repair.ok ? '<button class="btn btn-ghost btn-sm" data-act="repair-streak">补签</button>' : ''}
+      </div>
+    </div>` : ''}
     <section class="hero">
       <div class="hero-copy">
         <span class="eyebrow">${esc(weekdayCN(today.getDay()))} · ${today.getMonth() + 1}月${today.getDate()}日</span>
@@ -7456,6 +8573,8 @@ function renderHome(app) {
         <div class="row wrap mt">
           ${plan ? `<button class="btn btn-primary btn-lg" data-act="start-today">今天开练 <span class="kbd">→</span></button>` : `<button class="btn btn-primary btn-lg" data-nav="plan">先做一份计划 <span class="kbd">→</span></button>`}
           <button class="btn btn-ghost" data-act="open-finger" data-zone="home">🖐️ 伸个五指山</button>
+          ${typeof Notification !== 'undefined' && !s.settings?.remind ? '<button class="btn btn-ghost" data-act="enable-remind">开启训练提醒</button>' : ''}
+          ${app.installAvailable ? '<button class="btn btn-ghost" data-act="install-app">安装到桌面</button>' : ''}
         </div>
         ${plan ? `<div class="hero-meta">
           <span>📋 ${esc(plan.splitName)}</span><span>·</span>
@@ -7617,6 +8736,7 @@ const { PETS, PET_BY_ID, MOODS, DIRECTION_LABEL, stageOf, PET_STAGES } = __requi
 const { petSummary, petLine, CARE_ACTIONS } = __require("js/pet.js");
 const { petSVG, petMini, coachSVG } = __require("js/svg.js");
 const { phrase } = __require("data/coaches.js");
+const { outfitOptions, activeOutfit } = __require("js/pet-outfit.js");
 
 function renderPet(app) {
   const s = app.state;
@@ -7634,6 +8754,10 @@ function renderSanctuary(app) {
   const next = ps.nextStage;
   const bondPct = Math.round(ps.stageProgress * 100);
   const plan = s.plan;
+  const setLogs = s.setLogs || [];
+  const bestWeight = setLogs.reduce((m, l) => Math.max(m, Number(l.weight) || 0), 0);
+  const outfits = outfitOptions(s);
+  const outfitKey = activeOutfit(pet);
   const canTrain = (pet.carePoints || 0) > 0;
 
   return `
@@ -7645,6 +8769,7 @@ function renderSanctuary(app) {
         <div class="sub">它认的是「${esc(p.directionName)}」，你的训练会直接长在它身上。</div>
       </div>
       <div class="row">
+        <button class="btn btn-ghost btn-sm" data-act="share-card">分享卡片</button>
         <button class="btn btn-ghost btn-sm" data-nav="adopt">换一只养</button>
         <button class="btn btn-primary btn-sm" data-act="goto-train">带它去训练</button>
       </div>
@@ -7663,10 +8788,10 @@ function renderSanctuary(app) {
           <div class="pet-hero-top">
             <div>
               <div class="pet-hero-name">${esc(pet.name)}</div>
-              <div class="pet-hero-sub">${esc(p.species)} · ${ps.stage.name} · 羁绊 ${Math.round(pet.bond)}</div>
+              <div class="pet-hero-sub" data-role="pet-sub">${esc(p.species)} · ${ps.stage.name} · 羁绊 ${Math.round(pet.bond)}</div>
             </div>
             <div style="text-align:right">
-              <span class="pill ${ps.mood === 'hungry' ? 'red' : ps.mood === 'ecstatic' ? 'gold' : 'jade'}">${mood.emoji} ${mood.label}</span>
+              <span class="pill pet-mood-pill ${ps.mood === 'hungry' ? 'red' : ps.mood === 'ecstatic' ? 'gold' : 'jade'}">${mood.emoji} ${mood.label}</span>
               <div class="action-points mt-s" title="行动点，每 4 小时恢复 1 点">
                 ${Array.from({ length: 5 }, (_, i) => `<span class="ap-dot ${i < (pet.carePoints || 0) ? 'is-on' : ''}"></span>`).join('')}
               </div>
@@ -7675,17 +8800,17 @@ function renderSanctuary(app) {
 
           <div class="pet-stage" id="pet-stage">
             <button class="pet-figure-btn" data-act="pet-tap" aria-label="摸摸${esc(pet.name)}">
-              <div class="pet-stage-inner" id="pet-stage-inner">${petSVG(pet.typeId, { pet, size: 268, scene: true, meta: { streak: s.streak || 0 } })}</div>
+              <div class="pet-stage-inner" id="pet-stage-inner">${petSVG(pet.typeId, { pet, size: 268, scene: true, outfit: outfitKey, meta: { streak: s.streak || 0, weekSessions: s.weekSessions || 0, totalSessions: s.totalSessions || 0, bestWeight } })}</div>
             </button>
             <div class="pet-line">“${esc(petLine(pet))}”</div>
-            <div class="pet-stage-tags">
+            <div class="pet-stage-tags" data-role="pet-stage-tags">
               <span class="pill ghost">${esc(ps.stage.name)}</span>
               <span class="pill ghost">羁绊 ${Math.round(pet.bond)}</span>
               <span class="pill ghost">点它一下</span>
             </div>
           </div>
 
-          <div class="bond-track">
+          <div class="bond-track" data-role="bond-track">
             <div class="bt-row"><span>${ps.stage.name}</span><span>${next ? `下一阶段「${next.name}」还差 ${next.min - Math.round(pet.bond)}` : '已满级'}</span></div>
             <div class="bt-bar"><i style="width:${bondPct}%"></i></div>
           </div>
@@ -7695,15 +8820,24 @@ function renderSanctuary(app) {
             ${statCard('😊', '心情', pet.mood, 'mood')}
             ${statCard('⚡', '精力', pet.energy, 'energy')}
           </div>
+
+          <div class="wardrobe">
+            <span class="wardrobe-label">衣橱</span>
+            ${outfits.map((o) => `<button class="outfit-chip ${o.key === outfitKey ? 'is-on' : ''} ${o.unlocked ? '' : 'is-locked'}"
+              data-act="set-outfit" data-outfit="${o.key}" ${o.unlocked ? '' : 'disabled'}
+              title="${o.unlocked ? `换上${o.label}` : `再练 ${o.threshold - (s.totalSessions || 0)} 次解锁`}">
+              <i style="background:${o.color || 'var(--ochre)'}"></i>${o.label}${o.unlocked ? '' : ` · ${o.threshold}次`}
+            </button>`).join('')}
+          </div>
         </div>
 
         <div class="card anno-target" data-anno="pet-care">
           <div class="card-head">
             <span class="card-title">🤲 照顾它</span>
-            <span class="pill ghost">行动点 ${pet.carePoints || 0}/5</span>
+            <span class="pill ghost" data-role="care-points">行动点 ${pet.carePoints || 0}/5</span>
           </div>
           <div class="care-grid">
-            ${Object.entries(CARE_ACTIONS).map(([k, a]) => `<button class="care-btn ${((pet.carePoints || 0) < a.cost) ? 'is-dim' : ''}" data-act="care" data-care="${k}">
+            ${Object.entries(CARE_ACTIONS).map(([k, a]) => `<button class="care-btn ${((pet.carePoints || 0) < a.cost) ? 'is-dim' : ''}" data-act="care" data-care="${k}" data-cost="${a.cost}">
               <span class="cb-icon">${a.icon}</span>
               <span class="cb-name">${a.label}</span>
               <span class="cb-cost">${a.cost > 0 ? `消耗 ${a.cost}` : '免费'}</span>
@@ -7779,7 +8913,7 @@ function renderSanctuary(app) {
 
 function statCard(icon, label, value, cls) {
   const v = Math.max(0, Math.min(100, Math.round(Number(value) || 0)));
-  return `<div class="pet-stat">
+  return `<div class="pet-stat" data-stat="${cls}">
     <div class="ps-top"><span class="ps-ico">${icon}</span><span class="ps-label">${label}</span><b class="ps-val">${v}</b></div>
     <div class="ps-bar"><i class="${cls}" style="width:${v}%"></i></div>
   </div>`;
@@ -7868,6 +9002,9 @@ function adoptAdvice(coach, petId) {
   }[coach.style];
   return p.advice + ' ' + base;
 }
+
+
+
 
 
 
@@ -8176,6 +9313,7 @@ const { bestSetFor, trendFor, topExercises, e1rm, volumeFor } = __require("js/tr
 const { coachSVG } = __require("js/svg.js");
 const { petSummary, petLine } = __require("js/pet.js");
 const { backupStatus } = __require("js/backup.js");
+const { weeklyMuscleVolume, prTimeline, adherenceTrend } = __require("js/analytics.js");
 
 function renderProgress(app) {
   const s = app.state;
@@ -8191,6 +9329,9 @@ function renderProgress(app) {
   const weekVolume = volumeFor(setLogs, { from: weekStart });
   const totalVolume = volumeFor(setLogs, {});
   const backup = backupStatus(s);
+  const volume = weeklyMuscleVolume(setLogs, { weeks: 8 });
+  const prs = prTimeline(setLogs, { limit: 4 });
+  const adh = adherenceTrend(s, { weeks: 8 });
   const backupText = !s.backup?.lastExportAt
     ? `已经攒了 ${backup.sessionsSince} 次训练，还没导出过备份。浏览器数据说没就没，导一份。`
     : backup.reason === 'sessions'
@@ -8206,9 +9347,11 @@ function renderProgress(app) {
         <div class="sub">感觉会骗人，秤会骗人，日志不会。</div>
       </div>
       <div class="row">
+        <button class="btn btn-ghost btn-sm" data-act="share-week">分享本周</button>
         <button class="btn btn-ghost btn-sm" data-act="report-week">导出周报</button>
         <button class="btn btn-ghost btn-sm" data-act="report-month">月报</button>
         <button class="btn btn-ghost btn-sm" data-act="import-data">导入备份</button>
+        <button class="btn btn-ghost btn-sm" data-act="export-csv">导出 CSV</button>
         <button class="btn btn-ghost btn-sm" data-act="export-data">导出数据</button>
         <button class="btn btn-primary btn-sm" data-act="goto-train">去训练</button>
       </div>
@@ -8280,6 +9423,38 @@ function renderProgress(app) {
           <span class="tiny muted">第 ${e.setIndex} 组</span>
           <span class="log-ratio" style="color:var(--ink)">${e.weight}kg × ${e.reps}</span>
         </div>`).join('')}</div>` : '<div class="small muted">记一组重量，这里就会有明细。</div>'}
+      </div>
+    </div>
+
+    <div class="card section">
+      <div class="card-head"><span class="card-title">📊 肌群容量</span><span class="pill ghost">近 8 周 · kg</span></div>
+      ${volume.max ? `<div class="volume-chart">${volume.weeks.map((w) => `<div class="vol-col ${w.total ? '' : 'is-empty'}">
+        <span class="vol-total">${w.total ? (w.total / 1000).toFixed(1) + 'k' : ''}</span>
+        <div class="vol-stack">${volume.groups.map((g) => {
+          const v = w.values[g.key];
+          return v ? `<i class="vol-seg" style="height:${(v / volume.max * 100).toFixed(1)}%;background:${g.color}" title="${g.label} ${v}kg"></i>` : '';
+        }).join('')}</div>
+        <span class="vol-label">${w.label}</span>
+      </div>`).join('')}</div>
+      <div class="vol-legend">${volume.groups.map((g) => `<span><i style="background:${g.color}"></i>${g.label}</span>`).join('')}</div>` : '<div class="small muted">记录几组重量后，这里会按肌群显示每周容量。</div>'}
+    </div>
+
+    <div class="grid grid-2 grid-top section">
+      <div class="card">
+        <div class="card-head"><span class="card-title">🏆 PR 时间线</span><span class="pill ghost">${prs.length} 个动作</span></div>
+        ${prs.length ? prs.map((p) => `<div class="pr-row">
+          <div class="pr-head"><b>${esc(p.name)}</b><span class="tiny muted">最好 ${p.best}kg · ${p.events.length} 次 PR</span></div>
+          <div class="pr-events">${p.events.slice(-4).map((ev) => `<span class="pr-dot" title="${ev.date} · ${ev.weight}kg × ${ev.reps}">${ev.date.slice(5)} · ${ev.e1rm}kg</span>`).join('')}</div>
+        </div>`).join('') : '<div class="small muted">还没有 PR。记录重量后，第一次就算 PR。</div>'}
+      </div>
+
+      <div class="card">
+        <div class="card-head"><span class="card-title">📅 依从性</span><span class="pill ghost">计划 vs 实际</span></div>
+        <div class="adh-chart">${adh.weeks.map((w) => `<div class="adh-col">
+          <div class="adh-bars"><i class="adh-plan" style="height:100%"></i><i class="adh-actual" style="height:${Math.round(w.ratio * 100)}%"></i></div>
+          <span class="adh-label">${w.label}</span>
+        </div>`).join('')}</div>
+        <div class="tiny muted mt-s">浅色 = 计划次数，深色 = 实际完成。本周 ${adh.weeks.at(-1)?.actual || 0}/${adh.weeks.at(-1)?.planned || 0} 次。</div>
       </div>
     </div>
 
@@ -8379,6 +9554,7 @@ const { MUSCLES } = __require("data/exercises.js");
 const { petSummary, petLine } = __require("js/pet.js");
 const { MOODS } = __require("data/pets.js");
 const { petMini } = __require("js/svg.js");
+const { parseRest } = __require("js/training-log.js");
 
 function renderTrain(app) {
   const s = app.state;
@@ -8526,15 +9702,6 @@ function isFirstIncomplete(item, doneMap, session) {
     if ((doneMap[it.id] || 0) < it.sets) return it.id === item.id;
   }
   return false;
-}
-
-function parseRest(rest) {
-  if (/min/.test(rest)) {
-    const n = parseInt(rest, 10) || 2;
-    return n * 60;
-  }
-  const m = rest.match(/(\d+)/);
-  return m ? parseInt(m[1], 10) : 60;
 }
 
 function fmtSec(sec) {
