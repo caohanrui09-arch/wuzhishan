@@ -445,7 +445,13 @@ input[type="range"]:active::-webkit-slider-thumb { cursor: grabbing; transform: 
 .divider { height: 1px; background: var(--line); margin: 16px 0; }
 .hr-ink { height: 1px; background: var(--line-strong); border: 0; margin: 20px 0; }
 
-/* ============ 页面级样式 ============ */
+/* 角落宠物 */
+.pet-corner { position: fixed; left: 14px; bottom: 18px; z-index: 45; display: flex; flex-direction: column; align-items: center; gap: 2px; background: #fffdf8; border: 2px solid var(--ink); border-radius: 16px; padding: 6px 8px; box-shadow: 4px 4px 0 rgba(21,21,21,.14); cursor: pointer; }
+.pet-corner[hidden] { display: none; }
+.pet-corner svg { width: 54px; height: 54px; }
+.pet-corner span { font-size: 10px; color: var(--ink-2); font-weight: 700; }
+@media (max-width: 640px) { .pet-corner { bottom: calc(var(--tabbar-h) + 10px); left: 10px; transform: scale(.92); transform-origin: bottom left; } }
+﻿/* ============ 页面级样式 ============ */
 
 /* ---------------- 首页 ---------------- */
 .hero {
@@ -897,6 +903,355 @@ input[type="range"]:active::-webkit-slider-thumb { cursor: grabbing; transform: 
   .stat-num { font-size: 28px; }
 }
 
+/* 身体档案 */
+.body-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.body-grid .field { margin: 0; }
+.body-grid .field > span { font-size: 11.5px; color: var(--ink-3); }
+.input-unit { display: flex; align-items: center; gap: 6px; }
+.input-unit em { font-style: normal; font-size: 11px; color: var(--ink-3); flex: none; }
+.body-targets { display: flex; flex-wrap: wrap; gap: 8px 14px; margin-top: 12px; padding: 10px 12px; background: #fffdf8; border: 1px solid var(--line); border-radius: 10px; font-size: 12px; color: var(--ink-2); }
+.body-targets b { color: var(--ink); }
+@media (max-width: 640px) { .body-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* 进度照片 */
+.photo-privacy { font-size: 11.5px; color: var(--ink-3); line-height: 1.7; background: #fffdf8; border: 1px dashed var(--line); border-radius: 10px; padding: 8px 12px; margin-bottom: 12px; }
+.photo-controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+.photo-controls .select, .photo-controls .input { width: auto; min-width: 110px; }
+.photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; }
+.photo-item { position: relative; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: #fffdf8; }
+.photo-thumb { display: block; width: 100%; padding: 0; border: 0; background: #000; cursor: zoom-in; }
+.photo-thumb img { display: block; width: 100%; height: 160px; object-fit: cover; }
+.photo-meta { display: block; padding: 6px 8px; font-size: 10.5px; color: var(--ink-3); }
+.photo-del { position: absolute; top: 6px; right: 6px; width: 24px; height: 24px; border-radius: 50%; border: 0; background: rgba(21,21,21,.72); color: #fff; font-size: 14px; line-height: 1; cursor: pointer; }
+.photo-del:hover { background: var(--cinnabar); }
+@media (max-width: 640px) { .photo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* 专注 / 番茄钟：计时器为主舞台 */
+.focus-page { max-width: 1180px; margin: 0 auto; }
+.focus-top { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; margin-bottom: 18px; }
+.focus-top h1 { margin: 4px 0 6px; }
+.focus-layout { display: grid; grid-template-columns: 1.75fr .8fr; gap: 18px; align-items: start; }
+.focus-stage {
+  position: relative; display: flex; flex-direction: column; align-items: center;
+  min-height: 560px; padding: 22px 24px 18px; border-radius: 26px;
+  background: var(--stage-bg, #f6f1e7); border: 1px solid rgba(21,21,21,.08);
+  box-shadow: 0 18px 40px rgba(21,21,21,.06); overflow: hidden;
+}
+.focus-stage.mode-focus { --stage-bg: radial-gradient(120% 90% at 50% 0%, #fdf3ea 0%, #f8e3d5 70%, #f5d9c8 100%); --focus-color: #E2574C; }
+.focus-stage.mode-short { --stage-bg: radial-gradient(120% 90% at 50% 0%, #f2f8fb 0%, #e3eef4 70%, #d9e7ef 100%); --focus-color: #4C7FA6; }
+.focus-stage.mode-long { --stage-bg: radial-gradient(120% 90% at 50% 0%, #f4f9ee 0%, #e8f1dd 70%, #dfead2 100%); --focus-color: #7BA05B; }
+.focus-stage-top { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.focus-modes { display: flex; gap: 6px; background: rgba(255,253,248,.72); padding: 5px; border-radius: 999px; }
+.focus-mode { display: inline-flex; align-items: center; gap: 6px; border: 0; background: transparent; padding: 7px 13px; border-radius: 999px; font-size: 12px; color: var(--ink-2); cursor: pointer; }
+.focus-mode i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.focus-mode.is-on { background: #fffdf8; box-shadow: 0 1px 4px rgba(21,21,21,.12); color: var(--ink); font-weight: 700; }
+.focus-cycle { display: flex; align-items: center; gap: 7px; }
+.focus-dot { width: 9px; height: 9px; border-radius: 50%; background: rgba(21,21,21,.14); }
+.focus-dot.is-on { background: var(--focus-color, var(--ochre)); }
+.focus-dial { position: relative; width: min(370px, 66vw); aspect-ratio: 1; margin: 18px 0 6px; }
+.focus-ring { width: 100%; height: 100%; display: block; }
+.ring-bg { fill: none; stroke: rgba(255,253,248,.75); stroke-width: 6; }
+.ring-fg { fill: none; stroke: var(--focus-color, var(--ochre)); stroke-width: 6; stroke-linecap: round; transition: stroke-dashoffset .8s linear; }
+.focus-clock-wrap { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.focus-clock { font: 800 72px/1 "Songti SC", serif; color: var(--ink); letter-spacing: .01em; font-variant-numeric: tabular-nums; }
+.focus-mode-label { margin-top: 10px; font-size: 12.5px; color: var(--ink-2); letter-spacing: .04em; }
+.focus-actions { display: flex; align-items: center; gap: 20px; margin-top: 12px; }
+.focus-main-btn {
+  width: 84px; height: 84px; border-radius: 50%; border: 0; cursor: pointer;
+  background: var(--ink); color: #fffdf8; font-size: 26px; line-height: 1;
+  display: grid; place-items: center; box-shadow: 0 10px 22px rgba(21,21,21,.22);
+  transition: transform .15s var(--ease), box-shadow .15s var(--ease);
+}
+.focus-main-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 26px rgba(21,21,21,.26); }
+.focus-main-btn:active { transform: scale(.97); }
+.focus-side-btn { width: 46px; height: 46px; border-radius: 50%; border: 1px solid rgba(21,21,21,.16); background: rgba(255,253,248,.7); color: var(--ink-2); font-size: 17px; cursor: pointer; }
+.focus-side-btn:hover { background: #fffdf8; color: var(--ink); }
+.focus-hint { margin-top: 14px; text-align: center; }
+.focus-side { display: flex; flex-direction: column; gap: 14px; }
+.focus-stat-card .static-row { display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-2); padding: 7px 0; border-top: 1px dashed var(--line); }
+.focus-stat-card .static-row b { color: var(--ink); }
+.focus-settings summary { cursor: pointer; font-weight: 700; font-size: 13px; list-style: none; }
+.focus-settings summary::-webkit-details-marker { display: none; }
+.focus-settings summary::after { content: "＋"; float: right; color: var(--ink-3); font-weight: 400; }
+.focus-settings[open] summary::after { content: "－"; }
+.focus-settings-body { margin-top: 10px; }
+.focus-preset-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 8px 0; border-bottom: 1px dashed var(--line); font-size: 12.5px; color: var(--ink-2); }
+.focus-preset-row:last-child { border-bottom: 0; }
+.focus-preset-row .seg-opt.tiny { padding: 4px 9px; font-size: 11px; }
+.focus-bars { display: flex; align-items: flex-end; gap: 8px; height: 100px; padding-top: 6px; margin-bottom: 8px; }
+.focus-bar-col { flex: 1; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 5px; }
+.focus-bar-col i { width: 100%; max-width: 26px; background: var(--ink); border-radius: 5px 5px 2px 2px; min-height: 4px; }
+.focus-bar-col span { font-size: 9.5px; color: var(--ink-3); white-space: nowrap; }
+
+/* 沉浸模式：隐藏导航与侧栏，只留计时器 */
+body.focus-zen .topbar, body.focus-zen .coach-corner { display: none; }
+body.focus-zen .focus-top, body.focus-zen .focus-side { display: none; }
+body.focus-zen .app-main, body.focus-zen .page { padding: 0; max-width: none; }
+body.focus-zen .focus-layout { grid-template-columns: 1fr; }
+body.focus-zen .focus-stage { min-height: 100vh; border-radius: 0; border: 0; }
+body.focus-zen .focus-dial { width: min(430px, 70vw); }
+
+@media (max-width: 900px) {
+  .focus-layout { grid-template-columns: 1fr; }
+  .focus-stage { min-height: 480px; padding: 18px 14px; }
+  .focus-clock { font-size: 56px; }
+  .focus-dial { width: min(300px, 74vw); }
+  .focus-stage-top { flex-wrap: wrap; }
+  .focus-top { align-items: flex-start; flex-direction: column; }
+}
+/* 专注页：减少悬浮遮挡；沉浸模式垂直居中 */
+body.focus-view .coach-corner { display: none; }
+body.focus-zen .focus-stage { justify-content: center; }
+body.focus-zen .focus-stage-top { position: absolute; top: 20px; left: 24px; right: 24px; }
+/* 专注：意图 / 选项 / 主题 */
+.focus-intent-wrap { width: 100%; display: flex; justify-content: center; margin-bottom: 10px; }
+.focus-intent {
+  width: min(420px, 82%); text-align: center; border: 0; border-bottom: 1px dashed rgba(21,21,21,.18);
+  background: transparent; padding: 7px 10px; font: 600 15px "Songti SC", serif; color: var(--ink);
+}
+.focus-intent::placeholder { color: rgba(21,21,21,.32); font-weight: 400; }
+.focus-intent:focus { outline: none; border-bottom-color: var(--focus-color, var(--ochre)); }
+.focus-option { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 8px 0; font-size: 12.5px; color: var(--ink-2); border-top: 1px dashed var(--line); cursor: pointer; }
+.focus-option input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--ink); }
+.focus-theme-row .select { width: auto; min-width: 90px; padding: 4px 8px; font-size: 11.5px; }
+.focus-page.theme-dark .focus-stage { background: radial-gradient(120% 90% at 50% 0%, #2a2622 0%, #1b1916 75%, #151311 100%); border-color: rgba(255,255,255,.08); }
+.focus-page.theme-dark .focus-clock { color: #fffdf8; }
+.focus-page.theme-dark .focus-mode-label,
+.focus-page.theme-dark .focus-hint,
+.focus-page.theme-dark .focus-cycle .tiny { color: rgba(255,253,248,.62); }
+.focus-page.theme-dark .focus-mode { color: rgba(255,253,248,.72); }
+.focus-page.theme-dark .focus-mode.is-on { background: rgba(255,253,248,.12); color: #fffdf8; }
+.focus-page.theme-dark .focus-modes { background: rgba(255,255,255,.06); }
+.focus-page.theme-dark .ring-bg { stroke: rgba(255,253,248,.14); }
+.focus-page.theme-dark .focus-intent { color: #fffdf8; border-bottom-color: rgba(255,253,248,.25); }
+.focus-page.theme-dark .focus-intent::placeholder { color: rgba(255,253,248,.4); }
+.focus-page.theme-dark .focus-side .card { background: #1e1b18; border-color: rgba(255,255,255,.08); color: #f4eee4; }
+.focus-page.theme-dark .card-title,
+.focus-page.theme-dark .static-row b { color: #fffdf8; }
+.focus-page.theme-dark .static-row { color: rgba(255,253,248,.65); border-color: rgba(255,255,255,.1); }
+.focus-page.theme-mono .focus-stage { background: linear-gradient(160deg, #f2f2f2, #e4e4e4); }
+.focus-page.theme-mono .focus-stage .ring-fg { stroke: #151515; }
+.focus-page.theme-mono .focus-clock { color: #151515; }
+.focus-page.theme-mono .focus-main-btn { background: #151515; }
+.focus-page.theme-dark .focus-bar-col i { background: #fffdf8; }
+.focus-page.theme-dark .focus-bar-col span { color: rgba(255,253,248,.55); }
+.focus-page.theme-dark .focus-settings summary { color: #fffdf8; }
+.focus-page.theme-dark .focus-option { color: rgba(255,253,248,.68); border-color: rgba(255,255,255,.1); }
+.focus-page.theme-dark .focus-preset-row { color: rgba(255,253,248,.7); border-color: rgba(255,255,255,.1); }
+.focus-page.theme-dark .seg-opt { color: rgba(255,253,248,.75); border-color: rgba(255,255,255,.14); }
+.focus-page.theme-dark .seg-opt.is-on { background: #fffdf8; color: #151515; }
+/* 音乐 */
+.music-card { display: flex; flex-direction: column; gap: 8px; }
+.music-import-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.music-import-row .btn { flex: 1; justify-content: center; }
+.music-embed-row { display: flex; gap: 6px; }
+.music-embed-row .input { flex: 1; min-width: 0; font-size: 11.5px; padding: 6px 9px; }
+.music-embed { margin: 4px 0; }
+.music-embed iframe { width: 100%; height: 152px; border: 0; border-radius: 12px; display: block; }
+.music-list { display: flex; flex-direction: column; gap: 2px; max-height: 220px; overflow: auto; }
+.music-row { display: flex; align-items: center; gap: 6px; padding: 4px 2px; border-bottom: 1px dashed var(--line); }
+.music-row.is-on { background: #fffaf0; }
+.music-play { flex: 1; display: flex; align-items: center; gap: 7px; border: 0; background: transparent; text-align: left; cursor: pointer; min-width: 0; padding: 2px 0; }
+.music-idx { font-size: 10px; color: var(--ink-3); width: 16px; flex: none; }
+.music-name { font-size: 12px; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.music-del { border: 0; background: transparent; color: var(--ink-3); cursor: pointer; font-size: 14px; padding: 0 2px; }
+.music-del:hover { color: var(--cinnabar); }
+.music-dock { position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); z-index: 60; display: flex; align-items: center; gap: 12px; background: #151515; color: #fffdf8; border-radius: 999px; padding: 8px 14px; box-shadow: 0 10px 30px rgba(21,21,21,.3); max-width: min(680px, 92vw); }
+.music-dock[hidden] { display: none; }
+.music-dock-title { font-size: 12px; max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.music-dock-controls { display: flex; align-items: center; gap: 4px; }
+.music-dock-btn { border: 0; background: transparent; color: #fffdf8; font-size: 15px; cursor: pointer; width: 28px; height: 28px; border-radius: 50%; }
+.music-dock-btn:hover { background: rgba(255,255,255,.12); }
+.music-dock-btn.is-main { background: #fffdf8; color: #151515; font-size: 12px; }
+.music-dock-volume { width: 80px; accent-color: #fffdf8; }
+body.focus-zen .music-dock { display: none; }
+@media (max-width: 640px) { .music-dock-title { max-width: 90px; } .music-dock-volume { display: none; } }
+.music-search-row { display: flex; gap: 6px; align-items: center; }
+.music-search-row .select { width: auto; min-width: 92px; font-size: 11.5px; padding: 5px 6px; }
+.music-search-row .input { flex: 1; min-width: 0; font-size: 11.5px; padding: 6px 9px; }
+/* 自定义计划编辑器 */
+.custom-meta { display: flex; align-items: flex-end; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+.custom-meta .field { margin: 0; min-width: 220px; }
+.custom-meta-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.custom-day { margin-top: 14px; }
+.custom-day-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
+.custom-day-title { margin: 0; min-width: 180px; }
+.custom-items { display: flex; flex-direction: column; gap: 8px; }
+.custom-item { display: flex; align-items: center; gap: 8px; padding: 8px; border: 1px solid var(--line); border-radius: 10px; background: #fffdf8; flex-wrap: wrap; }
+.custom-item-name { flex: 1 1 180px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.custom-item-name b { font-size: 13px; }
+.custom-mini { display: flex; align-items: center; gap: 4px; font-size: 10.5px; color: var(--ink-3); }
+.custom-mini .input { width: 58px; padding: 4px 6px; font-size: 11.5px; }
+.custom-item-actions { display: flex; gap: 2px; }
+.custom-item-actions .icon-btn { width: 26px; height: 26px; font-size: 12px; }
+.custom-empty { padding: 14px; border: 1px dashed var(--line); border-radius: 10px; color: var(--ink-3); font-size: 12px; }
+.picker-controls { display: flex; gap: 8px; margin-bottom: 10px; }
+.picker-controls .input { flex: 1; }
+.picker-controls .select { width: 120px; }
+.picker-list { max-height: 52vh; overflow: auto; display: flex; flex-direction: column; gap: 4px; }
+.picker-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; text-align: left; border: 1px solid var(--line); background: #fffdf8; border-radius: 9px; padding: 8px 10px; cursor: pointer; }
+.picker-row:hover { border-color: var(--ink); }
+.picker-name { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.picker-name b { font-size: 12.5px; }
+@media (max-width: 640px) { .custom-item { align-items: flex-start; } .custom-item-name { flex-basis: 100%; } }
+/* 模板与计划对比 */
+.custom-template-row .select { width: auto; max-width: 180px; font-size: 11.5px; padding: 5px 8px; }
+.compare-table { width: 100%; border-collapse: collapse; font-size: 12.5px; margin: 6px 0 12px; }
+.compare-table th, .compare-table td { text-align: left; padding: 7px 8px; border-bottom: 1px dashed var(--line); }
+.compare-table th { color: var(--ink-3); font-weight: 600; font-size: 11px; }
+.compare-table td:nth-child(2), .compare-table td:nth-child(3), .compare-table td:nth-child(4) { text-align: right; font-variant-numeric: tabular-nums; }
+.compare-groups { display: flex; flex-direction: column; gap: 7px; margin-bottom: 12px; }
+.compare-group { display: grid; grid-template-columns: 40px 1fr 80px; align-items: center; gap: 8px; font-size: 11.5px; }
+.compare-bars { display: flex; flex-direction: column; gap: 2px; background: #f4eee3; border-radius: 4px; padding: 2px; }
+.compare-bars i { display: block; height: 6px; border-radius: 3px; }
+.compare-bars i.auto { background: #cfc3b2; }
+.compare-bars i.custom { background: var(--ink); }
+.compare-diff { display: flex; flex-direction: column; gap: 5px; font-size: 12px; line-height: 1.7; }
+/* 最近记录与热身组 */
+.last-sets { display: flex; flex-wrap: wrap; gap: 5px; margin: 8px 0 0; }
+.last-sets span { font-size: 10.5px; color: var(--ink-3); background: #f6f1e7; border-radius: 999px; padding: 3px 8px; }
+.warmup-box { margin-top: 7px; border: 1px dashed var(--line); border-radius: 9px; padding: 6px 10px; }
+.warmup-box summary { cursor: pointer; font-size: 11.5px; color: var(--ink-2); }
+.warmup-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.warmup-chips span { font-size: 11px; color: var(--ink); background: #fffdf8; border: 1px solid var(--line); border-radius: 999px; padding: 2px 8px; }
+/* 身体日志与趋势 */
+.body-log-form { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--line); }
+.body-log-form .input { width: auto; flex: 1 1 90px; min-width: 80px; padding: 6px 8px; font-size: 11.5px; }
+.body-log-form .btn { flex: none; }
+.body-trend { display: flex; align-items: flex-end; gap: 8px; height: 90px; margin-top: 10px; padding: 6px 4px 0; background: #fffdf8; border: 1px solid var(--line); border-radius: 10px; }
+.bt-col { flex: 1; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 3px; }
+.bt-col i { width: 100%; max-width: 22px; background: var(--ink); border-radius: 4px 4px 2px 2px; min-height: 6px; }
+.bt-col span { font-size: 8.5px; color: var(--ink-3); white-space: nowrap; }
+.bt-col em { font-style: normal; font-size: 9.5px; color: var(--ink-2); }
+.music-card summary.music-summary { cursor: pointer; font-weight: 700; font-size: 13px; list-style: none; padding: 2px 0 8px; border-bottom: 1px dashed var(--line); margin-bottom: 8px; }
+.music-card summary.music-summary::-webkit-details-marker { display: none; }
+.music-card:not([open]) summary.music-summary { border-bottom: 0; margin-bottom: 0; }
+.music-card .card-head { display: none; }
+.music-card .music-status { min-height: 14px; }
+/* 训练专注模式 */
+.workout-focus { position: fixed; inset: 0; z-index: 70; overflow: auto; background: radial-gradient(120% 90% at 50% 0%, #fdf3ea 0%, #f6f1e7 55%, #efe7da 100%); padding: 22px; }
+.workout-focus[hidden] { display: none; }
+body.workout-focus-on { overflow: hidden; }
+.wf-shell { max-width: 980px; margin: 0 auto; min-height: calc(100vh - 44px); display: flex; flex-direction: column; }`n.wf-card { margin-top: auto; margin-bottom: auto; }
+.wf-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 12px; color: var(--ink-3); margin-bottom: 10px; }
+.wf-progress { display: flex; align-items: center; gap: 12px; font-size: 11.5px; color: var(--ink-3); margin-bottom: 16px; }
+.wf-bar { flex: 1; height: 8px; border-radius: 999px; background: #e7ddcb; overflow: hidden; }
+.wf-bar i { display: block; height: 100%; background: var(--ink); border-radius: 999px; transition: width .4s var(--ease); }
+.wf-card { display: grid; grid-template-columns: 1fr 1.1fr; gap: 22px; background: #fffdf8; border: 1px solid var(--line); border-radius: 22px; padding: 20px; box-shadow: 0 18px 40px rgba(21,21,21,.06); }
+.wf-art { display: grid; place-items: center; min-height: 280px; background: #f6f1e7; border-radius: 16px; padding: 12px; }
+.wf-art svg { width: 100%; max-height: 340px; height: auto; }
+.wf-info h2 { font-size: clamp(26px, 4vw, 38px); margin: 6px 0 4px; }
+.wf-cue { margin-top: 10px; padding: 10px 12px; border-left: 3px solid var(--ochre); background: #fdf6e8; font-size: 12.5px; line-height: 1.7; border-radius: 0 8px 8px 0; }
+.wf-last { margin-top: 9px; font-size: 12px; color: var(--ink-2); }
+.wf-inputs { display: flex; align-items: flex-end; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+.wf-inputs label { display: flex; flex-direction: column; gap: 4px; font-size: 10.5px; color: var(--ink-3); }
+.wf-inputs .input { width: 110px; padding: 8px 10px; }
+.wf-inputs .btn { margin-left: auto; }
+.wf-hint { margin-top: 8px; font-size: 10.5px; color: var(--ink-3); }
+.wf-rest { display: none; align-items: center; gap: 14px; margin-top: 16px; padding: 14px 18px; border-radius: 16px; background: var(--ink); color: #fffdf8; }
+.wf-rest.is-running { display: flex; }
+.wf-rest b { font: 800 34px/1 "Songti SC", serif; font-variant-numeric: tabular-nums; }
+.wf-rest button { margin-left: auto; color: #fffdf8; border-color: rgba(255,253,248,.3); }
+.wf-done { text-align: center; padding: 80px 20px; }
+.wf-done h2 { font-size: 32px; }
+@media (max-width: 760px) { .wf-card { grid-template-columns: 1fr; } .wf-art { min-height: 200px; } .workout-focus { padding: 14px; } .wf-inputs .btn { margin-left: 0; width: 100%; } }
+
+/* 动作详情页 */
+.ex-detail-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 18px; }
+.ex-detail-art { display: grid; place-items: center; min-height: 320px; background: #f6f1e7; }
+.ex-detail-art svg { width: 100%; max-height: 380px; height: auto; }
+.ex-meta-row { display: flex; justify-content: space-between; gap: 12px; padding: 7px 0; border-bottom: 1px dashed var(--line); font-size: 12.5px; color: var(--ink-2); }
+.ex-meta-row b { color: var(--ink); text-align: right; }
+.ex-mistakes, .ex-alts { margin-top: 14px; }
+.ex-mistakes h4, .ex-alts h4 { font-size: 12.5px; margin-bottom: 6px; }
+.ex-mistakes ul { margin: 0; padding-left: 18px; font-size: 12px; line-height: 1.8; color: var(--ink-2); }
+.ex-alts .pill { cursor: pointer; }
+.ex-pr { display: flex; gap: 12px; align-items: baseline; padding: 6px 0; }
+.ex-pr b { font-size: 24px; }
+.ex-recent div { display: flex; gap: 10px; align-items: baseline; padding: 5px 0; border-bottom: 1px dashed var(--line); font-size: 12px; }
+.ex-recent b { color: var(--ink); }
+.ex-recent em { font-style: normal; color: var(--ink-3); font-size: 10.5px; }
+@media (max-width: 760px) { .ex-detail-grid { grid-template-columns: 1fr; } }
+/* 数据闭环 */
+.loop-chart { display: flex; align-items: flex-end; gap: 10px; height: 150px; padding: 6px 2px 0; }
+.loop-col { flex: 1; height: 100%; display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.loop-bar-wrap { flex: 1; width: 100%; max-width: 40px; background: #f4eee3; border-radius: 6px; display: flex; flex-direction: column-reverse; overflow: hidden; }
+.loop-bar-wrap i { display: block; width: 100%; background: var(--ink); border-radius: 6px 6px 2px 2px; min-height: 4px; }
+.loop-col em { font-style: normal; font-size: 10px; color: var(--ink-2); }
+.loop-col span { font-size: 9px; color: var(--ink-3); white-space: nowrap; }
+/* 模板卡片 / 每日分钟 / 拖拽 */
+.template-cards { display: flex; gap: 8px; flex-wrap: wrap; }
+.template-card { display: flex; align-items: stretch; border: 1px solid var(--line); border-radius: 10px; background: #fffdf8; overflow: hidden; }
+.template-main { border: 0; background: transparent; text-align: left; padding: 7px 10px; cursor: pointer; display: flex; flex-direction: column; gap: 1px; }
+.template-main b { font-size: 12px; color: var(--ink); }
+.template-main span { font-size: 10px; color: var(--ink-3); }
+.template-del { border: 0; border-left: 1px solid var(--line); background: transparent; color: var(--ink-3); cursor: pointer; padding: 0 8px; }
+.template-del:hover { color: var(--cinnabar); }
+.custom-day-min { margin: 0; width: 100px; }
+.custom-day-min .input { padding: 6px 8px; font-size: 11.5px; }
+.drag-handle { color: var(--ink-3); font-size: 15px; cursor: grab; padding: 0 2px; user-select: none; }
+.custom-item[draggable="true"] { cursor: default; }
+@media (max-width: 640px) { .custom-day-min { width: 90px; } }
+/* 移动端浮层避让 */
+@media (max-width: 640px) {
+  .music-dock {
+    left: 10px; right: 10px; bottom: calc(var(--tabbar-h) + 8px);
+    transform: none; width: auto; max-width: none; border-radius: 14px;
+    padding: 8px 10px; gap: 8px;
+  }
+  .music-dock-title { max-width: 120px; }
+  body.has-music-dock .pet-corner,
+  body.has-music-dock .coach-corner { bottom: calc(var(--tabbar-h) + 76px); }
+}
+.drag-handle { touch-action: none; }
+.custom-item.is-dragging { opacity: .55; }
+.custom-item.drag-over { border-color: var(--ink); box-shadow: 0 0 0 2px rgba(21,21,21,.12); }
+/* 新手引导：身体数据与预览 */
+.ob-body-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.ob-body-grid .field { margin: 0; }
+.ob-body-hint { margin-top: 10px; font-size: 11.5px; color: var(--ink-3); }
+.ob-preview { display: flex; flex-direction: column; gap: 2px; }
+.ob-preview-row { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px dashed var(--line); font-size: 12.5px; color: var(--ink-2); }
+.ob-preview-row b { color: var(--ink); text-align: right; }
+.ob-preview-days { margin-top: 10px; display: flex; flex-direction: column; gap: 5px; font-size: 11.5px; color: var(--ink-2); }
+.ob-preview-days div { display: flex; gap: 8px; align-items: baseline; }
+.ob-preview-days span { font-size: 9.5px; color: var(--ink-3); letter-spacing: .06em; }
+/* 训练智能 / 照片对比 */
+.intel-deload { background: #fdf1e8; border: 1px solid rgba(226,87,76,.35); color: #8f2f25; border-radius: 10px; padding: 10px 12px; font-size: 12px; line-height: 1.7; margin-bottom: 10px; }
+.intel-rows { display: flex; flex-direction: column; gap: 7px; }
+.intel-row { display: grid; grid-template-columns: 40px 1fr 92px; gap: 10px; align-items: center; font-size: 11.5px; }
+.intel-label { color: var(--ink-2); }
+.intel-bar { height: 8px; border-radius: 999px; background: #f0e8da; overflow: hidden; }
+.intel-bar i { display: block; height: 100%; border-radius: 999px; background: var(--ink); }
+.intel-bar i.low { background: #e0b04a; }
+.intel-bar i.high { background: var(--cinnabar); }
+.intel-num { text-align: right; font-variant-numeric: tabular-nums; color: var(--ink); }
+.intel-num em { font-style: normal; font-size: 9.5px; color: var(--ink-3); margin-left: 3px; }
+.intel-num.low { color: #9a6b12; }
+.intel-num.high { color: var(--cinnabar); }
+.photo-item.is-compare { outline: 2px solid var(--ink); }
+.photo-compare { position: absolute; left: 6px; bottom: 26px; border: 0; border-radius: 999px; background: rgba(255,253,248,.9); color: var(--ink); font-size: 9.5px; padding: 3px 8px; cursor: pointer; }
+.photo-compare:hover { background: #fffdf8; }
+.photo-compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.photo-compare-grid figure { margin: 0; }
+.photo-compare-grid img { width: 100%; border-radius: 10px; display: block; }
+.photo-compare-grid figcaption { font-size: 11px; color: var(--ink-3); margin-top: 4px; text-align: center; }
+@media (max-width: 640px) { .photo-compare-grid { grid-template-columns: 1fr; } }
+/* 专注目标 / 顶栏倒计时 / 音乐进度 */
+.focus-goal-bar { height: 6px; border-radius: 999px; background: #f0e8da; overflow: hidden; margin: 4px 0 8px; }
+.focus-goal-bar i { display: block; height: 100%; background: var(--ink); border-radius: 999px; }
+.focus-countdown { border: 1px solid var(--line); background: #fffdf8; color: var(--ink); border-radius: 999px; font-size: 11px; padding: 4px 10px; margin-left: 8px; cursor: pointer; font-variant-numeric: tabular-nums; }
+.focus-countdown[hidden] { display: none; }
+.music-dock-info { display: flex; flex-direction: column; gap: 3px; min-width: 160px; }
+.music-dock-progress { display: flex; align-items: center; gap: 6px; }
+.music-dock-progress input { width: 120px; accent-color: #fffdf8; }
+.music-dock-progress span { font-size: 9.5px; opacity: .7; font-variant-numeric: tabular-nums; white-space: nowrap; min-width: 74px; }
+.music-dock-btn.is-on { background: #fffdf8; color: #151515; }
+music-dock .music-dock-btn { flex: none; }
+@media (max-width: 640px) { .focus-countdown { display: none; } .music-dock-info { min-width: 0; flex: 1; } .music-dock-progress input { width: 80px; } }
+.music-card.is-drop { outline: 2px dashed var(--ink); outline-offset: 4px; }
+.focus-goal-bar { margin-top: 2px; }
+
 /* ============ 宠物 / 教练角落 / 五指山抽屉 ============ */
 
 /* ---------- 宠物插画 ---------- */
@@ -1338,9 +1693,11 @@ input[type="range"]:active::-webkit-slider-thumb { cursor: grabbing; transform: 
         <a href="#home" data-nav="home" class="nav-item">道场</a>
         <a href="#plan" data-nav="plan" class="nav-item">计划</a>
         <a href="#train" data-nav="train" class="nav-item">训练</a>
+        <a href="#focus" data-nav="focus" class="nav-item">专注</a>
         <a href="#pet" data-nav="pet" class="nav-item">宠物</a>
         <a href="#coach" data-nav="coach" class="nav-item">教练</a>
         <a href="#progress" data-nav="progress" class="nav-item">进展</a>
+        <button id="focus-countdown" class="focus-countdown" data-nav="focus" hidden></button>
       </nav>
       <div class="topbar-right">
         <button class="icon-btn" id="anno-toggle" title="显示所有可改的地方" aria-pressed="false">🔎<span class="sr-only">显示可改的地方</span></button>
@@ -1357,9 +1714,13 @@ input[type="range"]:active::-webkit-slider-thumb { cursor: grabbing; transform: 
       <a href="#home" data-nav="home" class="tab"><span>🏠</span><em>道场</em></a>
       <a href="#plan" data-nav="plan" class="tab"><span>📋</span><em>计划</em></a>
       <a href="#train" data-nav="train" class="tab"><span>⚡</span><em>训练</em></a>
+      <a href="#focus" data-nav="focus" class="tab"><span>🍅</span><em>专注</em></a>
       <a href="#pet" data-nav="pet" class="tab"><span>🐾</span><em>宠物</em></a>
       <a href="#coach" data-nav="coach" class="tab"><span>🗣️</span><em>教练</em></a>
+      <a href="#progress" data-nav="progress" class="tab"><span>📈</span><em>进展</em></a>
     </nav>
+
+    <button id="pet-corner" class="pet-corner" data-nav="pet" hidden></button>
 
     <!-- ======= 角落里的谭师 ======= -->
     <div class="coach-corner" id="coach-corner">
@@ -1432,8 +1793,28 @@ input[type="range"]:active::-webkit-slider-thumb { cursor: grabbing; transform: 
       <div class="drawer-body" id="coach-list"></div>
     </aside>
 
+    <!-- ======= 训练专注模式 ======= -->
+    <div id="workout-focus" class="workout-focus" hidden></div>
+
     <!-- ======= 弹层 ======= -->
     <div class="modal-root" id="modal-root"></div>
+    <div id="music-dock" class="music-dock" hidden>
+      <div class="music-dock-info">
+        <span class="music-dock-title" id="music-title">未播放</span>
+        <div class="music-dock-progress">
+          <input id="music-progress" type="range" min="0" max="1000" value="0" aria-label="播放进度" />
+          <span id="music-time">0:00</span>
+        </div>
+      </div>
+      <div class="music-dock-controls">
+        <button class="music-dock-btn" data-act="music-prev" aria-label="上一首">⏮</button>
+        <button class="music-dock-btn is-main" id="music-toggle" data-act="music-toggle" aria-label="播放/暂停">▶</button>
+        <button class="music-dock-btn" data-act="music-next" aria-label="下一首">⏭</button>
+      </div>
+      <button class="music-dock-btn" id="music-shuffle" data-act="music-shuffle" aria-label="随机播放">🔀</button>
+      <button class="music-dock-btn" id="music-repeat" data-act="music-repeat" aria-label="循环模式">🔁</button>
+      <input class="music-dock-volume" id="music-volume" type="range" min="0" max="1" step="0.05" value="0.8" aria-label="音量" />
+    </div>
     <div class="toast-root" id="toast-root" aria-live="polite"></div>
     <div class="sr-only" id="timer-live" aria-live="polite"></div>
   </div>
@@ -2200,16 +2581,29 @@ const { plateBreakdown } = __require("js/plate-calc.js");
 const { canRepairStreak, repairStreak, shouldNotify } = __require("js/habit.js");
 const { initPwa, canInstall, promptInstall, notifyDue } = __require("js/pwa.js");
 const { suggestNextLoad } = __require("js/autoreg.js");
+const { startFocus, pauseFocus, tickFocus, completeFocus, switchMode, setDuration, formatClock, progressOf, MODES, serializeFocus, restoreFocus: restorePomodoroFocus, focusGoalProgress } = __require("js/pomodoro.js");
+const { parsePlaylist, detectEmbed, stepIndex, searchUrl, mediaSessionPayload, MUSIC_PROVIDERS } = __require("js/music.js");
+const { listTracks, addTracks, getTrack, deleteTrack, clearTracks } = __require("js/music-store.js");
 const { toCSV } = __require("js/analytics.js");
+const { emptyCustomPlan, clonePlan, addItem, removeItem, moveItem, updateItem, normalizeCustomPlan, validateCustomPlan, filterExercises } = __require("js/custom-plan.js");
+const { makeTemplate, addTemplate, removeTemplate, serializeTemplate, parseTemplate } = __require("js/plan-template.js");
+const { comparePlans } = __require("js/plan-compare.js");
+const { normalizeBodyLog } = __require("js/body-log.js");
+const { createZip } = __require("js/zip.js");
+const { bodySummary } = __require("js/body-metrics.js");
 const { canUseOutfit, activeOutfit } = __require("js/pet-outfit.js");
+const { addPhoto, listPhotos, getPhoto, deletePhoto, clearPhotos, compressImage, PHOTO_ANGLES } = __require("js/photo-store.js");
 const { renderHome } = __require("js/views/home.js");
 const { renderPlan } = __require("js/views/plan.js");
 const { renderTrain, fmtSec } = __require("js/views/train.js");
 const { renderPet, renderAdopt } = __require("js/views/pet.js");
+const { renderFocus } = __require("js/views/focus.js");
+const { renderCustomPlan } = __require("js/views/custom-plan.js");
+const { renderExercise } = __require("js/views/exercise.js");
 const { renderCoach } = __require("js/views/coach.js");
 const { renderProgress } = __require("js/views/progress.js");
 
-const VIEWS = { home: renderHome, plan: renderPlan, train: renderTrain, pet: renderPet, adopt: renderAdopt, coach: renderCoach, progress: renderProgress };
+const VIEWS = { home: renderHome, plan: renderPlan, train: renderTrain, focus: renderFocus, custom: renderCustomPlan, exercise: renderExercise, pet: renderPet, adopt: renderAdopt, coach: renderCoach, progress: renderProgress };
 
 class App {
   constructor() {
@@ -2223,6 +2617,18 @@ class App {
     this.activeFinger = null;
     this.adoptPick = this.state.pet?.typeId || 'dog';
     this.timer = { running: false, left: 60, total: 60, handle: null };
+    const restored = restorePomodoroFocus(this.state.focusRuntime, this.state.focusSettings, Date.now());
+    this.focus = restored.timer;
+    this._focusExpired = restored.expired;
+    if (restored.expired) this.state.focusRuntime = null;
+    this._focusTimer = null;
+    this.focusZen = false;
+    this.music = { tracks: [], queue: [], index: -1, currentId: null, currentUrl: null, playing: false, embed: this.state.musicEmbed || '' };
+    this.audio = null;
+    this.workoutFocusOpen = false;
+    this.exerciseDetailId = null;
+    this.exerciseReturn = 'train';
+    this.photoCompare = [];
     this.sessionClock = 0;
     this.clockHandle = null;
     this.tickHandle = null;
@@ -2245,6 +2651,8 @@ class App {
       }
     });
     setTimeout(() => this.maybeNotify(), 2500);
+    if (this.focus.running) this.startFocusTick();
+    if (this._focusExpired) setTimeout(() => this.toast('上一格专注已经结束，按开始再来一格。', this.coach.id), 900);
     this.routeFromHash();
     this.bindGlobal();
     this.updateChrome();
@@ -2361,6 +2769,7 @@ class App {
       root.innerHTML = `<div class="page"><div class="card"><h3>这一页出错了</h3><p class="small muted">${esc(e.message)}</p><button class="btn btn-sm btn-ghost mt" data-nav="home">回首页</button></div></div>`;
     }
     document.body.classList.toggle('no-plan', !this.state.plan);
+    document.body.classList.toggle('focus-view', this.view === 'focus');
   }
 
   updateNav() {
@@ -2516,7 +2925,15 @@ class App {
       this.sendChat(text);
     });
 
+    const musicVol = $('#music-volume');
+    if (musicVol) musicVol.addEventListener('input', () => this.setMusicVolume(musicVol.value));
+
     document.addEventListener('keydown', (e) => {
+      if (this.focusZen && e.key === 'Escape') {
+        e.preventDefault();
+        this.toggleFocusZen();
+        return;
+      }
       const action = resolveShortcut(e, this.shortcutContext(e));
       if (!action) return;
       e.preventDefault();
@@ -2545,6 +2962,10 @@ class App {
       return;
     }
     if (action === 'open-shortcuts') { this.openShortcutsModal(); return; }
+    if (action === 'focus-toggle') { this.focus.running ? this.focusPause() : this.focusStart(); return; }
+    if (action === 'focus-reset') { this.focusReset(); return; }
+    if (action === 'focus-skip') { this.focusSkip(); return; }
+    if (action === 'focus-zen') { this.toggleFocusZen(); return; }
     if (action === 'open-chat') { this.openFinger('corner', { tab: 'chat' }); return; }
     if (action === 'toggle-anno') { this.toggleAnno(); return; }
     if (action === 'timer-toggle') {
@@ -2629,6 +3050,9 @@ class App {
   }
 
   afterRender() {
+    this.renderMusicDock();
+    if (this.workoutFocusOpen) this.renderWorkoutFocus();
+    this.renderPetCorner();
     // 标注模式保留
     document.body.classList.toggle('anno-on', this.annoOpen);
     $$('[data-anno]').forEach((node) => node.classList.add('anno-target'));
@@ -2642,6 +3066,112 @@ class App {
       r.addEventListener('input', upd);
       r.addEventListener('change', () => this.pickProfile(r.dataset.range || 'minutes', Number(r.value)));
     });
+    $$('[data-body]').forEach((inp) => {
+      inp.addEventListener('change', () => this.setBodyField(inp.dataset.body, inp.value));
+    });
+    $$('[data-custom]').forEach((inp) => {
+      inp.addEventListener('change', () => {
+        if (!this.customDraft) return;
+        const si = Number(inp.dataset.si);
+        const ii = Number(inp.dataset.ii);
+        const field = inp.dataset.field;
+        const kind = inp.dataset.custom;
+        if (kind === 'plan-title') this.customDraft.splitName = inp.value.slice(0, 20);
+        else if (kind === 'session-title') this.customDraft.sessions[si].title = inp.value.slice(0, 20);
+        else if (kind === 'session-minutes') this.customDraft.sessions[si].minutes = Math.max(10, Math.min(120, Number(inp.value) || 45));
+        else if (kind === 'item' && field) this.customDraft = updateItem(this.customDraft, si, ii, { [field]: field === 'sets' ? Number(inp.value) : inp.value });
+      });
+    });
+    const templateImport = $('#template-import');
+    if (templateImport) templateImport.addEventListener('change', () => {
+      const file = templateImport.files?.[0];
+      if (file) this.importTemplateFile(file);
+      templateImport.value = '';
+    });
+    $$('.drag-handle').forEach((handle) => {
+      handle.addEventListener('pointerdown', (e) => {
+        if (e.button && e.button !== 0) return;
+        e.preventDefault();
+        const row = handle.closest('.custom-item');
+        if (!row) return;
+        const from = { si: Number(row.dataset.si), ii: Number(row.dataset.ii) };
+        row.classList.add('is-dragging');
+        const findTarget = (ev) => {
+          const el = document.elementFromPoint?.(ev.clientX, ev.clientY);
+          return el?.closest?.('.custom-item') || null;
+        };
+        const move = (ev) => {
+          const over = findTarget(ev);
+          $$('.custom-item').forEach((r) => r.classList.toggle('drag-over', r === over && r !== row));
+        };
+        const up = (ev) => {
+          document.removeEventListener('pointermove', move);
+          document.removeEventListener('pointerup', up);
+          const target = findTarget(ev);
+          row.classList.remove('is-dragging');
+          $$('.custom-item').forEach((r) => r.classList.remove('drag-over'));
+          if (target) {
+            const to = { si: Number(target.dataset.si), ii: Number(target.dataset.ii) };
+            if (to.si === from.si && to.ii !== from.ii) this.customReorder(from.si, from.ii, to.ii);
+          }
+        };
+        document.addEventListener('pointermove', move);
+        document.addEventListener('pointerup', up, { once: true });
+      });
+    });
+    const photoInput = $('#photo-input');
+    if (photoInput) {
+      photoInput.addEventListener('change', () => {
+        const file = photoInput.files?.[0];
+        if (file) this.addPhotoFile(file);
+        photoInput.value = '';
+      });
+    }
+    if (this.view === 'progress') {
+      const bodyDate = $('#body-log-date');
+      if (bodyDate && !bodyDate.value) bodyDate.value = this.todayKey;
+      this.loadPhotos();
+    }
+    if (this.view === 'focus') {
+      const intentEl = $('#focus-intent');
+      if (intentEl) intentEl.addEventListener('change', () => this.setFocusIntent(intentEl.value));
+      const autoEl = $('#focus-auto-start');
+      if (autoEl) autoEl.addEventListener('change', () => { this.state.focusAutoStart = autoEl.checked; this.save(); this.toast(autoEl.checked ? '会自动开始下一段。' : '不再自动开始。', this.coach.id); });
+      const soundEl = $('#focus-sound');
+      if (soundEl) soundEl.addEventListener('change', () => { this.state.focusSound = soundEl.checked; this.save(); });
+      const themeEl = $('#focus-theme');
+      if (themeEl) themeEl.addEventListener('change', () => { this.state.focusTheme = themeEl.value; this.save(); this.renderView(); this.afterRender(); });
+      this.patchFocus();
+      const musicImport = $('#music-import');
+      if (musicImport) musicImport.addEventListener('change', () => {
+        const files = [...(musicImport.files || [])];
+        if (files.length) this.importMusicFiles(files);
+        musicImport.value = '';
+      });
+      const musicM3u = $('#music-m3u');
+      if (musicM3u) musicM3u.addEventListener('change', () => {
+        const file = musicM3u.files?.[0];
+        if (file) this.importMusicPlaylist(file);
+        musicM3u.value = '';
+      });
+      const goalSel = $('#focus-goal');
+      if (goalSel) goalSel.addEventListener('change', () => { this.state.focusGoal = Number(goalSel.value) || 4; this.save(); this.renderView(); this.afterRender(); });
+      const filterEl = $('#music-filter');
+      if (filterEl) filterEl.addEventListener('input', () => { this.musicFilter = filterEl.value; this.renderMusicList(); });
+      const musicCard = $('.music-card');
+      if (musicCard) {
+        musicCard.addEventListener('dragover', (e) => { e.preventDefault(); musicCard.classList.add('is-drop'); });
+        musicCard.addEventListener('dragleave', () => musicCard.classList.remove('is-drop'));
+        musicCard.addEventListener('drop', (e) => {
+          e.preventDefault();
+          musicCard.classList.remove('is-drop');
+          const files = [...(e.dataTransfer?.files || [])];
+          if (files.length) this.importMusicFiles(files);
+        });
+      }
+      this.loadMusicTracks();
+      if (this.focus.running) this.startFocusTick();
+    }
     if (this.view === 'pet' && this.state.pet) {
       this.checkPetEvolution();
       this.startPetBehavior();
@@ -2685,6 +3215,7 @@ class App {
     const p = this.state.profile;
     if (!this.state.pet && this.adoptPick) this.adoptSilently(this.adoptPick);
     this.state.plan = generatePlan({ ...p, petId: this.state.pet?.typeId });
+    this.state.generatedPlan = JSON.parse(JSON.stringify(this.state.plan));
     this.state.profile.onboarded = true;
     this.state.profile.petId = this.state.pet?.typeId || p.petId;
     this.state.activeSession = null;
@@ -2713,6 +3244,7 @@ class App {
   regeneratePlan() {
     const p = this.state.profile;
     this.state.plan = generatePlan({ ...p, petId: this.state.pet?.typeId });
+    this.state.generatedPlan = JSON.parse(JSON.stringify(this.state.plan));
     // 新计划可能换了天数/动作，旧的进行中会话必须作废，否则结课时会取到不存在的课
     this.state.activeSession = null;
     this.sessionClock = 0;
@@ -2729,6 +3261,33 @@ class App {
     switch (act) {
       case 'generate-plan': this.generatePlan(); break;
       case 'goto-builder': this.state.plan = null; this.save(); this.renderView(); this.afterRender(); break;
+      case 'custom-plan': this.startCustomPlan(true); break;
+      case 'custom-plan-empty': this.startCustomPlan(false); break;
+      case 'custom-cancel': this.customCancel(); break;
+      case 'custom-save': this.customSave(); break;
+      case 'custom-add-day': this.customAddDay(); break;
+      case 'custom-remove-day': this.customRemoveDay(Number(node.dataset.si)); break;
+      case 'custom-add-exercise': this.openExercisePicker(Number(node.dataset.si)); break;
+      case 'custom-remove-exercise': this.customRemoveExercise(Number(node.dataset.si), Number(node.dataset.ii)); break;
+      case 'custom-move': this.customMove(Number(node.dataset.si), Number(node.dataset.ii), Number(node.dataset.dir)); break;
+      case 'picker-pick': this.pickerPick(node.dataset.id); break;
+      case 'template-save': this.openTemplateSaveModal(); break;
+      case 'template-save-confirm': this.saveTemplate($('#template-name')?.value || ''); break;
+      case 'template-load': this.loadTemplate($('#template-select')?.value); break;
+      case 'template-delete': this.deleteTemplate($('#template-select')?.value); break;
+      case 'template-export': this.exportTemplate(); break;
+      case 'template-share': this.copyTemplateShare(); break;
+      case 'compare-plans': this.openCompareModal(); break;
+      case 'export-photos': this.exportPhotos(); break;
+      case 'export-music': this.exportMusic(); break;
+      case 'body-log': this.recordBodyLog(); break;
+      case 'workout-focus': this.openWorkoutFocus(); break;
+      case 'workout-close': this.closeWorkoutFocus(); break;
+      case 'workout-complete': this.workoutComplete(); break;
+      case 'workout-skip-rest': this.stopTimer(); this.updateTimerUI(); this.renderWorkoutFocus(); break;
+      case 'exercise-detail': this.openExerciseDetail(node.dataset.id); break;
+      case 'exercise-back': this.exerciseBack(); break;
+      case 'custom-copy-day': this.customCopyDay(Number(node.dataset.si)); break;
       case 'start-today': this.startSession(this.state.plan ? (new Date().getDay() % this.state.plan.sessions.length) : 0); break;
       case 'goto-session': this.planTab = Number(node.dataset.idx) || 0; this.go('plan'); break;
       case 'goto-train': this.go('train'); break;
@@ -2797,6 +3356,24 @@ class App {
       case 'timer-toggle': this.toggleTimer(); break;
       case 'timer-reset': this.resetTimer(); break;
       case 'start-timer': this.startTimer(Number(node.dataset.sec) || 60); break;
+      case 'focus-start': this.focusStart(); break;
+      case 'focus-pause': this.focusPause(); break;
+      case 'focus-reset': this.focusReset(); break;
+      case 'focus-skip': this.focusSkip(); break;
+      case 'focus-mode': this.focusMode(node.dataset.mode); break;
+      case 'focus-preset': this.focusPreset(node.dataset.mode, Number(node.dataset.min)); break;
+      case 'focus-zen': this.toggleFocusZen(); break;
+      case 'music-play': this.playMusic(node.dataset.id); break;
+      case 'music-toggle': this.toggleMusic(); break;
+      case 'music-next': this.musicNext(); break;
+      case 'music-prev': this.musicPrev(); break;
+      case 'music-delete': this.musicDelete(node.dataset.id); break;
+      case 'music-clear': this.musicClear(); break;
+      case 'music-embed': this.setMusicEmbed($('#music-embed-input')?.value || ''); break;
+      case 'music-embed-clear': this.clearMusicEmbed(); break;
+      case 'music-shuffle': this.toggleMusicShuffle(); break;
+      case 'music-repeat': this.cycleMusicRepeat(); break;
+      case 'music-open-search': this.openMusicSearch(); break;
       case 'care': this.care(node.dataset.care); break;
       case 'pet-tap': this.tapPet(); break;
       case 'share-card': this.shareCard(); break;
@@ -2806,6 +3383,11 @@ class App {
       case 'install-app': this.installApp(); break;
       case 'export-csv': this.exportCsv(); break;
       case 'set-outfit': this.setOutfit(node.dataset.outfit); break;
+      case 'photo-view': this.openPhotoModal(node.dataset.id); break;
+      case 'photo-delete': this.deletePhotoById(node.dataset.id); break;
+      case 'photo-clear': this.clearAllPhotos(); break;
+      case 'photo-compare': this.togglePhotoCompare(node.dataset.id); break;
+      case 'export-all': this.exportAllBackup(); break;
       case 'pick-pet': this.pickPet(node.dataset.pet); break;
       case 'adopt': this.adoptPet(); break;
       case 'switch-pet-view': this.switchPetView(node.dataset.pet); break;
@@ -3068,6 +3650,172 @@ class App {
     if (btn) btn.textContent = this.timer.running ? '暂停' : '开始';
     const box = $('#rest-timer');
     if (box) box.classList.toggle('is-running', this.timer.running);
+  }
+
+  /* ---------- 番茄钟 ---------- */
+  toggleFocusZen() {
+    this.focusZen = !this.focusZen;
+    document.body.classList.toggle('focus-zen', this.focusZen);
+    this.renderView();
+    this.afterRender();
+  }
+
+  focusStart() {
+    if (this.focus.left <= 0) this.focus = switchMode(this.focus, this.focus.mode);
+    this.focus = startFocus(this.focus, Date.now());
+    if (this.music.pausedForBreak && this.music.currentId) {
+      this.music.pausedForBreak = false;
+      this.playMusic(this.music.currentId);
+    }
+    this.state.focusSettings = { ...this.focus.settings };
+    this.save();
+    this.saveFocusRuntime();
+    this.startFocusTick();
+    this.patchFocus();
+  }
+
+  focusPause() {
+    this.focus = pauseFocus(this.focus, Date.now());
+    this.stopFocusTick();
+    this.saveFocusRuntime();
+    this.patchFocus();
+  }
+
+  focusReset() {
+    this.stopFocusTick();
+    this.focus = switchMode(this.focus, this.focus.mode);
+    this.saveFocusRuntime();
+    this.patchFocus();
+  }
+
+  focusSkip() {
+    this.finishFocus(true);
+  }
+
+  focusMode(mode) {
+    if (!MODES[mode]) return;
+    this.stopFocusTick();
+    this.focus = switchMode(this.focus, mode, this.state.focusSettings);
+    this.saveFocusRuntime();
+    this.renderView();
+    this.afterRender();
+  }
+
+  focusPreset(mode, minutes) {
+    if (!MODES[mode]) return;
+    this.focus = setDuration(this.focus, mode, minutes);
+    this.state.focusSettings = { ...this.focus.settings };
+    this.saveFocusRuntime();
+    this.renderView();
+    this.afterRender();
+    this.toast(`${MODES[mode].label}时长改为 ${minutes} 分钟。`, this.coach.id);
+  }
+
+  setFocusIntent(value) {
+    this.state.focusIntent = String(value || '').trim().slice(0, 40);
+    this.save();
+  }
+
+  saveFocusRuntime() {
+    this.state.focusRuntime = serializeFocus(this.focus);
+    this.save();
+  }
+
+  startFocusTick() {
+    this.stopFocusTick();
+    if (!this.focus.running) return;
+    this._focusTimer = setInterval(() => this.focusTick(), 1000);
+    this.patchFocus();
+  }
+
+  stopFocusTick() {
+    if (this._focusTimer) clearInterval(this._focusTimer);
+    this._focusTimer = null;
+    this.focusZen = false;
+    this.music = { tracks: [], queue: [], index: -1, currentId: null, currentUrl: null, playing: false, embed: this.state.musicEmbed || '' };
+    this.audio = null;
+    this.workoutFocusOpen = false;
+    this.exerciseDetailId = null;
+    this.exerciseReturn = 'train';
+    this.photoCompare = [];
+  }
+
+  focusTick() {
+    const { timer, done } = tickFocus(this.focus, Date.now());
+    this.focus = timer;
+    if (done) {
+      this.finishFocus(false);
+      return;
+    }
+    this.patchFocus();
+  }
+
+  finishFocus(skipped = false) {
+    const wasFocus = this.focus.mode === 'focus' && !skipped;
+    this.stopFocusTick();
+    if (wasFocus) {
+      const rec = { date: this.todayKey, minutes: this.focus.settings.focus, at: Date.now() };
+      this.state.focusHistory = [...(this.state.focusHistory || []), rec].slice(-500);
+      this.state.focusSettings = { ...this.focus.settings };
+      this.save();
+    }
+    this.focus = completeFocus(this.focus);
+    this.saveFocusRuntime();
+    if (this.view === 'focus') {
+      this.renderView();
+      this.afterRender();
+    }
+    if (wasFocus) {
+      this.toast('一个番茄完成，休息一下。', this.coach.id);
+      this.coachSays('专注这一格完成了。休息不是偷懒，是下一组的准备。');
+      notifyDue('专注结束', '这一格完成了，起来走两步。');
+      if (this.state.focusSound !== false) this.beep();
+      if (this.state.musicDuck !== false && this.audio && !this.audio.paused) {
+        this.audio.pause();
+        this.music.pausedForBreak = true;
+      }
+    } else if (!skipped) {
+      this.toast('休息结束，回到专注。', this.coach.id);
+      if (this.state.focusSound !== false) this.beep();
+    }
+    if (!skipped && this.state.focusAutoStart && this.view === 'focus') {
+      setTimeout(() => { if (this.view === 'focus' && !this.focus.running) this.focusStart(); }, 700);
+    }
+  }
+
+  patchFocus() {
+    const clock = $('#focus-clock');
+    if (!clock) return;
+    const t = this.focus;
+    const mode = MODES[t.mode] || MODES.focus;
+    clock.textContent = formatClock(t.left);
+    const ring = $('#focus-ring');
+    if (ring) {
+      const circ = 2 * Math.PI * 52;
+      ring.setAttribute('stroke-dashoffset', String((circ * (1 - progressOf(t))).toFixed(1)));
+    }
+    const status = $('#focus-status');
+    if (status) {
+      status.textContent = t.running ? `${mode.label}中 · 别碰手机` : t.left === 0 ? '这一格结束' : '准备好就开始';
+    }
+    const btn = $('#focus-toggle');
+    if (btn) {
+      btn.dataset.act = t.running ? 'focus-pause' : 'focus-start';
+      btn.innerHTML = t.running ? '❚❚' : '▶';
+      btn.setAttribute('aria-label', t.running ? '暂停' : '开始');
+    }
+    const chip = $('#focus-countdown');
+    if (chip) {
+      chip.hidden = !t.running;
+      chip.textContent = t.running ? `🍅 ${formatClock(t.left)}` : '';
+    }
+    document.title = t.running ? `${formatClock(t.left)} · 专注 · 五指山` : '五指山 · 谭师道场';
+    const cycle = $('#focus-cycle');
+    if (cycle) {
+      const cycles = t.settings?.cycles || 4;
+      const done = (t.cycle || 0) % cycles;
+      cycle.innerHTML = `${Array.from({ length: cycles }, (_, i) => `<span class="focus-dot ${i < done ? 'is-on' : ''}"></span>`).join('')}<span class="tiny muted">${done}/${cycles}</span>`;
+    }
   }
 
   beep() {
@@ -3346,6 +4094,947 @@ class App {
       this.coachSays('它长大了。别光看着，继续练。');
     }
     this._petStageSeen = stage;
+  }
+
+  setBodyField(key, val) {
+    const body = { ...(this.state.profile.body || {}) };
+    if (key === 'sex' || key === 'activity') {
+      body[key] = val;
+    } else {
+      const n = Number(val);
+      body[key] = val === '' || !Number.isFinite(n) ? undefined : n;
+    }
+    this.state.profile = { ...this.state.profile, body };
+    this.save();
+    this.renderView();
+    this.afterRender();
+  }
+
+  async addPhotoFile(file) {
+    const date = $('#photo-date')?.value || this.todayKey;
+    const angle = $('#photo-angle')?.value || 'front';
+    const status = $('#photo-status');
+    if (!/^image\//.test(file.type || '')) {
+      this.toast('只能选图片文件。', this.coach.id);
+      return;
+    }
+    if (status) status.textContent = '压缩中…';
+    try {
+      const blob = await compressImage(file);
+      await addPhoto({ blob, date, angle });
+      if (status) status.textContent = '';
+      this.toast('照片已存到本机。', this.coach.id);
+      await this.loadPhotos();
+    } catch (e) {
+      if (status) status.textContent = '';
+      this.toast(e.message || '照片保存失败。', this.coach.id);
+    }
+  }
+
+  async loadPhotos() {
+    const grid = $('#photo-grid');
+    if (!grid) return;
+    const dateInput = $('#photo-date');
+    if (dateInput && !dateInput.value) dateInput.value = this.todayKey;
+    try {
+      const rows = await listPhotos();
+      (this._photoUrls || []).forEach((u) => URL.revokeObjectURL(u));
+      this._photoUrls = [];
+      if (!rows.length) {
+        grid.innerHTML = '<span class="small muted">还没有照片。第一次记录，之后才有对比。</span>';
+        return;
+      }
+      grid.innerHTML = rows.map((r) => {
+        const url = URL.createObjectURL(r.blob);
+        this._photoUrls.push(url);
+        const angleLabel = PHOTO_ANGLES.find((a) => a.key === r.angle)?.label || '';
+        return `<div class="photo-item ${this.photoCompare.includes(r.id) ? 'is-compare' : ''}">
+          <button class="photo-thumb" data-act="photo-view" data-id="${r.id}" title="查看大图"><img src="${url}" alt="${esc(r.date)} ${esc(angleLabel)}" /></button>
+          <span class="photo-meta">${esc(r.date.slice(5))} · ${esc(angleLabel)}</span>
+          <button class="photo-compare" data-act="photo-compare" data-id="${r.id}" title="选入对比">${this.photoCompare.includes(r.id) ? '已选' : '对比'}</button>
+          <button class="photo-del" data-act="photo-delete" data-id="${r.id}" title="删除这张">×</button>
+        </div>`;
+      }).join('');
+    } catch (e) {
+      grid.innerHTML = '<span class="small muted">当前浏览器不支持本地照片存储，或照片库读取失败。</span>';
+    }
+  }
+
+  async togglePhotoCompare(id) {
+    const at = this.photoCompare.indexOf(id);
+    if (at >= 0) this.photoCompare.splice(at, 1);
+    else {
+      if (this.photoCompare.length >= 2) this.photoCompare.shift();
+      this.photoCompare.push(id);
+    }
+    if (this.photoCompare.length === 2) {
+      await this.openPhotoCompare();
+    } else {
+      await this.loadPhotos();
+      this.toast('再选一张，就能并排对比。', this.coach.id);
+    }
+  }
+
+  async openPhotoCompare() {
+    try {
+      const rows = await Promise.all(this.photoCompare.map((id) => getPhoto(id)));
+      if (rows.some((r) => !r)) return this.toast('有照片找不到了，重新选一下。', this.coach.id);
+      const urls = rows.map((r) => URL.createObjectURL(r.blob));
+      this._compareUrls = urls;
+      this.openModal(`
+        <div class="modal-head">
+          <div><span class="eyebrow">照片对比</span><h2>${rows[0].date} → ${rows[1].date}</h2></div>
+          <button class="icon-btn" data-act="close-modal">✕</button>
+        </div>
+        <div class="photo-compare-grid">${rows.map((r, i) => `<figure><img src="${urls[i]}" alt="${esc(r.date)} ${esc(r.angle)}" /><figcaption>${esc(r.date)} · ${esc(PHOTO_ANGLES.find((a) => a.key === r.angle)?.label || '')}</figcaption></figure>`).join('')}</div>
+        <p class="tiny muted mt-s">同一角度、相近光线下的对比更有参考价值。照片只存本机。</p>
+      `);
+      this.photoCompare = [];
+      await this.loadPhotos();
+    } catch (e) {
+      this.toast('照片对比打开失败。', this.coach.id);
+    }
+  }
+
+  async exportAllBackup() {
+    try {
+      const entries = [
+        { name: 'wuzhishan-backup.json', data: JSON.stringify({ format: 'wuzhishan-backup', version: 1, exportedAt: new Date().toISOString(), state: this.state }, null, 2) },
+        { name: 'README.txt', data: '五指山完整备份\n\n- wuzhishan-backup.json：文字数据（可在应用「导入备份」恢复）\n- photos/：进度照片（原图）\n- music/：本地音乐（原文件）\n\n照片与音乐需手动放回或重新导入；JSON 不包含媒体。\n' },
+      ];
+      const photos = await listPhotos();
+      for (const p of photos) {
+        const buf = await p.blob.arrayBuffer();
+        entries.push({ name: `photos/${p.date}-${p.angle}-${p.id}.jpg`, data: new Uint8Array(buf) });
+      }
+      const tracks = await listTracks();
+      for (const meta of tracks) {
+        const row = await getTrack(meta.id);
+        if (!row?.blob) continue;
+        const buf = await row.blob.arrayBuffer();
+        const name = String(row.file || `${row.name}.mp3`).replace(/[\\/:*?"<>|]/g, '_');
+        entries.push({ name: `music/${name}`, data: new Uint8Array(buf) });
+      }
+      const bytes = createZip(entries);
+      const blob = new Blob([bytes], { type: 'application/zip' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `wuzhishan-backup-${this.todayKey}.zip`;
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(a.href), 3000);
+      this.toast(`完整备份 ZIP 已导出：${entries.length} 个文件。`, this.coach.id);
+    } catch (e) {
+      this.toast('完整备份失败：' + (e.message || '浏览器限制'), this.coach.id);
+    }
+  }
+
+  async openPhotoModal(id) {
+    try {
+      const row = await getPhoto(id);
+      if (!row) return this.toast('照片找不到了。', this.coach.id);
+      const url = URL.createObjectURL(row.blob);
+      this._photoModalUrl = url;
+      const angleLabel = PHOTO_ANGLES.find((a) => a.key === row.angle)?.label || '';
+      this.openModal(`
+        <div class="modal-head">
+          <div><span class="eyebrow">进度照片</span><h2>${esc(row.date)} · ${esc(angleLabel)}</h2></div>
+          <button class="icon-btn" data-act="close-modal">✕</button>
+        </div>
+        <img src="${url}" alt="进度照片" style="width:100%;border-radius:12px;display:block" />
+        <p class="tiny muted mt-s">只存在本机，导出 JSON 不包含照片。</p>
+      `);
+    } catch (e) {
+      this.toast('照片读取失败。', this.coach.id);
+    }
+  }
+
+  async deletePhotoById(id) {
+    try {
+      await deletePhoto(id);
+      await this.loadPhotos();
+      this.toast('照片删了。', this.coach.id);
+    } catch (e) {
+      this.toast('删除失败。', this.coach.id);
+    }
+  }
+
+  async clearAllPhotos() {
+    if (!window.confirm('清空全部进度照片？不能恢复。')) return;
+    try {
+      await clearPhotos();
+      await this.loadPhotos();
+      this.toast('照片清空了。', this.coach.id);
+    } catch (e) {
+      this.toast('清空失败。', this.coach.id);
+    }
+  }
+
+  /* ---------- 音乐 ---------- */
+  ensureAudio() {
+    if (!this.audio) {
+      this.audio = new Audio();
+      this.audio.volume = Number(this.state.musicVolume) || 0.8;
+      this.audio.addEventListener('ended', () => this.onMusicEnded());
+      this.audio.addEventListener('play', () => { this.music.playing = true; try { if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'playing'; } catch (e) { /* ignore */ } this.renderMusicDock(); });
+      this.audio.addEventListener('pause', () => { this.music.playing = false; try { if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'paused'; } catch (e) { /* ignore */ } this.renderMusicDock(); });
+      this.audio.addEventListener('timeupdate', () => { this.updateMediaPosition(); this.updateMusicProgress(); });
+    }
+    return this.audio;
+  }
+
+  async loadMusicTracks() {
+    try {
+      this.music.tracks = await listTracks();
+    } catch (e) {
+      this.music.tracks = [];
+    }
+    if (!this.music.currentId && this.state.lastMusicId && this.music.tracks.some((t) => t.id === this.state.lastMusicId)) {
+      this.music.currentId = this.state.lastMusicId;
+    }
+    this.renderMusicList();
+    this.renderMusicDock();
+  }
+
+  renderMusicList() {
+    const el = $('#music-list');
+    if (!el) return;
+    if (!this.music.tracks.length) {
+      el.innerHTML = '<div class="tiny muted">还没有本地音乐。导入 mp3 / m4a / wav 等文件，或粘贴官方歌单链接。</div>';
+      return;
+    }
+    const q = String(this.musicFilter || '').toLowerCase();
+    const rows = this.music.tracks.filter((t) => !q || String(t.name).toLowerCase().includes(q));
+    el.innerHTML = rows.map((t, i) => `<div class="music-row ${this.music.currentId === t.id ? 'is-on' : ''}">
+      <button class="music-play" data-act="music-play" data-id="${t.id}"><span class="music-idx">${i + 1}</span><span class="music-name">${esc(t.name)}</span></button>
+      <span class="tiny muted">${(Number(t.size) / 1048576).toFixed(1)}MB</span>
+      <button class="music-del" data-act="music-delete" data-id="${t.id}" title="删除这首">×</button>
+    </div>`).join('');
+  }
+
+  async playMusic(id) {
+    try {
+      const row = await getTrack(id);
+      if (!row) return;
+      const audio = this.ensureAudio();
+      if (this.music.currentUrl) URL.revokeObjectURL(this.music.currentUrl);
+      const url = URL.createObjectURL(row.blob);
+      this.music.currentUrl = url;
+      this.music.currentId = id;
+      this.state.lastMusicId = id;
+      this.save();
+      this.music.queue = this.music.tracks.map((t) => t.id);
+      this.music.index = this.music.queue.indexOf(id);
+      audio.src = url;
+      await audio.play();
+      this.updateMediaSession(row);
+      this.toast(`播放：${row.name}`, this.coach.id);
+      this.renderMusicList();
+      this.renderMusicDock();
+    } catch (e) {
+      this.toast('播放失败：' + (e.message || '浏览器限制了自动播放'), this.coach.id);
+    }
+  }
+
+  onMusicEnded() {
+    if (this.state.musicRepeat === 'one' && this.music.currentId) {
+      this.playMusic(this.music.currentId);
+      return;
+    }
+    const hasNext = this.music.index < this.music.queue.length - 1;
+    if (this.state.musicShuffle || this.state.musicRepeat === 'all' || hasNext) this.musicNext();
+    else { this.music.playing = false; this.renderMusicDock(); }
+  }
+
+  updateMusicProgress() {
+    const a = this.audio;
+    if (!a) return;
+    const bar = $('#music-progress');
+    const time = $('#music-time');
+    const dur = Number.isFinite(a.duration) ? a.duration : 0;
+    if (bar && document.activeElement !== bar) bar.value = String(dur ? Math.round((a.currentTime / dur) * 1000) : 0);
+    if (time) time.textContent = `${fmtSec(a.currentTime || 0)}${dur ? ' / ' + fmtSec(dur) : ''}`;
+  }
+
+  toggleMusicShuffle() {
+    this.state.musicShuffle = !this.state.musicShuffle;
+    this.save();
+    this.renderMusicDock();
+    this.toast(this.state.musicShuffle ? '随机播放开了。' : '随机播放关了。', this.coach.id);
+  }
+
+  cycleMusicRepeat() {
+    const order = ['off', 'all', 'one'];
+    const i = order.indexOf(this.state.musicRepeat || 'off');
+    this.state.musicRepeat = order[(i + 1) % order.length];
+    this.save();
+    this.renderMusicDock();
+    this.toast(this.state.musicRepeat === 'one' ? '单曲循环。' : this.state.musicRepeat === 'all' ? '列表循环。' : '循环关闭。', this.coach.id);
+  }
+
+  toggleMusic() {
+    const audio = this.ensureAudio();
+    if (!audio.src) {
+      const target = this.music.currentId || this.state.lastMusicId || this.music.tracks[0]?.id;
+      if (target) this.playMusic(target);
+      return;
+    }
+    if (audio.paused) audio.play().catch(() => {});
+    else audio.pause();
+  }
+
+  async musicNext() {
+    if (!this.music.queue.length) return;
+    let idx = stepIndex(this.music.index, this.music.queue.length, 1);
+    if (this.state.musicShuffle && this.music.queue.length > 1) {
+      do { idx = Math.floor(Math.random() * this.music.queue.length); } while (idx === this.music.index);
+    }
+    this.music.index = idx;
+    await this.playMusic(this.music.queue[idx]);
+  }
+
+  async musicPrev() {
+    if (!this.music.queue.length) return;
+    const idx = stepIndex(this.music.index, this.music.queue.length, -1);
+    this.music.index = idx;
+    await this.playMusic(this.music.queue[idx]);
+  }
+
+  async musicDelete(id) {
+    if (this.music.currentId === id) {
+      this.ensureAudio().pause();
+      this.music.currentId = null;
+      this.clearMediaSession();
+    }
+    await deleteTrack(id);
+    await this.loadMusicTracks();
+    this.toast('删了。', this.coach.id);
+  }
+
+  async musicClear() {
+    if (!window.confirm('清空全部本地音乐？不能恢复。')) return;
+    await clearTracks();
+    this.ensureAudio().pause();
+    this.music.tracks = [];
+    this.music.queue = [];
+    this.music.currentId = null;
+    this.clearMediaSession();
+    this.renderMusicList();
+    this.renderMusicDock();
+    this.toast('本地音乐清空了。', this.coach.id);
+  }
+
+  async importMusicFiles(files) {
+    const status = $('#music-status');
+    if (status) status.textContent = '正在导入本地音乐…';
+    try {
+      const res = await addTracks(files);
+      await this.loadMusicTracks();
+      if (status) status.textContent = '';
+      this.toast(`导入 ${res.added} 首${res.skipped.length ? `，跳过 ${res.skipped.length} 个` : ''}。`, this.coach.id);
+    } catch (e) {
+      if (status) status.textContent = '';
+      this.toast('导入失败：' + (e.message || '浏览器不支持本地存储'), this.coach.id);
+    }
+  }
+
+  async importMusicPlaylist(file) {
+    const text = await file.text();
+    const entries = parsePlaylist(file.name, text);
+    const names = entries.map((e) => e.title.toLowerCase());
+    const matched = this.music.tracks.filter((t) => names.some((n) => n.includes(t.name.toLowerCase()) || t.name.toLowerCase().includes(n)));
+    if (matched.length) {
+      this.music.queue = matched.map((t) => t.id);
+      this.music.index = -1;
+      this.toast(`歌单匹配到 ${matched.length} 首，点第一首开始。`, this.coach.id);
+      this.renderMusicList();
+    } else {
+      this.toast('歌单里的歌名没有匹配到本地音乐。先导入音频文件，再导歌单。', this.coach.id);
+    }
+  }
+
+  updateMediaSession(track) {
+    try {
+      if (!('mediaSession' in navigator) || typeof MediaMetadata === 'undefined') return;
+      navigator.mediaSession.metadata = new MediaMetadata(mediaSessionPayload(track));
+      const audio = this.ensureAudio();
+      const handlers = {
+        play: () => audio.play().catch(() => {}),
+        pause: () => audio.pause(),
+        previoustrack: () => this.musicPrev(),
+        nexttrack: () => this.musicNext(),
+        seekto: (d) => { if (Number.isFinite(d.seekTime)) audio.currentTime = d.seekTime; },
+        seekbackward: (d) => { audio.currentTime = Math.max(0, audio.currentTime - (d.seekOffset || 10)); },
+        seekforward: (d) => { audio.currentTime = Math.min(audio.duration || 0, audio.currentTime + (d.seekOffset || 10)); },
+      };
+      Object.entries(handlers).forEach(([key, fn]) => { try { navigator.mediaSession.setActionHandler(key, fn); } catch (e) { /* 不支持的 action */ } });
+    } catch (e) {
+      /* 媒体面板是增强项 */
+    }
+  }
+
+  updateMediaPosition() {
+    try {
+      if (!('mediaSession' in navigator) || !this.audio || !Number.isFinite(this.audio.duration) || !this.audio.duration) return;
+      navigator.mediaSession.setPositionState({
+        duration: this.audio.duration,
+        position: Math.min(this.audio.currentTime, this.audio.duration),
+        playbackRate: this.audio.playbackRate || 1,
+      });
+    } catch (e) { /* 忽略 */ }
+  }
+
+  clearMediaSession() {
+    try { if ('mediaSession' in navigator) navigator.mediaSession.metadata = null; } catch (e) { /* 忽略 */ }
+  }
+
+  openMusicSearch() {
+    const provider = $('#music-provider')?.value || 'qq';
+    const current = this.music.tracks.find((t) => t.id === this.music.currentId);
+    const query = ($('#music-search-input')?.value || '').trim() || current?.name || this.state.focusIntent || '';
+    const url = searchUrl(provider, query);
+    if (!url) {
+      this.toast('先输入歌名，或播放一首本地音乐。', this.coach.id);
+      return;
+    }
+    window.open(url, '_blank', 'noopener');
+    this.toast(`已打开${MUSIC_PROVIDERS[provider]?.label || '音乐平台'}搜索：${query}`, this.coach.id);
+  }
+
+  setMusicVolume(value) {
+    this.state.musicVolume = Number(value);
+    this.save();
+    if (this.audio) this.audio.volume = Number(value);
+  }
+
+  setMusicEmbed(url) {
+    const info = detectEmbed(url);
+    if (!info) {
+      this.toast('只支持 Spotify / Apple Music / YouTube 的歌单或单曲链接。', this.coach.id);
+      return;
+    }
+    this.state.musicEmbed = String(url).trim();
+    this.music.embed = this.state.musicEmbed;
+    this.save();
+    this.renderView();
+    this.afterRender();
+    this.toast(`已嵌入 ${info.label} 播放器。`, this.coach.id);
+  }
+
+  clearMusicEmbed() {
+    this.state.musicEmbed = '';
+    this.music.embed = '';
+    this.save();
+    this.renderView();
+    this.afterRender();
+  }
+
+  renderMusicDock() {
+    const dock = $('#music-dock');
+    if (!dock) return;
+    dock.hidden = !this.music.currentId;
+    document.body.classList.toggle('has-music-dock', !dock.hidden);
+    const title = $('#music-title');
+    const track = this.music.tracks.find((t) => t.id === this.music.currentId);
+    if (title) title.textContent = track ? track.name : '未播放';
+    const btn = $('#music-toggle');
+    if (btn) btn.textContent = this.music.playing ? '❚❚' : '▶';
+    const vol = $('#music-volume');
+    if (vol && document.activeElement !== vol) vol.value = String(this.state.musicVolume ?? 0.8);
+    const shuffle = $('#music-shuffle');
+    if (shuffle) shuffle.classList.toggle('is-on', Boolean(this.state.musicShuffle));
+    const repeat = $('#music-repeat');
+    if (repeat) {
+      repeat.classList.toggle('is-on', (this.state.musicRepeat || 'off') !== 'off');
+      repeat.textContent = this.state.musicRepeat === 'one' ? '🔂' : '🔁';
+      repeat.title = this.state.musicRepeat === 'one' ? '单曲循环' : this.state.musicRepeat === 'all' ? '列表循环' : '循环关闭';
+    }
+    this.updateMusicProgress();
+  }
+
+  /* ---------- 自定义计划 ---------- */
+  startCustomPlan(useCurrent = true) {
+    const base = useCurrent && this.state.plan ? clonePlan(this.state.plan) : emptyCustomPlan(this.state.profile);
+    base.custom = true;
+    base.sessions = Array.isArray(base.sessions) && base.sessions.length ? base.sessions : emptyCustomPlan(this.state.profile).sessions;
+    this.customDraft = base;
+    this.go('custom');
+  }
+
+  customCancel() {
+    this.customDraft = null;
+    this.go(this.state.plan ? 'plan' : 'plan');
+  }
+
+  customSave() {
+    if (!this.customDraft) return;
+    const draft = normalizeCustomPlan(this.customDraft);
+    const errors = validateCustomPlan(draft);
+    if (errors.length) {
+      this.toast(errors[0].msg, this.coach.id);
+      return;
+    }
+    draft.custom = true;
+    draft.version = (this.state.plan?.version || 0) + 1;
+    this.state.plan = draft;
+    this.state.activeSession = null;
+    this.sessionClock = 0;
+    this.planTab = 0;
+    this.sessionIndex = 0;
+    this.save();
+    this.customDraft = null;
+    this.go('plan');
+    this.toast('计划保存了。进训练就能用。', this.coach.id);
+  }
+
+  customAddDay() {
+    const draft = clonePlan(this.customDraft);
+    draft.sessions.push({ title: `第 ${draft.sessions.length + 1} 天`, minutes: draft.minutes || 45, items: [] });
+    draft.days = draft.sessions.length;
+    this.customDraft = draft;
+    this.renderView();
+    this.afterRender();
+  }
+
+  customRemoveDay(si) {
+    if (!this.customDraft || this.customDraft.sessions.length <= 1) return;
+    const draft = clonePlan(this.customDraft);
+    draft.sessions.splice(si, 1);
+    draft.days = draft.sessions.length;
+    this.customDraft = draft;
+    this.renderView();
+    this.afterRender();
+  }
+
+  customRemoveExercise(si, ii) {
+    this.customDraft = removeItem(this.customDraft, si, ii);
+    this.renderView();
+    this.afterRender();
+  }
+
+  customMove(si, ii, dir) {
+    this.customDraft = moveItem(this.customDraft, si, ii, dir);
+    this.renderView();
+    this.afterRender();
+  }
+
+  openExercisePicker(si) {
+    this.picker = { si, query: '', muscle: 'all', equipment: 'all' };
+    this.openModal(`
+      <div class="modal-head">
+        <div><span class="eyebrow">动作库</span><h2>给第 ${si + 1} 天加动作</h2></div>
+        <button class="icon-btn" data-act="close-modal">✕</button>
+      </div>
+      <div class="picker-controls">
+        <input class="input" id="ex-search" placeholder="搜动作名或标签，例如：卧推 / 腿 / 护膝" />
+        <select class="select" id="picker-muscle">
+          <option value="all">全部肌群</option>
+          ${Object.entries(MUSCLES).map(([k, v]) => `<option value="${k}">${v}</option>`).join('')}
+        </select>
+        <select class="select" id="picker-equipment">
+          <option value="all">全部器械</option>
+          ${Object.entries(EQUIPMENTS).map(([k, v]) => `<option value="${k}">${v.label || v}</option>`).join('')}
+        </select>
+      </div>
+      <div class="picker-list" id="picker-list"></div>
+    `);
+    const search = $('#ex-search');
+    if (search) search.addEventListener('input', () => { this.picker.query = search.value; this.renderPickerList(); });
+    const sel = $('#picker-muscle');
+    if (sel) sel.addEventListener('change', () => { this.picker.muscle = sel.value; this.renderPickerList(); });
+    const eq = $('#picker-equipment');
+    if (eq) eq.addEventListener('change', () => { this.picker.equipment = eq.value; this.renderPickerList(); });
+    this.renderPickerList();
+    setTimeout(() => $('#ex-search')?.focus(), 60);
+  }
+
+  renderPickerList() {
+    const list = $('#picker-list');
+    if (!list || !this.picker) return;
+    const items = filterExercises(this.picker.query, this.picker.muscle, this.picker.equipment).slice(0, 80);
+    list.innerHTML = items.length
+      ? items.map((ex) => `<button class="picker-row" data-act="picker-pick" data-id="${ex.id}">
+          <span class="picker-name"><b>${esc(ex.name)}</b><span class="tiny muted">${(ex.muscles || []).map((m) => MUSCLES[m]).filter(Boolean).join(' · ')}${ex.tags?.length ? ` · ${ex.tags.join(' / ')}` : ''} · L${ex.level || 1}</span></span>
+          <span class="tiny muted">${(ex.equipment || []).map((e) => EQUIPMENTS[e]?.label || e).slice(0, 2).join(' / ')}</span>
+        </button>`).join('')
+      : '<div class="small muted" style="padding:12px">没有匹配的动作，换个词试试。</div>';
+  }
+
+  pickerPick(id) {
+    if (!this.picker) return;
+    const res = addItem(this.customDraft, this.picker.si, id);
+    if (!res.added) {
+      this.toast(res.msg, this.coach.id);
+      return;
+    }
+    this.customDraft = res.plan;
+    const si = this.picker.si;
+    this.closeModal();
+    this.picker = null;
+    this.renderView();
+    this.afterRender();
+    const day = $(`.custom-day:nth-of-type(${si + 2})`);
+    if (day) day.scrollIntoView({ block: 'center', behavior: 'smooth' });
+  }
+
+  openTemplateSaveModal() {
+    if (!this.customDraft) return;
+    this.openModal(`
+      <div class="modal-head">
+        <div><span class="eyebrow">计划模板</span><h2>存为模板</h2></div>
+        <button class="icon-btn" data-act="close-modal">✕</button>
+      </div>
+      <div class="field">
+        <label for="template-name">模板名称</label>
+        <input class="input" id="template-name" maxlength="30" value="${esc(this.customDraft.splitName || '我的计划')}" />
+      </div>
+      <p class="tiny muted">模板只存本机，可导出 JSON 分享给别人导入。</p>
+      <div class="modal-foot">
+        <button class="btn btn-ghost" data-act="close-modal">取消</button>
+        <button class="btn btn-primary" data-act="template-save-confirm">保存模板</button>
+      </div>
+    `);
+    setTimeout(() => $('#template-name')?.select(), 60);
+  }
+
+  saveTemplate(name) {
+    if (!this.customDraft) return;
+    const tpl = makeTemplate(name || this.customDraft.splitName, this.customDraft);
+    this.state.planTemplates = addTemplate(this.state.planTemplates || [], tpl);
+    this.save();
+    this.closeModal();
+    this.renderView();
+    this.afterRender();
+    this.toast('模板存好了。', this.coach.id);
+  }
+
+  loadTemplate(id) {
+    const tpl = (this.state.planTemplates || []).find((t) => t.id === id);
+    if (!tpl) return;
+    this.customDraft = clonePlan(tpl.plan);
+    this.renderView();
+    this.afterRender();
+    this.toast(`已载入模板「${tpl.name}」。`, this.coach.id);
+  }
+
+  deleteTemplate(id) {
+    if (!id) return;
+    this.state.planTemplates = removeTemplate(this.state.planTemplates || [], id);
+    this.save();
+    this.renderView();
+    this.afterRender();
+    this.toast('模板删了。', this.coach.id);
+  }
+
+  exportTemplate() {
+    if (!this.customDraft) return;
+    const tpl = makeTemplate(this.customDraft.splitName, this.customDraft);
+    const blob = new Blob([serializeTemplate(tpl)], { type: 'application/json;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `wuzhishan-plan-${tpl.id}.json`;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    this.toast('模板导出了，发给别人可导入。', this.coach.id);
+  }
+
+  async importTemplateFile(file) {
+    const text = await file.text();
+    const res = parseTemplate(text);
+    if (!res.ok) {
+      this.toast(res.msg, this.coach.id);
+      return;
+    }
+    this.customDraft = clonePlan(res.template.plan);
+    this.renderView();
+    this.afterRender();
+    this.toast(`已导入模板「${res.template.name}」，保存后生效。`, this.coach.id);
+  }
+
+  openCompareModal() {
+    const auto = this.state.generatedPlan;
+    if (!auto) {
+      this.toast('还没有自动生成版可对比。先让教练排一份。', this.coach.id);
+      return;
+    }
+    const cmp = comparePlans(auto, this.state.plan);
+    const row = (r) => `<tr><td>${r.label}</td><td>${r.a}${r.unit}</td><td>${r.b}${r.unit}</td><td>${r.b - r.a > 0 ? '+' : ''}${r.b - r.a}${r.unit}</td></tr>`;
+    const max = Math.max(1, ...cmp.groups.flatMap((g) => [g.a, g.b]));
+    this.openModal(`
+      <div class="modal-head">
+        <div><span class="eyebrow">计划对比</span><h2>自动生成 vs 自己排</h2></div>
+        <button class="icon-btn" data-act="close-modal">✕</button>
+      </div>
+      <table class="compare-table"><caption class="sr-only">自动生成计划与自定义计划对比</caption>
+        <thead><tr><th>指标</th><th>自动版</th><th>自定义</th><th>差</th></tr></thead>
+        <tbody>${cmp.rows.map(row).join('')}</tbody>
+      </table>
+      <div class="compare-groups">
+        ${cmp.groups.map((g) => `<div class="compare-group"><span>${g.label}</span>
+          <div class="compare-bars"><i class="auto" style="width:${(g.a / max) * 100}%"></i><i class="custom" style="width:${(g.b / max) * 100}%"></i></div>
+          <span class="tiny muted">${g.a} / ${g.b} 组</span></div>`).join('')}
+      </div>
+      <div class="compare-diff">
+        <div><b>自动版独有</b>：${cmp.onlyA.length ? cmp.onlyA.map(esc).join('、') : '无'}</div>
+        <div><b>自定义独有</b>：${cmp.onlyB.length ? cmp.onlyB.map(esc).join('、') : '无'}</div>
+        <div class="tiny muted">共同动作 ${cmp.same} 个；灰色=自动版，深色=自定义。</div>
+      </div>
+    `);
+  }
+
+  async exportPhotos() {
+    try {
+      const rows = await listPhotos();
+      if (!rows.length) return this.toast('还没有照片可导出。', this.coach.id);
+      rows.forEach((r) => {
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(r.blob);
+        a.download = `wuzhishan-photo-${r.date}-${r.angle}.jpg`;
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(a.href), 3000);
+      });
+      this.toast(`正在导出 ${rows.length} 张照片（浏览器可能询问是否允许多文件下载）。`, this.coach.id);
+    } catch (e) {
+      this.toast('照片导出失败。', this.coach.id);
+    }
+  }
+
+  async exportMusic() {
+    try {
+      const rows = await listTracks();
+      if (!rows.length) return this.toast('还没有本地音乐可导出。', this.coach.id);
+      let n = 0;
+      for (const meta of rows) {
+        const row = await getTrack(meta.id);
+        if (!row?.blob) continue;
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(row.blob);
+        a.download = row.file || `${row.name}.mp3`;
+        a.click();
+        n += 1;
+        setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+        await new Promise((resolve) => setTimeout(resolve, 120));
+      }
+      this.toast(`正在导出 ${n} 首本地音乐。`, this.coach.id);
+    } catch (e) {
+      this.toast('音乐导出失败。', this.coach.id);
+    }
+  }
+
+  recordBodyLog() {
+    const res = normalizeBodyLog({
+      date: $('#body-log-date')?.value,
+      weight: $('#body-log-weight')?.value,
+      bodyFat: $('#body-log-fat')?.value,
+      waist: $('#body-log-waist')?.value,
+    });
+    if (!res.ok) {
+      this.toast(res.msg, this.coach.id);
+      return;
+    }
+    const logs = [...(this.state.bodyLogs || []), res.log].sort((a, b) => String(a.date).localeCompare(String(b.date))).slice(-200);
+    this.state.bodyLogs = logs;
+    const body = { ...(this.state.profile.body || {}), weightKg: res.log.weight };
+    if (res.log.bodyFat != null) body.bodyFatPct = res.log.bodyFat;
+    if (res.log.waist != null) body.waistCm = res.log.waist;
+    this.state.profile = { ...this.state.profile, body };
+    this.save();
+    this.renderView();
+    this.afterRender();
+    this.toast('身体记录已保存。', this.coach.id);
+  }
+
+  customReorder(si, from, to) {
+    if (!this.customDraft) return;
+    const items = this.customDraft.sessions[si]?.items;
+    if (!items || to < 0 || to >= items.length) return;
+    const draft = clonePlan(this.customDraft);
+    const [moved] = draft.sessions[si].items.splice(from, 1);
+    draft.sessions[si].items.splice(to, 0, moved);
+    this.customDraft = draft;
+    this.renderView();
+    this.afterRender();
+  }
+
+  customCopyDay(si) {
+    if (!this.customDraft) return;
+    const draft = clonePlan(this.customDraft);
+    const src = draft.sessions[si];
+    if (!src) return;
+    draft.sessions.splice(si + 1, 0, { ...clonePlan(src), title: `${src.title} 副本` });
+    draft.days = draft.sessions.length;
+    this.customDraft = draft;
+    this.renderView();
+    this.afterRender();
+    this.toast('复制了一天。', this.coach.id);
+  }
+
+  async copyTemplateShare() {
+    if (!this.customDraft) return;
+    const plan = this.customDraft;
+    const lines = [`【${plan.splitName || '自定义计划'}】${plan.sessions.length} 天`];
+    plan.sessions.forEach((s, i) => {
+      lines.push(`第 ${i + 1} 天 ${s.title}：${(s.items || []).map((it) => it.name).join('、') || '（空）'}`);
+    });
+    lines.push('来自五指山 · 谭师道场');
+    const text = lines.join('\n');
+    try {
+      await navigator.clipboard.writeText(text);
+      this.toast('分享文案已复制。', this.coach.id);
+    } catch (e) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); this.toast('分享文案已复制。', this.coach.id); } catch (err) { this.toast('复制失败，可以用「导出模板」发文件。', this.coach.id); }
+      ta.remove();
+    }
+  }
+
+  openWorkoutFocus() {
+    if (!this.state.plan) {
+      this.toast('先有训练计划再进专注模式。', this.coach.id);
+      return;
+    }
+    if (!this.state.activeSession || this.state.activeSession.finished) {
+      this.startSession(this.sessionIndex ?? 0);
+    }
+    this.workoutFocusOpen = true;
+    document.body.classList.add('workout-focus-on');
+    this.renderWorkoutFocus();
+    this.updateTimerUI();
+  }
+
+  closeWorkoutFocus() {
+    this.workoutFocusOpen = false;
+    this.exerciseDetailId = null;
+    this.exerciseReturn = 'train';
+    this.photoCompare = [];
+    document.body.classList.remove('workout-focus-on');
+    const el = $('#workout-focus');
+    if (el) {
+      el.hidden = true;
+      el.innerHTML = '';
+    }
+  }
+
+  workoutCurrent() {
+    const active = this.state.activeSession;
+    const plan = this.state.plan;
+    if (!active || !plan) return null;
+    const session = plan.sessions[active.index];
+    if (!session) return null;
+    const done = active.doneSets || {};
+    for (let i = 0; i < session.items.length; i++) {
+      const item = session.items[i];
+      const d = done[item.id] || 0;
+      if (d < item.sets) return { item, session, index: i, setNo: d + 1, doneSets: d };
+    }
+    return null;
+  }
+
+  renderWorkoutFocus() {
+    const el = $('#workout-focus');
+    if (!el) return;
+    if (!this.workoutFocusOpen) {
+      el.hidden = true;
+      return;
+    }
+    const active = this.state.activeSession;
+    const plan = this.state.plan;
+    if (!active || !plan) {
+      this.closeWorkoutFocus();
+      return;
+    }
+    const session = plan.sessions[active.index];
+    const done = active.doneSets || {};
+    const total = session.items.reduce((sum, it) => sum + it.sets, 0);
+    const completed = session.items.reduce((sum, it) => sum + (done[it.id] || 0), 0);
+    const cur = this.workoutCurrent();
+    el.hidden = false;
+    if (!cur) {
+      el.innerHTML = `<div class="wf-shell"><div class="wf-top"><span>专注训练 · DAY ${active.index + 1}</span><button class="btn btn-ghost btn-sm" data-act="workout-close">退出</button></div>
+        <div class="wf-done"><h2>这一节做完了</h2><p>${completed}/${total} 组。按结束记录，别再加戏。</p>
+        <div class="row" style="justify-content:center;gap:10px"><button class="btn btn-primary" data-act="finish-session">结束并记录</button><button class="btn btn-ghost" data-act="workout-close">先退出</button></div></div></div>`;
+      return;
+    }
+    const { item, index, setNo } = cur;
+    const ex = getExercise(item.id);
+    const art = getArt(ex?.pattern || 'A');
+    const last = lastSetFor(this.state.setLogs || [], item.id);
+    const reps = last?.reps ?? (parseInt(item.reps, 10) || 8);
+    const pct = total ? Math.round((completed / total) * 100) : 0;
+    el.innerHTML = `<div class="wf-shell">
+      <div class="wf-top"><span>专注训练 · DAY ${active.index + 1} · ${esc(session.title)}</span><button class="btn btn-ghost btn-sm" data-act="workout-close">退出</button></div>
+      <div class="wf-progress"><div class="wf-bar"><i style="width:${pct}%"></i></div><span>${completed}/${total} 组 · ${pct}%</span></div>
+      <div class="wf-card">
+        <div class="wf-art">${art}</div>
+        <div class="wf-info">
+          <span class="eyebrow">动作 ${index + 1}/${session.items.length} · 第 ${setNo}/${item.sets} 组</span>
+          <h2>${esc(item.name)}</h2>
+          <p class="small muted">${esc(item.reps)} · 休息 ${esc(item.rest)} · RPE ${esc(item.rpe)}</p>
+          <div class="wf-cue">${esc(item.cue || '动作质量优先于重量。')}</div>
+          <button class="btn btn-sm btn-ghost mt-s" data-act="exercise-detail" data-id="${item.id}">看动作要点与替代动作</button>
+          ${last ? `<div class="wf-last">上次：${last.weight}kg × ${last.reps}${last.rpe ? ` · RPE ${last.rpe}` : ''}</div>` : ''}
+          <div class="wf-inputs">
+            <label><span>重量 kg</span><input class="input" id="wf-weight" type="number" inputmode="decimal" step="0.5" min="0" max="500" value="${last?.weight ?? ''}" placeholder="可选" /></label>
+            <label><span>次数</span><input class="input" id="wf-reps" type="number" inputmode="numeric" min="1" max="100" value="${reps}" /></label>
+            <button class="btn btn-primary btn-lg" data-act="workout-complete">完成这组</button>
+          </div>
+          <div class="wf-hint">完成会自动开始组间休息；重量留空则只记完成，不记重量。</div>
+        </div>
+      </div>
+      <div class="wf-rest ${this.timer.running ? 'is-running' : ''}" id="workout-rest">
+        <span>组间休息</span><b id="workout-rest-time">${fmtSec(this.timer.left)}</b>
+        <button class="btn btn-sm btn-ghost" data-act="workout-skip-rest">跳过休息</button>
+      </div>
+    </div>`;
+  }
+
+  workoutComplete() {
+    const cur = this.workoutCurrent();
+    if (!cur) return;
+    const weight = Number($('#wf-weight')?.value);
+    const reps = Number($('#wf-reps')?.value);
+    if (Number.isFinite(weight) && weight > 0 && Number.isFinite(reps) && reps > 0) {
+      const entry = addSetLog(this.state, {
+        date: this.todayKey,
+        sessionIndex: this.state.activeSession?.index ?? 0,
+        exerciseId: cur.item.id,
+        exerciseName: cur.item.name,
+        setIndex: cur.setNo,
+        weight,
+        reps,
+        rpe: Number(String(cur.item.rpe).match(/\d+/)?.[0]) || null,
+      });
+      if (entry) this.save();
+    }
+    this.completeSet(cur.item.id);
+    this.renderWorkoutFocus();
+  }
+
+  openExerciseDetail(id) {
+    if (!getExercise(id)) return;
+    this.exerciseReturn = this.workoutFocusOpen ? 'workout' : 'train';
+    if (this.workoutFocusOpen) this.closeWorkoutFocus();
+    this.exerciseDetailId = id;
+    this.go('exercise');
+  }
+
+  exerciseBack() {
+    const back = this.exerciseReturn;
+    this.go('train');
+    if (back === 'workout') this.openWorkoutFocus();
+  }
+
+  renderPetCorner() {
+    const el = $('#pet-corner');
+    if (!el) return;
+    const pet = this.state.pet;
+    const show = Boolean(pet) && this.view !== 'pet' && this.view !== 'adopt' && !this.workoutFocusOpen;
+    el.hidden = !show;
+    if (!show) { el.innerHTML = ''; return; }
+    el.innerHTML = `${petMini(pet.typeId, pet, 54)}<span>${esc(pet.name)}</span>`;
+    el.title = `去看看${pet.name}`;
   }
 
   async shareCard() {
@@ -4113,6 +5802,12 @@ class App {
   closeModal() {
     const had = Boolean($('#modal-root')?.innerHTML);
     $('#modal-root').innerHTML = '';
+    if (this._photoModalUrl) {
+      URL.revokeObjectURL(this._photoModalUrl);
+      this._photoModalUrl = null;
+    }
+    (this._compareUrls || []).forEach((u) => URL.revokeObjectURL(u));
+    this._compareUrls = [];
     document.body.style.overflow = '';
     // 清理残留的模态事件
     if (!$('#drawer')?.hidden) document.body.style.overflow = 'hidden';
@@ -4201,7 +5896,7 @@ class App {
     this.openModal(`
       <div class="onboard">
         <h2>先认识一下：你是哪种练法</h2>
-        <p class="ob-sub">四个问题，三十秒。答完 ${esc(this.coach.name)} 替你排一份。</p>
+        <p class="ob-sub">六步，一分钟。身体数据可跳过，答完 ${esc(this.coach.name)} 替你排一份。</p>
         <div id="ob-body"></div>
         <div class="ob-dots" id="ob-dots"></div>
         <div class="modal-foot">
@@ -4215,7 +5910,7 @@ class App {
   }
 
   obNext() {
-    if (this.obStep < 3) {
+    if (this.obStep < 5) {
       this.obStep += 1;
       this.renderObStep();
       return;
@@ -4244,11 +5939,36 @@ class App {
           <div class="field"><label>单次时长 <b id="min-val">${p.minutes} 分钟</b></label><input type="range" min="20" max="90" step="5" value="${p.minutes}" data-range="minutes" /></div>`,
       },
       {
-        title: '第四步：挑一只宠物',
+        title: '第四步：身体数据（可跳过）',
+        html: `<p class="small muted mb">用来估算热量与蛋白目标，不改变训练动作。</p>
+          <div class="ob-body-grid">
+            <label class="field"><span>身高 cm</span><input class="input" type="number" data-ob-body="heightCm" value="${p.body?.heightCm ?? ''}" placeholder="175" /></label>
+            <label class="field"><span>体重 kg</span><input class="input" type="number" data-ob-body="weightKg" value="${p.body?.weightKg ?? ''}" placeholder="70" /></label>
+            <label class="field"><span>年龄</span><input class="input" type="number" data-ob-body="age" value="${p.body?.age ?? ''}" placeholder="25" /></label>
+            <label class="field"><span>性别</span><select class="select" data-ob-body="sex"><option value="male" ${p.body?.sex !== 'female' ? 'selected' : ''}>男</option><option value="female" ${p.body?.sex === 'female' ? 'selected' : ''}>女</option></select></label>
+          </div>
+          <div class="ob-body-hint" id="ob-body-hint"></div>`,
+      },
+      {
+        title: '第五步：挑一只宠物',
         html: `<p class="small muted mb">它会绑定你的训练方向，也会影响教练给你的建议。</p>
           <div class="ob-pet-options">${PETS.map((x) => `<button class="pet-pick ${this.adoptPick === x.id ? 'is-on' : ''}" data-act="pick-pet" data-pet="${x.id}" style="padding:10px">
             ${petMini(x.id, null, 72)}<div class="pp-name" style="font-size:13px">${esc(x.name)}</div><div class="pp-species" style="font-size:10.5px">${esc(x.directionName)}</div>
           </button>`).join('')}</div>`,
+      },
+      {
+        title: '第六步：计划预览',
+        html: (() => {
+          const preview = generatePlan({ ...p, petId: this.adoptPick });
+          const bs = bodySummary(p);
+          return `<div class="ob-preview">
+            <div class="ob-preview-row"><span>目标</span><b>${esc(GOALS[p.goal].label)} · ${esc(LEVELS[p.level].label)}</b></div>
+            <div class="ob-preview-row"><span>频率</span><b>每周 ${p.days} 练 · 单次 ${p.minutes} 分钟</b></div>
+            <div class="ob-preview-row"><span>分化</span><b>${esc(preview.splitName)} · ${preview.sessions.length} 天</b></div>
+            ${bs.ok ? `<div class="ob-preview-row"><span>热量目标</span><b>${bs.calories} kcal · 蛋白 ${bs.protein}g</b></div>` : '<div class="ob-preview-row"><span>身体目标</span><b>未填，可稍后在计划页补</b></div>'}
+            <div class="ob-preview-days">${preview.sessions.map((s, i) => `<div><span>DAY ${i + 1}</span>${esc(s.title)} · ${s.items.length} 个动作</div>`).join('')}</div>
+          </div><p class="tiny muted">生成后可在「计划页 → 编辑计划」继续调整动作与组数。</p>`;
+        })(),
       },
     ];
     const step = steps[this.obStep];
@@ -4277,8 +5997,18 @@ class App {
       upd();
       range.addEventListener('input', upd);
     }
+    $$('#ob-body [data-ob-body]').forEach((inp) => {
+      inp.addEventListener('change', () => {
+        const body = { ...(this.state.profile.body || {}) };
+        const key = inp.dataset.obBody;
+        body[key] = key === 'sex' ? inp.value : (inp.value === '' ? undefined : Number(inp.value));
+        this.state.profile = { ...this.state.profile, body };
+        this.save();
+        this.renderObStep();
+      });
+    });
     const next = $('#modal-root [data-act="ob-next"]');
-    if (next) next.textContent = this.obStep === 3 ? '生成计划，开始' : this.obStep === 2 ? '下一步 →' : '下一步 →';
+    if (next) next.textContent = this.obStep === 5 ? '生成计划，开始' : '下一步 →';
   }
 
   confirmReset() {
@@ -4293,7 +6023,8 @@ class App {
         <button class="btn" style="background:var(--cinnabar);color:#fff" data-act="do-reset">确认清空</button>
       </div>
     `);
-    $$('#modal-root [data-act="do-reset"]').forEach((n) => n.addEventListener('click', () => {
+    $$('#modal-root [data-act="do-reset"]').forEach((n) => n.addEventListener('click', async () => {
+      try { await Promise.all([clearPhotos(), clearTracks()]); } catch (e) { /* 本地库可能不可用 */ }
       resetState();
       location.reload();
     }));
@@ -4424,6 +6155,36 @@ app.boot();
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 };
 
 __defs["js/autoreg.js"] = function (module, exports, __require) {
@@ -4504,6 +6265,382 @@ function markExported(state = {}, now = Date.now()) {
 
 
 Object.assign(module.exports, { BACKUP_SESSIONS, BACKUP_DAYS, backupStatus, markExported });
+};
+
+__defs["js/body-log.js"] = function (module, exports, __require) {
+/** 身体趋势（P21）：体重/体脂/腰围日志，纯函数 */
+function normalizeBodyLog(entry = {}, today = new Date()) {
+  const d = String(entry.date || '');
+  const date = /^\d{4}-\d{2}-\d{2}$/.test(d) ? d : `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+  const weight = Number(entry.weight);
+  if (!Number.isFinite(weight) || weight < 30 || weight > 300) return { ok: false, msg: '体重需在 30–300kg' };
+  const bodyFat = Number(entry.bodyFat);
+  const waist = Number(entry.waist);
+  return {
+    ok: true,
+    log: {
+      date,
+      weight: Math.round(weight * 10) / 10,
+      bodyFat: Number.isFinite(bodyFat) && bodyFat > 0 && bodyFat < 70 ? Math.round(bodyFat * 10) / 10 : null,
+      waist: Number.isFinite(waist) && waist > 30 && waist < 200 ? Math.round(waist * 10) / 10 : null,
+    },
+  };
+}
+
+function bodyTrend(logs = [], limit = 12) {
+  return [...logs]
+    .filter((l) => l && l.weight)
+    .sort((a, b) => String(a.date).localeCompare(String(b.date)))
+    .slice(-limit)
+    .map((l) => ({ date: l.date, weight: l.weight, bodyFat: l.bodyFat, waist: l.waist }));
+}
+
+function trendDelta(logs = []) {
+  const rows = bodyTrend(logs, 999);
+  if (rows.length < 2) return null;
+  const first = rows[0];
+  const last = rows[rows.length - 1];
+  return {
+    weight: Math.round((last.weight - first.weight) * 10) / 10,
+    bodyFat: first.bodyFat && last.bodyFat ? Math.round((last.bodyFat - first.bodyFat) * 10) / 10 : null,
+    waist: first.waist && last.waist ? Math.round((last.waist - first.waist) * 10) / 10 : null,
+    days: rows.length,
+  };
+}
+
+
+Object.assign(module.exports, { normalizeBodyLog, bodyTrend, trendDelta });
+};
+
+__defs["js/body-metrics.js"] = function (module, exports, __require) {
+/** 身体数据（P13）：BMI / BMR / TDEE / 宏量 / 围度体脂，纯函数 */
+const ACTIVITY_LEVELS = {
+  sedentary: { label: '久坐', factor: 1.2 },
+  light: { label: '轻活动', factor: 1.375 },
+  moderate: { label: '中等', factor: 1.55 },
+  active: { label: '高活动', factor: 1.725 },
+};
+
+const GOAL_FACTORS = {
+  fatloss: 0.85,
+  muscle: 1.08,
+  strength: 1.05,
+  endurance: 1.0,
+};
+
+const PROTEIN_PER_KG = { fatloss: 2.0, muscle: 1.8, strength: 1.8, endurance: 1.6 };
+
+function num(v) {
+  const n = Number(v);
+  return Number.isFinite(n) ? n : null;
+}
+
+function bmi(weightKg, heightCm) {
+  const w = num(weightKg);
+  const h = num(heightCm);
+  if (!w || !h || h < 100 || h > 250) return null;
+  return Math.round((w / (h / 100) ** 2) * 10) / 10;
+}
+
+function bmiLabel(value) {
+  if (value == null) return '';
+  if (value < 18.5) return '偏瘦';
+  if (value < 24) return '正常';
+  if (value < 28) return '偏胖';
+  return '肥胖';
+}
+
+function bmr({ sex = 'male', weightKg, heightCm, age } = {}) {
+  const w = num(weightKg);
+  const h = num(heightCm);
+  const a = num(age);
+  if (!w || !h || !a || h < 100 || h > 250 || w < 30 || w > 300 || a < 14 || a > 90) return null;
+  const base = 10 * w + 6.25 * h - 5 * a;
+  return Math.round(base + (sex === 'female' ? -161 : 5));
+}
+
+function tdee(bmrValue, activity = 'moderate') {
+  const b = num(bmrValue);
+  const factor = ACTIVITY_LEVELS[activity]?.factor || ACTIVITY_LEVELS.moderate.factor;
+  if (!b) return null;
+  return Math.round(b * factor);
+}
+
+/** 可选：Navy 围度公式估算体脂（比照片可靠） */
+function navyBodyFat({ sex = 'male', heightCm, waistCm, neckCm, hipCm } = {}) {
+  const h = num(heightCm);
+  const waist = num(waistCm);
+  const neck = num(neckCm);
+  const hip = num(hipCm);
+  if (!h || !waist || !neck) return null;
+  if (sex === 'female') {
+    if (!hip) return null;
+    const inner = 1.29579 - 0.35004 * Math.log10(waist + hip - neck) + 0.221 * Math.log10(h);
+    const v = 495 / inner - 450;
+    return Number.isFinite(v) && v > 0 && v < 70 ? Math.round(v * 10) / 10 : null;
+  }
+  const inner = 1.0324 - 0.19077 * Math.log10(waist - neck) + 0.15456 * Math.log10(h);
+  const v = 495 / inner - 450;
+  return Number.isFinite(v) && v > 0 && v < 70 ? Math.round(v * 10) / 10 : null;
+}
+
+/**
+ * 汇总身体目标。缺少身高/体重/年龄时返回 {ok:false, missing}
+ */
+function bodySummary(profile = {}) {
+  const body = profile.body || {};
+  const sex = body.sex === 'female' ? 'female' : 'male';
+  const b = bmr({ sex, weightKg: body.weightKg, heightCm: body.heightCm, age: body.age });
+  const bmiValue = bmi(body.weightKg, body.heightCm);
+  if (!b || bmiValue == null) {
+    const missing = [];
+    if (num(body.heightCm) == null) missing.push('身高');
+    if (num(body.weightKg) == null) missing.push('体重');
+    if (num(body.age) == null) missing.push('年龄');
+    return { ok: false, missing, bmi: bmiValue };
+  }
+  const tdeeValue = tdee(b, body.activity);
+  const goal = profile.goal || 'muscle';
+  const calories = Math.round((tdeeValue * (GOAL_FACTORS[goal] || 1)) / 10) * 10;
+  const protein = Math.round((num(body.weightKg) || 0) * (PROTEIN_PER_KG[goal] || 1.8));
+  const fat = Math.round((calories * 0.25) / 9);
+  const carbs = Math.max(0, Math.round((calories - protein * 4 - fat * 9) / 4));
+  const bodyFat = num(body.bodyFatPct) ?? navyBodyFat({ sex, heightCm: body.heightCm, waistCm: body.waistCm, neckCm: body.neckCm, hipCm: body.hipCm });
+  return {
+    ok: true,
+    bmi: bmiValue,
+    bmiLabel: bmiLabel(bmiValue),
+    bmr: b,
+    tdee: tdeeValue,
+    calories,
+    protein,
+    fat,
+    carbs,
+    bodyFat,
+    goal,
+    note: '估算值，非医疗建议；有伤病或特殊情况请咨询专业人士。',
+  };
+}
+
+
+Object.assign(module.exports, { ACTIVITY_LEVELS, GOAL_FACTORS, bmi, bmiLabel, bmr, tdee, navyBodyFat, bodySummary });
+};
+
+__defs["js/custom-plan.js"] = function (module, exports, __require) {
+/** 自定义计划（P19）：从动作库选动作、按天编排，纯函数 */
+const { getExercise, EXERCISES } = __require("data/exercises.js");
+
+function itemFromExercise(ex, opts = {}) {
+  const reps = Array.isArray(ex.reps) ? `${ex.reps[0]}–${ex.reps[1]}` : '8–12';
+  return {
+    id: ex.id,
+    name: ex.name,
+    muscles: [...(ex.muscles || [])],
+    role: ex.compound ? 'main' : 'accessory',
+    sets: Number(opts.sets) || (ex.compound ? 4 : 3),
+    reps: opts.reps || reps,
+    rest: opts.rest || (ex.compound ? '2–3min' : '60–90s'),
+    rpe: opts.rpe || (ex.compound ? '7–8' : '8'),
+    cue: opts.cue || (ex.tags || []).join(' · '),
+    equipment: [...(ex.equipment || [])],
+  };
+}
+
+function emptyCustomPlan(profile = {}) {
+  const days = Math.max(1, Math.min(7, Number(profile.days) || 3));
+  return {
+    custom: true,
+    splitName: '自定义计划',
+    goal: profile.goal || 'muscle',
+    level: profile.level || 'beginner',
+    days,
+    minutes: Number(profile.minutes) || 45,
+    injuries: Array.isArray(profile.injuries) ? profile.injuries : [],
+    petId: profile.petId || 'dog',
+    version: 1,
+    cycleWeeks: 8,
+    cycleWeek: 1,
+    sessions: Array.from({ length: days }, (_, i) => ({ title: `第 ${i + 1} 天`, minutes: Number(profile.minutes) || 45, items: [] })),
+  };
+}
+
+function clonePlan(plan) {
+  return JSON.parse(JSON.stringify(plan));
+}
+
+function addItem(plan, sessionIndex, exerciseOrId) {
+  const ex = typeof exerciseOrId === 'string' ? getExercise(exerciseOrId) : exerciseOrId;
+  if (!ex) return { plan, added: false, msg: '动作不存在' };
+  const next = clonePlan(plan);
+  const session = next.sessions[sessionIndex];
+  if (!session) return { plan, added: false, msg: '没有这一天' };
+  if (session.items.some((it) => it.id === ex.id)) return { plan, added: false, msg: '这一天已经有这个动作' };
+  session.items.push(itemFromExercise(ex));
+  return { plan: next, added: true, msg: '' };
+}
+
+function removeItem(plan, sessionIndex, itemIndex) {
+  const next = clonePlan(plan);
+  if (!next.sessions[sessionIndex]?.items[itemIndex]) return plan;
+  next.sessions[sessionIndex].items.splice(itemIndex, 1);
+  return next;
+}
+
+function moveItem(plan, sessionIndex, itemIndex, delta) {
+  const next = clonePlan(plan);
+  const items = next.sessions[sessionIndex]?.items;
+  if (!items) return plan;
+  const target = itemIndex + delta;
+  if (target < 0 || target >= items.length) return plan;
+  [items[itemIndex], items[target]] = [items[target], items[itemIndex]];
+  return next;
+}
+
+function updateItem(plan, sessionIndex, itemIndex, patch = {}) {
+  const next = clonePlan(plan);
+  const item = next.sessions[sessionIndex]?.items[itemIndex];
+  if (!item) return plan;
+  Object.assign(item, patch);
+  return next;
+}
+
+function normalizeCustomPlan(plan) {
+  const next = clonePlan(plan);
+  next.sessions = (next.sessions || []).map((s, i) => ({
+    ...s,
+    title: String(s.title || `第 ${i + 1} 天`).trim().slice(0, 20),
+    minutes: Math.max(10, Math.min(120, Number(s.minutes) || 45)),
+    items: (s.items || []).map((it) => ({
+      ...it,
+      sets: Math.max(1, Math.min(10, Number(it.sets) || 3)),
+      reps: String(it.reps || '8–12').trim().slice(0, 20),
+      rest: String(it.rest || '90s').trim().slice(0, 20),
+      rpe: String(it.rpe || '8').trim().slice(0, 10),
+    })),
+  }));
+  next.days = next.sessions.length;
+  return next;
+}
+
+function validateCustomPlan(plan) {
+  const errors = [];
+  if (!plan || !Array.isArray(plan.sessions) || !plan.sessions.length) {
+    errors.push({ path: 'plan', msg: '至少要有 1 天' });
+    return errors;
+  }
+  plan.sessions.forEach((s, si) => {
+    if (!String(s.title || '').trim()) errors.push({ path: `s${si}`, msg: `第 ${si + 1} 天缺少标题` });
+    if (!Array.isArray(s.items) || !s.items.length) errors.push({ path: `s${si}`, msg: `第 ${si + 1} 天还没有动作` });
+    (s.items || []).forEach((it, ii) => {
+      const sets = Number(it.sets);
+      if (!Number.isInteger(sets) || sets < 1 || sets > 10) errors.push({ path: `s${si}i${ii}`, msg: `${it.name || '动作'} 组数需在 1–10` });
+      if (!String(it.reps || '').trim()) errors.push({ path: `s${si}i${ii}`, msg: `${it.name || '动作'} 缺少次数` });
+    });
+  });
+  return errors;
+}
+
+/** 动作库筛选：关键词 + 肌群 + 器械 */
+function filterExercises(query = '', muscle = 'all', equipment = 'all') {
+  const q = String(query || '').trim().toLowerCase();
+  return EXERCISES.filter((ex) => {
+    if (muscle !== 'all' && !(ex.muscles || []).includes(muscle)) return false;
+    if (equipment !== 'all' && !(ex.equipment || []).includes(equipment)) return false;
+    if (!q) return true;
+    return ex.name.toLowerCase().includes(q) || (ex.tags || []).some((t) => t.toLowerCase().includes(q));
+  });
+}
+
+
+Object.assign(module.exports, { itemFromExercise, emptyCustomPlan, clonePlan, addItem, removeItem, moveItem, updateItem, normalizeCustomPlan, validateCustomPlan, filterExercises });
+};
+
+__defs["js/data-loop.js"] = function (module, exports, __require) {
+/** 数据闭环（P23）：体重趋势 × 训练容量，纯函数 */
+function mondayKey(date) {
+  const d = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  const shift = (d.getDay() + 6) % 7;
+  d.setDate(d.getDate() - shift);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
+function keyOf(date) {
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+}
+
+function weeklyLoop(state = {}, { weeks = 8, now = Date.now() } = {}) {
+  const current = new Date(now);
+  const currentMonday = mondayKey(current);
+  const keys = [];
+  for (let i = weeks - 1; i >= 0; i--) {
+    const d = new Date(currentMonday);
+    d.setDate(d.getDate() - i * 7);
+    keys.push({ key: keyOf(d), label: `${d.getMonth() + 1}/${d.getDate()}` });
+  }
+  const sessions = state.sessions || {};
+  const logs = state.setLogs || [];
+  const bodyLogs = state.bodyLogs || [];
+  const index = new Map(keys.map((k, i) => [k.key, i]));
+  const rows = keys.map((k) => ({ ...k, sessions: 0, volume: 0, weight: null, bodyFat: null }));
+  for (const date of Object.keys(sessions)) {
+    const i = index.get(mondayKey(new Date(`${date}T00:00:00`)));
+    if (i !== undefined) rows[i].sessions += 1;
+  }
+  for (const l of logs) {
+    const d = new Date(`${l.date}T00:00:00`);
+    if (Number.isNaN(d.getTime())) continue;
+    const i = index.get(mondayKey(d));
+    if (i !== undefined) rows[i].volume += (Number(l.weight) || 0) * (Number(l.reps) || 0);
+  }
+  for (const b of bodyLogs) {
+    const d = new Date(`${b.date}T00:00:00`);
+    if (Number.isNaN(d.getTime())) continue;
+    const i = index.get(mondayKey(d));
+    if (i !== undefined && b.weight) {
+      const row = rows[i];
+      if (!row._bodyAt || b.date >= row._bodyAt) {
+        row._bodyAt = b.date;
+        row.weight = b.weight;
+        row.bodyFat = b.bodyFat ?? null;
+      }
+    }
+  }
+  const weightRows = rows.filter((r) => r.weight != null);
+  let correlation = null;
+  if (weightRows.length >= 3) {
+    const n = weightRows.length;
+    const mx = weightRows.reduce((s, r) => s + r.volume, 0) / n;
+    const my = weightRows.reduce((s, r) => s + r.weight, 0) / n;
+    let num = 0;
+    let dx = 0;
+    let dy = 0;
+    for (const r of weightRows) {
+      num += (r.volume - mx) * (r.weight - my);
+      dx += (r.volume - mx) ** 2;
+      dy += (r.weight - my) ** 2;
+    }
+    correlation = dx && dy ? Math.round((num / Math.sqrt(dx * dy)) * 100) / 100 : null;
+  }
+  const totalSessions = rows.reduce((s, r) => s + r.sessions, 0);
+  const totalVolume = rows.reduce((s, r) => s + r.volume, 0);
+  const first = weightRows[0];
+  const last = weightRows[weightRows.length - 1];
+  const weightDelta = first && last ? Math.round((last.weight - first.weight) * 10) / 10 : null;
+  let insight = '记录几周体重和训练后，这里会给出趋势关系。';
+  if (weightRows.length >= 2 && totalSessions) {
+    const dir = weightDelta > 0 ? '上升' : weightDelta < 0 ? '下降' : '持平';
+    insight = `近 ${weeks} 周训练 ${totalSessions} 次、容量 ${Math.round(totalVolume).toLocaleString()}kg；体重${dir} ${Math.abs(weightDelta)}kg。`;
+    if (correlation != null) {
+      if (correlation <= -0.4) insight += ' 训练量高的周体重偏低，符合减脂方向。';
+      else if (correlation >= 0.4) insight += ' 训练量与体重同向变化，注意热量是否跟得上。';
+      else insight += ' 训练量与体重暂无明显同向/反向关系。';
+    }
+  }
+  return { rows: rows.map(({ _bodyAt, ...r }) => r), correlation, insight, weightDelta, totalSessions, totalVolume };
+}
+
+
+Object.assign(module.exports, { mondayKey, weeklyLoop });
 };
 
 __defs["js/exercise-art.js"] = function (module, exports, __require) {
@@ -4666,6 +6803,57 @@ function patternCue(pattern) {
 
 
 Object.assign(module.exports, { ART_CATALOG, getArt, patternName, patternCue });
+};
+
+__defs["js/exercise-detail.js"] = function (module, exports, __require) {
+/** 动作详情（P23）：要领 / 错误 / 替代 / 历史 PR，纯函数 */
+const { getExercise, EXERCISES } = __require("data/exercises.js");
+const { bestSetFor, historyFor, e1rm } = __require("js/training-log.js");
+
+const MISTAKES = {
+  A: ['肩胛没稳住，肩膀先耸起来', '手腕折得太狠，力线偏到关节', '下放太快，靠反弹推起'],
+  P: ['用手臂拉，背没发力', '腰甩起来借力', '肩胛不后缩，圆背'],
+  L: ['膝盖内扣', '脚后跟离地，重心前移', '蹲到一半就起，幅度不够'],
+  H: ['腰先弯，背没锁住', '杠铃离身体太远', '起身时臀部先抬'],
+  C: ['塌腰，腰替腹肌干活', '憋气到头晕', '脖子前伸'],
+  K: ['一上来冲太快，后程掉速', '步幅过大，落地砸膝', '全程憋气'],
+  M: ['弹震式拉伸', '拉到疼还继续', '训练前长时间静态拉伸'],
+};
+
+function fallbackMistake(ex) {
+  if (ex.joint === 'shoulder') return ['肩关节没对准，耸肩代偿', '动作幅度过大，关节先累'];
+  if (ex.joint === 'knee') return ['膝盖内扣', '重心不稳，脚掌离地'];
+  if (ex.joint === 'elbow') return ['肘部锁死', '借惯性甩重量'];
+  return ['动作太快，失去控制', '重量优先于动作质量'];
+}
+
+function exerciseDetail(id, setLogs = [], { limit = 4 } = {}) {
+  const ex = getExercise(id);
+  if (!ex) return null;
+  const history = historyFor(setLogs, id);
+  const pr = bestSetFor(setLogs, id);
+  const recent = history.slice(-5).reverse();
+  const alternatives = EXERCISES.filter((e) => e.id !== id
+    && e.pattern === ex.pattern
+    && (e.muscles || []).some((m) => (ex.muscles || []).includes(m))
+    && (e.equipment || []).some((eq) => (ex.equipment || []).includes(eq)))
+    .sort((a, b) => Math.abs((a.level || 1) - (ex.level || 1)) - Math.abs((b.level || 1) - (ex.level || 1)))
+    .slice(0, limit)
+    .map((e) => ({ id: e.id, name: e.name, level: e.level, equipment: e.equipment }));
+  return {
+    exercise: ex,
+    cue: ex.tags?.join(' · ') || '动作质量优先于重量。',
+    mistakes: MISTAKES[ex.pattern] || fallbackMistake(ex),
+    alternatives,
+    pr: pr ? { ...pr, e1rm: e1rm(pr.weight, pr.reps) } : null,
+    recent,
+    sets: history.length,
+    volume: history.reduce((sum, e) => sum + (Number(e.weight) || 0) * (Number(e.reps) || 0), 0),
+  };
+}
+
+
+Object.assign(module.exports, { exerciseDetail });
 };
 
 __defs["js/five-finger.js"] = function (module, exports, __require) {
@@ -5652,6 +7840,246 @@ function shouldNotify(state = {}, ctx = {}) {
 Object.assign(module.exports, { reminderStatus, canRepairStreak, repairStreak, shouldNotify });
 };
 
+__defs["js/music-store.js"] = function (module, exports, __require) {
+/** 本地音乐（P17）：IndexedDB 存音频 Blob，不上传 */
+const MUSIC_DB = 'wuzhishan_music_v1';
+const MUSIC_STORE = 'tracks';
+const MAX_TRACK_BYTES = 50 * 1024 * 1024;
+const MAX_TOTAL_BYTES = 300 * 1024 * 1024;
+const AUDIO_EXT = /\.(mp3|m4a|aac|wav|ogg|oga|flac|webm)$/i;
+
+function isAudioFile(file) {
+  return Boolean(file) && (/^audio\//.test(file.type || '') || AUDIO_EXT.test(file.name || ''));
+}
+
+function validateTrackFile(file) {
+  if (!isAudioFile(file)) return { ok: false, msg: '不是音频文件' };
+  if (file.size > MAX_TRACK_BYTES) return { ok: false, msg: '单曲超过 50MB' };
+  return { ok: true, msg: '' };
+}
+
+function openMusicDB() {
+  return new Promise((resolve, reject) => {
+    if (typeof indexedDB === 'undefined') return reject(new Error('IndexedDB 不可用'));
+    const req = indexedDB.open(MUSIC_DB, 1);
+    req.onupgradeneeded = () => {
+      const db = req.result;
+      if (!db.objectStoreNames.contains(MUSIC_STORE)) {
+        const store = db.createObjectStore(MUSIC_STORE, { keyPath: 'id' });
+        store.createIndex('at', 'at');
+      }
+    };
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error || new Error('打开音乐库失败'));
+  });
+}
+
+function done(tx) {
+  return new Promise((resolve, reject) => {
+    tx.oncomplete = () => resolve();
+    tx.onerror = () => reject(tx.error);
+    tx.onabort = () => reject(tx.error || new Error('事务中止'));
+  });
+}
+
+async function listTracks() {
+  const db = await openMusicDB();
+  const tx = db.transaction(MUSIC_STORE, 'readonly');
+  const req = tx.objectStore(MUSIC_STORE).getAll();
+  const rows = await new Promise((resolve, reject) => {
+    req.onsuccess = () => resolve(req.result || []);
+    req.onerror = () => reject(req.error);
+  });
+  db.close();
+  return rows.map(({ blob, ...meta }) => ({ ...meta, size: blob?.size || 0 })).sort((a, b) => (a.at || 0) - (b.at || 0));
+}
+
+async function addTracks(files = []) {
+  const list = [...files];
+  const db = await openMusicDB();
+  const tx = db.transaction(MUSIC_STORE, 'readwrite');
+  const store = tx.objectStore(MUSIC_STORE);
+  const existing = await new Promise((resolve) => {
+    const req = store.getAll();
+    req.onsuccess = () => resolve(req.result || []);
+  });
+  let total = existing.reduce((sum, r) => sum + (r.blob?.size || 0), 0);
+  let added = 0;
+  const skipped = [];
+  for (const file of list) {
+    const check = validateTrackFile(file);
+    if (!check.ok) {
+      skipped.push(`${file.name}：${check.msg}`);
+      continue;
+    }
+    if (total + file.size > MAX_TOTAL_BYTES) {
+      skipped.push('本地音乐总量超过 300MB');
+      break;
+    }
+    total += file.size;
+    store.put({
+      id: `t_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`,
+      name: file.name.replace(AUDIO_EXT, ''),
+      file: file.name,
+      type: file.type || 'audio/mpeg',
+      blob: file,
+      at: Date.now() + added,
+    });
+    added += 1;
+  }
+  await done(tx);
+  db.close();
+  return { added, skipped };
+}
+
+async function getTrack(id) {
+  const db = await openMusicDB();
+  const tx = db.transaction(MUSIC_STORE, 'readonly');
+  const req = tx.objectStore(MUSIC_STORE).get(id);
+  const row = await new Promise((resolve, reject) => {
+    req.onsuccess = () => resolve(req.result || null);
+    req.onerror = () => reject(req.error);
+  });
+  db.close();
+  return row;
+}
+
+async function deleteTrack(id) {
+  const db = await openMusicDB();
+  const tx = db.transaction(MUSIC_STORE, 'readwrite');
+  tx.objectStore(MUSIC_STORE).delete(id);
+  await done(tx);
+  db.close();
+}
+
+async function clearTracks() {
+  const db = await openMusicDB();
+  const tx = db.transaction(MUSIC_STORE, 'readwrite');
+  tx.objectStore(MUSIC_STORE).clear();
+  await done(tx);
+  db.close();
+}
+
+
+Object.assign(module.exports, { MUSIC_DB, MUSIC_STORE, MAX_TRACK_BYTES, MAX_TOTAL_BYTES, isAudioFile, validateTrackFile, openMusicDB, listTracks, addTracks, getTrack, deleteTrack, clearTracks });
+};
+
+__defs["js/music.js"] = function (module, exports, __require) {
+/** 音乐（P17）：歌单解析 / 外链播放器识别，纯函数 */
+
+function formatMusicTime(sec) {
+  const s = Math.max(0, Math.floor(Number(sec) || 0));
+  return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
+}
+
+/** 解析 M3U / M3U8：返回 [{ title, url }] */
+function parseM3U(text) {
+  const lines = String(text || '').split(/\r?\n/).map((l) => l.trim()).filter(Boolean);
+  const out = [];
+  let pendingTitle = '';
+  for (const line of lines) {
+    if (line.startsWith('#EXTINF:')) {
+      const comma = line.indexOf(',');
+      pendingTitle = comma >= 0 ? line.slice(comma + 1).trim() : '';
+      continue;
+    }
+    if (line.startsWith('#')) continue;
+    out.push({ title: pendingTitle || line.split('/').pop() || line, url: line });
+    pendingTitle = '';
+  }
+  return out;
+}
+
+/** 解析 PLS：[playlist] File1=... Title1=... */
+function parsePLS(text) {
+  const entries = new Map();
+  for (const line of String(text || '').split(/\r?\n/)) {
+    const m = line.match(/^(File|Title)(\d+)\s*=\s*(.+)$/i);
+    if (!m) continue;
+    const idx = Number(m[2]);
+    const row = entries.get(idx) || {};
+    if (m[1].toLowerCase() === 'file') row.url = m[3].trim();
+    else row.title = m[3].trim();
+    entries.set(idx, row);
+  }
+  return [...entries.values()].filter((r) => r.url).map((r) => ({ title: r.title || r.url.split('/').pop(), url: r.url }));
+}
+
+function parsePlaylist(filename, text) {
+  if (/\.pls$/i.test(filename || '')) return parsePLS(text);
+  return parseM3U(text);
+}
+
+/** 识别官方嵌入播放器；不支持的直接返回 null */
+function detectEmbed(rawUrl) {
+  let url;
+  try {
+    url = new URL(String(rawUrl || '').trim());
+  } catch (e) {
+    return null;
+  }
+  const host = url.hostname.replace(/^www\./, '');
+  if (host === 'open.spotify.com') {
+    const m = url.pathname.match(/^\/(playlist|album|track|artist)\/([A-Za-z0-9]+)/);
+    if (m) return { provider: 'spotify', embedUrl: `https://open.spotify.com/embed/${m[1]}/${m[2]}`, label: 'Spotify' };
+  }
+  if (host === 'music.apple.com') {
+    return { provider: 'apple', embedUrl: `https://embed.music.apple.com${url.pathname}${url.search}`, label: 'Apple Music' };
+  }
+  if (host === 'youtube.com' || host === 'm.youtube.com') {
+    const list = url.searchParams.get('list');
+    const video = url.searchParams.get('v');
+    if (list) return { provider: 'youtube', embedUrl: `https://www.youtube.com/embed/videoseries?list=${encodeURIComponent(list)}`, label: 'YouTube' };
+    if (video) return { provider: 'youtube', embedUrl: `https://www.youtube.com/embed/${encodeURIComponent(video)}`, label: 'YouTube' };
+  }
+  if (host === 'youtu.be') {
+    const id = url.pathname.slice(1);
+    if (id) return { provider: 'youtube', embedUrl: `https://www.youtube.com/embed/${encodeURIComponent(id)}`, label: 'YouTube' };
+  }
+  return null;
+}
+
+/** 在队列里循环取下一个/上一个 */
+function stepIndex(current, length, delta = 1) {
+  if (!length) return -1;
+  if (current < 0) return delta > 0 ? 0 : length - 1;
+  return (current + delta + length) % length;
+}
+
+const MUSIC_PROVIDERS = {
+  qq: { label: 'QQ 音乐' },
+  netease: { label: '网易云音乐' },
+  spotify: { label: 'Spotify' },
+  apple: { label: 'Apple Music' },
+  youtube: { label: 'YouTube' },
+};
+
+/** 生成「去平台听」的搜索链接；不涉及登录/播放接口 */
+function searchUrl(provider, query) {
+  const q = String(query || '').trim();
+  if (!q) return null;
+  const key = MUSIC_PROVIDERS[provider] ? provider : 'qq';
+  const encoded = encodeURIComponent(q);
+  if (key === 'qq') return `https://y.qq.com/n/ryqq/search?w=${encoded}`;
+  if (key === 'netease') return `https://music.163.com/#/search/m/?s=${encoded}&type=1`;
+  if (key === 'spotify') return `https://open.spotify.com/search/${encoded}`;
+  if (key === 'apple') return `https://music.apple.com/cn/search?term=${encoded}`;
+  return `https://www.youtube.com/results?search_query=${encoded}`;
+}
+
+/** 系统媒体面板/锁屏用的元数据（不依赖浏览器 API，方便测试） */
+function mediaSessionPayload(track) {
+  return {
+    title: track?.name || '未知曲目',
+    artist: '五指山 · 专注',
+    album: '本地音乐',
+  };
+}
+
+
+Object.assign(module.exports, { formatMusicTime, parseM3U, parsePLS, parsePlaylist, detectEmbed, stepIndex, MUSIC_PROVIDERS, searchUrl, mediaSessionPayload });
+};
+
 __defs["js/periodization.js"] = function (module, exports, __require) {
 /**
  * 计划周期化（P1）
@@ -5818,7 +8246,7 @@ Object.assign(module.exports, { buildCycle, weekIndexFor, applyWeek, restoreBase
 };
 
 __defs["js/pet-art.js"] = function (module, exports, __require) {
-﻿/**
+/**
  * 宠物插画 v3（街头黑白 + 单一强调色）
  *
  * 参考风格：粗黑描边、纸白身体、黑色帽子/夹克、一个强调色、豆豆眼。
@@ -5908,6 +8336,16 @@ function sceneLayer(uid, pal, stage = 1) {
       <path d="M214 236 v-30"/><path d="M200 206 h28 l-6 -12 h-16 Z" fill="${pal.accent}" opacity=".35"/>
     </g>` : ''}
     ${stage >= 4 ? `<rect class="pet-prop-rug" x="76" y="236" width="108" height="18" rx="9" fill="${pal.accent}" opacity=".22"/>` : ''}
+    ${stage >= 2 ? `<g class="pet-prop-shelf" fill="none" stroke="${INK}" stroke-width="4" opacity=".5">
+      <path d="M28 78 h46 M32 82 v-22 h38 v22"/><path d="M48 60 v-12"/><circle cx="48" cy="44" r="7" fill="${pal.accent}" opacity=".4"/>
+    </g>` : ''}
+    ${stage >= 3 ? `<g class="pet-prop-window" fill="none" stroke="${INK}" stroke-width="4" opacity=".45">
+      <rect x="176" y="34" width="54" height="66" rx="6"/><path d="M203 38 v58 M180 66 h46"/>
+      <path d="M170 100 h66" stroke="${pal.accent}" opacity=".5"/>
+    </g>` : ''}
+    ${stage >= 4 ? `<g class="pet-prop-lights" fill="none" stroke="${INK}" stroke-width="3" opacity=".5">
+      <path d="M20 24 q110 26 220 0"/><circle cx="60" cy="36" r="3" fill="${pal.accent}"/><circle cx="130" cy="43" r="3" fill="${pal.accent}"/><circle cx="200" cy="36" r="3" fill="${pal.accent}"/>
+    </g>` : ''}
     <g class="pet-prop-gear" fill="none" stroke="${INK}" stroke-width="4" opacity=".6">
       <path d="M178 250 h34 M176 244 v12 M214 244 v12"/>
     </g>
@@ -6498,6 +8936,199 @@ function petLine(pet) {
 Object.assign(module.exports, { CARE_POINTS_MAX, CARE_COOLDOWN_MS, newPetState, tickPet, clamp, CARE_ACTIONS, interact, onWorkoutDone, onMissedDay, petSummary, petLine });
 };
 
+__defs["js/photo-store.js"] = function (module, exports, __require) {
+﻿/** 进度照片（P13）：IndexedDB 本地存储 + 压缩，不上传 */
+const DB_NAME = 'wuzhishan_photos_v1';
+const STORE_NAME = 'photos';
+const MAX_PHOTO_BYTES = 8 * 1024 * 1024;
+const PHOTO_ANGLES = [
+  { key: 'front', label: '正面' },
+  { key: 'side', label: '侧面' },
+  { key: 'back', label: '背面' },
+  { key: 'other', label: '其他' },
+];
+
+function validatePhoto({ blob, date, angle } = {}) {
+  if (!blob || typeof blob.size !== 'number') return { ok: false, msg: '没有选择照片' };
+  if (!/^image\//.test(blob.type || '')) return { ok: false, msg: '只能选图片文件' };
+  if (blob.size > MAX_PHOTO_BYTES) return { ok: false, msg: '照片太大（上限 8MB）' };
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(String(date || ''))) return { ok: false, msg: '日期格式不对' };
+  if (!PHOTO_ANGLES.some((a) => a.key === angle)) return { ok: false, msg: '角度不对' };
+  if (typeof indexedDB === 'undefined') return { ok: false, msg: '当前浏览器不支持本地照片存储' };
+  return { ok: true, msg: '' };
+}
+
+function formatBytes(n) {
+  const v = Number(n) || 0;
+  if (v < 1024) return `${v} B`;
+  if (v < 1024 * 1024) return `${(v / 1024).toFixed(0)} KB`;
+  return `${(v / 1024 / 1024).toFixed(1)} MB`;
+}
+
+function openPhotoDB() {
+  return new Promise((resolve, reject) => {
+    if (typeof indexedDB === 'undefined') return reject(new Error('IndexedDB 不可用'));
+    const req = indexedDB.open(DB_NAME, 1);
+    req.onupgradeneeded = () => {
+      const db = req.result;
+      if (!db.objectStoreNames.contains(STORE_NAME)) {
+        const store = db.createObjectStore(STORE_NAME, { keyPath: 'id' });
+        store.createIndex('date', 'date');
+      }
+    };
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error || new Error('打开照片库失败'));
+  });
+}
+
+function txDone(tx) {
+  return new Promise((resolve, reject) => {
+    tx.oncomplete = () => resolve();
+    tx.onerror = () => reject(tx.error);
+    tx.onabort = () => reject(tx.error || new Error('事务中止'));
+  });
+}
+
+async function addPhoto(entry) {
+  const check = validatePhoto(entry);
+  if (!check.ok) throw new Error(check.msg);
+  const db = await openPhotoDB();
+  const id = `p_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 7)}`;
+  const tx = db.transaction(STORE_NAME, 'readwrite');
+  tx.objectStore(STORE_NAME).put({ id, date: entry.date, angle: entry.angle, note: entry.note || '', blob: entry.blob, at: Date.now() });
+  await txDone(tx);
+  db.close();
+  return id;
+}
+
+async function listPhotos() {
+  const db = await openPhotoDB();
+  const tx = db.transaction(STORE_NAME, 'readonly');
+  const req = tx.objectStore(STORE_NAME).getAll();
+  const rows = await new Promise((resolve, reject) => {
+    req.onsuccess = () => resolve(req.result || []);
+    req.onerror = () => reject(req.error);
+  });
+  db.close();
+  return rows.sort((a, b) => String(b.date).localeCompare(String(a.date)) || (b.at || 0) - (a.at || 0));
+}
+
+async function getPhoto(id) {
+  const db = await openPhotoDB();
+  const tx = db.transaction(STORE_NAME, 'readonly');
+  const req = tx.objectStore(STORE_NAME).get(id);
+  const row = await new Promise((resolve, reject) => {
+    req.onsuccess = () => resolve(req.result || null);
+    req.onerror = () => reject(req.error);
+  });
+  db.close();
+  return row;
+}
+
+async function deletePhoto(id) {
+  const db = await openPhotoDB();
+  const tx = db.transaction(STORE_NAME, 'readwrite');
+  tx.objectStore(STORE_NAME).delete(id);
+  await txDone(tx);
+  db.close();
+}
+
+async function clearPhotos() {
+  const db = await openPhotoDB();
+  const tx = db.transaction(STORE_NAME, 'readwrite');
+  tx.objectStore(STORE_NAME).clear();
+  await txDone(tx);
+  db.close();
+}
+
+/** 压缩到最长边 maxSize，JPEG，减小 IndexedDB 占用 */
+async function compressImage(file, maxSize = 1200, quality = 0.82) {
+  if (typeof document === 'undefined' || typeof createImageBitmap === 'undefined') return file;
+  try {
+    const bitmap = await createImageBitmap(file);
+    const scale = Math.min(1, maxSize / Math.max(bitmap.width, bitmap.height));
+    const canvas = document.createElement('canvas');
+    canvas.width = Math.round(bitmap.width * scale);
+    canvas.height = Math.round(bitmap.height * scale);
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+    const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg', quality));
+    bitmap.close?.();
+    return blob || file;
+  } catch (e) {
+    return file;
+  }
+}
+
+
+
+Object.assign(module.exports, { DB_NAME, STORE_NAME, MAX_PHOTO_BYTES, PHOTO_ANGLES, validatePhoto, formatBytes, openPhotoDB, addPhoto, listPhotos, getPhoto, deletePhoto, clearPhotos, compressImage });
+};
+
+__defs["js/plan-compare.js"] = function (module, exports, __require) {
+/** 计划对比（P20）：自动生成 vs 自定义，纯函数 */
+const { MUSCLE_GROUPS } = __require("js/analytics.js");
+
+function groupSets(plan) {
+  const out = Object.fromEntries(MUSCLE_GROUPS.map((g) => [g.key, 0]));
+  for (const s of plan?.sessions || []) {
+    for (const it of s.items || []) {
+      const sets = Number(it.sets) || 0;
+      for (const g of MUSCLE_GROUPS) {
+        if ((it.muscles || []).some((m) => g.muscles.includes(m))) out[g.key] += sets;
+      }
+    }
+  }
+  return out;
+}
+
+function planSnapshot(plan) {
+  const sessions = plan?.sessions || [];
+  const items = sessions.flatMap((s) => s.items || []);
+  const byGroup = groupSets(plan);
+  return {
+    days: sessions.length,
+    totalSets: items.reduce((sum, it) => sum + (Number(it.sets) || 0), 0),
+    totalMinutes: sessions.reduce((sum, s) => sum + (Number(s.minutes) || 0), 0),
+    exerciseCount: items.length,
+    uniqueExercises: new Set(items.map((it) => it.id)).size,
+    byGroup,
+  };
+}
+
+function comparePlans(autoPlan, customPlan) {
+  const a = planSnapshot(autoPlan);
+  const b = planSnapshot(customPlan);
+  const idsA = new Set((autoPlan?.sessions || []).flatMap((s) => (s.items || []).map((it) => it.id)));
+  const idsB = new Set((customPlan?.sessions || []).flatMap((s) => (s.items || []).map((it) => it.id)));
+  const names = (plan) => {
+    const map = new Map();
+    (plan?.sessions || []).forEach((s) => (s.items || []).forEach((it) => map.set(it.id, it.name)));
+    return map;
+  };
+  const nameMapA = names(autoPlan);
+  const nameMapB = names(customPlan);
+  return {
+    a,
+    b,
+    rows: [
+      { key: 'days', label: '训练日', a: a.days, b: b.days, unit: '天' },
+      { key: 'sets', label: '总组数', a: a.totalSets, b: b.totalSets, unit: '组' },
+      { key: 'minutes', label: '周总时长', a: a.totalMinutes, b: b.totalMinutes, unit: '分钟' },
+      { key: 'exercises', label: '动作数', a: a.exerciseCount, b: b.exerciseCount, unit: '个' },
+      { key: 'unique', label: '不同动作', a: a.uniqueExercises, b: b.uniqueExercises, unit: '个' },
+    ],
+    groups: MUSCLE_GROUPS.map((g) => ({ key: g.key, label: g.label, a: a.byGroup[g.key] || 0, b: b.byGroup[g.key] || 0 })),
+    onlyA: [...idsA].filter((id) => !idsB.has(id)).map((id) => nameMapA.get(id)),
+    onlyB: [...idsB].filter((id) => !idsA.has(id)).map((id) => nameMapB.get(id)),
+    same: [...idsA].filter((id) => idsB.has(id)).length,
+  };
+}
+
+
+Object.assign(module.exports, { planSnapshot, comparePlans });
+};
+
 __defs["js/plan-engine.js"] = function (module, exports, __require) {
 /* 计划引擎：目标 × 水平 × 频率 × 器械 × 伤病 × 宠物方向 → 可执行周计划
    纯函数、确定性、可解释：每个动作都能说出「为什么是它」。 */
@@ -7070,6 +9701,67 @@ function replaceItem(plan, sessionIndex, itemId, newExerciseId) {
 Object.assign(module.exports, { GOALS, LEVELS, INJURIES, EQUIPMENT_OPTIONS, estimateMinutes, generatePlan, planStats, analyzePlan, suggestSwap, replaceItem });
 };
 
+__defs["js/plan-template.js"] = function (module, exports, __require) {
+/** 计划模板（P20）：保存 / 导出 / 导入，纯函数 */
+const TEMPLATE_LIMIT = 20;
+
+function uid() {
+  return `tpl_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 7)}`;
+}
+
+function makeTemplate(name, plan, now = Date.now()) {
+  return {
+    id: uid(),
+    name: String(name || plan?.splitName || '未命名模板').trim().slice(0, 30) || '未命名模板',
+    at: now,
+    plan: JSON.parse(JSON.stringify(plan)),
+  };
+}
+
+function addTemplate(list = [], template) {
+  return [template, ...list.filter((t) => t.id !== template.id)].slice(0, TEMPLATE_LIMIT);
+}
+
+function removeTemplate(list = [], id) {
+  return list.filter((t) => t.id !== id);
+}
+
+function templateSummary(template) {
+  const plan = template?.plan;
+  const days = plan?.sessions?.length || 0;
+  const items = (plan?.sessions || []).reduce((sum, s) => sum + (s.items?.length || 0), 0);
+  return { days, items };
+}
+
+function serializeTemplate(template) {
+  return JSON.stringify({ format: 'wuzhishan-plan-template', version: 1, template }, null, 2);
+}
+
+function parseTemplate(text) {
+  try {
+    const raw = JSON.parse(String(text || ''));
+    const template = raw?.template || raw;
+    if (!template || !template.plan || !Array.isArray(template.plan.sessions)) {
+      return { ok: false, msg: '不是有效的计划模板文件' };
+    }
+    return {
+      ok: true,
+      template: {
+        id: template.id || uid(),
+        name: String(template.name || '导入模板').slice(0, 30),
+        at: Number(template.at) || Date.now(),
+        plan: JSON.parse(JSON.stringify(template.plan)),
+      },
+    };
+  } catch (e) {
+    return { ok: false, msg: 'JSON 解析失败：' + e.message };
+  }
+}
+
+
+Object.assign(module.exports, { TEMPLATE_LIMIT, makeTemplate, addTemplate, removeTemplate, templateSummary, serializeTemplate, parseTemplate });
+};
+
 __defs["js/plate-calc.js"] = function (module, exports, __require) {
 /** 杠铃片计算（P7）：给定总重量，算每边要加哪些片 */
 const DEFAULT_PLATES = [25, 20, 15, 10, 5, 2.5, 1.25];
@@ -7103,6 +9795,138 @@ function plateBreakdown(target, opts = {}) {
 
 
 Object.assign(module.exports, { DEFAULT_PLATES, plateBreakdown });
+};
+
+__defs["js/pomodoro.js"] = function (module, exports, __require) {
+/** 番茄钟（P14）：计时状态机，纯函数 */
+const DEFAULT_SETTINGS = { focus: 25, short: 5, long: 15, cycles: 4 };
+const MODES = {
+  focus: { key: 'focus', label: '专注', color: '#E2574C' },
+  short: { key: 'short', label: '短休', color: '#4C7FA6' },
+  long: { key: 'long', label: '长休', color: '#7BA05B' },
+};
+
+function normalizeSettings(s = {}) {
+  const n = (v, d) => (Number.isFinite(Number(v)) && Number(v) >= 1 && Number(v) <= 120 ? Math.round(Number(v)) : d);
+  return {
+    focus: n(s.focus, DEFAULT_SETTINGS.focus),
+    short: n(s.short, DEFAULT_SETTINGS.short),
+    long: n(s.long, DEFAULT_SETTINGS.long),
+    cycles: n(s.cycles, DEFAULT_SETTINGS.cycles),
+  };
+}
+
+function totalSeconds(mode, settings = DEFAULT_SETTINGS) {
+  const min = normalizeSettings(settings)[mode] ?? DEFAULT_SETTINGS.focus;
+  return Math.max(60, min * 60);
+}
+
+function createFocus({ mode = 'focus', settings = DEFAULT_SETTINGS } = {}) {
+  const s = normalizeSettings(settings);
+  const total = totalSeconds(mode, s);
+  return { mode, settings: s, total, left: total, running: false, endsAt: null, cycle: 0 };
+}
+
+function startFocus(t, now = Date.now()) {
+  if (!t || t.running || t.left <= 0) return t;
+  return { ...t, running: true, endsAt: now + t.left * 1000 };
+}
+
+function pauseFocus(t, now = Date.now()) {
+  if (!t || !t.running) return t;
+  const left = Math.max(0, Math.ceil((t.endsAt - now) / 1000));
+  return { ...t, running: false, endsAt: null, left };
+}
+
+/** @returns {{timer:object, done:boolean}} */
+function tickFocus(t, now = Date.now()) {
+  if (!t || !t.running) return { timer: t, done: false };
+  const left = Math.max(0, Math.ceil((t.endsAt - now) / 1000));
+  if (left <= 0) return { timer: { ...t, left: 0, running: false, endsAt: null }, done: true };
+  return { timer: { ...t, left }, done: false };
+}
+
+function switchMode(t, mode, settings = t?.settings) {
+  const s = normalizeSettings(settings);
+  const total = totalSeconds(mode, s);
+  return { ...t, mode, settings: s, total, left: total, running: false, endsAt: null };
+}
+
+/** 当前模式结束：专注 → 短休/长休；休息 → 专注 */
+function completeFocus(t) {
+  if (!t) return t;
+  const s = normalizeSettings(t.settings);
+  if (t.mode === 'focus') {
+    const cycle = (t.cycle || 0) + 1;
+    const next = cycle % s.cycles === 0 ? 'long' : 'short';
+    return switchMode({ ...t, cycle }, next, s);
+  }
+  return switchMode(t, 'focus', s);
+}
+
+function setDuration(t, mode, minutes) {
+  const s = normalizeSettings({ ...(t?.settings || DEFAULT_SETTINGS), [mode]: minutes });
+  if (t && t.mode === mode && !t.running) {
+    return { ...t, settings: s, total: totalSeconds(mode, s), left: totalSeconds(mode, s) };
+  }
+  return { ...t, settings: s };
+}
+
+function formatClock(sec) {
+  const s = Math.max(0, Math.floor(Number(sec) || 0));
+  return `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`;
+}
+
+function progressOf(t) {
+  if (!t || !t.total) return 0;
+  return Math.min(1, Math.max(0, 1 - t.left / t.total));
+}
+
+/** 把计时状态压成可持久化的最小结构 */
+function serializeFocus(t) {
+  if (!t) return null;
+  return {
+    mode: t.mode,
+    total: t.total,
+    left: t.left,
+    running: Boolean(t.running),
+    endsAt: t.running ? t.endsAt : null,
+    cycle: t.cycle || 0,
+  };
+}
+
+/**
+ * 刷新后恢复：
+ * - 运行中且未到点 → 按 endsAt 算剩余并继续运行
+ * - 已到点 → 返回 expired，交给调用方提示，不伪造完成记录
+ * - 暂停 → 恢复保存的剩余秒数
+ */
+function restoreFocus(runtime, settings = DEFAULT_SETTINGS, now = Date.now()) {
+  const s = normalizeSettings(settings);
+  if (!runtime || !MODES[runtime.mode]) {
+    return { timer: createFocus({ settings: s }), expired: false };
+  }
+  const total = Math.max(1, Number(runtime.total) || totalSeconds(runtime.mode, s));
+  const cycle = Math.max(0, Number(runtime.cycle) || 0);
+  if (runtime.running && runtime.endsAt) {
+    const left = Math.max(0, Math.ceil((Number(runtime.endsAt) - now) / 1000));
+    if (left <= 0) {
+      return { timer: { mode: runtime.mode, settings: s, total, left: 0, running: false, endsAt: null, cycle }, expired: true };
+    }
+    return { timer: { mode: runtime.mode, settings: s, total, left, running: true, endsAt: Number(runtime.endsAt), cycle }, expired: false };
+  }
+  const left = Math.min(total, Math.max(0, Math.floor(Number(runtime.left) || 0)));
+  return { timer: { mode: runtime.mode, settings: s, total, left, running: false, endsAt: null, cycle }, expired: false };
+}
+
+/** 今日专注目标进度 */
+function focusGoalProgress(history = [], today, goal = 4) {
+  const count = (history || []).filter((h) => h.date === today).length;
+  const target = Math.max(1, Number(goal) || 4);
+  return { count, goal: target, pct: Math.min(100, Math.round((count / target) * 100)), reached: count >= target };
+}
+
+Object.assign(module.exports, { DEFAULT_SETTINGS, MODES, normalizeSettings, totalSeconds, createFocus, startFocus, pauseFocus, tickFocus, switchMode, completeFocus, setDuration, formatClock, progressOf, serializeFocus, restoreFocus, focusGoalProgress });
 };
 
 __defs["js/pwa.js"] = function (module, exports, __require) {
@@ -7603,7 +10427,7 @@ Object.assign(module.exports, { SHARE_QR });
 };
 
 __defs["js/shortcuts.js"] = function (module, exports, __require) {
-/**
+﻿/**
  * 键盘快捷键（P1）
  *
  * 纯函数：给定按键事件与上下文，返回动作名；不碰 DOM。
@@ -7613,7 +10437,8 @@ __defs["js/shortcuts.js"] = function (module, exports, __require) {
 const FINGER_KEYS = ['wu', 'shan', 'xiang', 'xi', 'xin'];
 
 const SHORTCUT_LIST = [
-  { key: '空格', desc: '训练页：开始 / 暂停组间计时' },
+  { key: '空格', desc: '训练页：组间计时；专注页：开始 / 暂停' },
+  { key: 'R / S', desc: '专注页：重置 / 跳过这一格' },
   { key: '1 – 5', desc: '五指山抽屉内：切换武 / 山 / 相 / 息 / 心' },
   { key: 'N', desc: '训练页：跳到下一组未完成的动作' },
   { key: '/', desc: '打开教练对话' },
@@ -7653,6 +10478,14 @@ function resolveShortcut(e, ctx) {
     return null;
   }
 
+  // 专注页专属
+  if (ctx.view === 'focus') {
+    if (key === ' ') return 'focus-toggle';
+    if (key === 'r' || key === 'R') return 'focus-reset';
+    if (key === 's' || key === 'S') return 'focus-skip';
+    if (key === 'f' || key === 'F') return 'focus-zen';
+  }
+
   // 训练页专属
   if (ctx.view === 'train' && ctx.activeSession) {
     if (key === ' ') return 'timer-toggle';
@@ -7663,13 +10496,14 @@ function resolveShortcut(e, ctx) {
 }
 
 
+
 Object.assign(module.exports, { FINGER_KEYS, SHORTCUT_LIST, resolveShortcut });
 };
 
 __defs["js/store.js"] = function (module, exports, __require) {
 /* 存储与状态 */
 const KEY = 'wuzhishan_tanshi_v1';
-const SCHEMA_VERSION = 3;
+const SCHEMA_VERSION = 11;
 
 const DEFAULT_PROFILE = {
   goal: 'muscle',
@@ -7698,7 +10532,7 @@ function freshState() {
   return {
     version: 1,
     schemaVersion: SCHEMA_VERSION,
-    profile: { ...DEFAULT_PROFILE },
+    profile: { ...DEFAULT_PROFILE, body: {} },
     plan: null,
     pet: null,
     coachId: 'tanshi',
@@ -7714,6 +10548,23 @@ function freshState() {
     chat: [],            // {role, coachId, text, at}
     backup: { lastExportAt: 0, sessionsAtExport: 0 },
     settings: { anno: false, sound: false, remind: false },
+    focusSettings: { focus: 25, short: 5, long: 15, cycles: 4 },
+    focusHistory: [],
+    focusRuntime: null,
+    focusIntent: '',
+    focusAutoStart: false,
+    focusSound: true,
+    focusTheme: 'paper',
+    musicVolume: 0.8,
+    musicEmbed: '',
+    musicShuffle: false,
+    musicRepeat: 'off',
+    focusGoal: 4,
+    planTemplates: [],
+    generatedPlan: null,
+    bodyLogs: [],
+    lastMusicId: null,
+    musicDuck: true,
     activeSession: null, // {index, date, doneSets:{itemId:count}}
     seenTips: [],
     createdAt: Date.now(),
@@ -7748,7 +10599,40 @@ function migrateState(s) {
   }
   if (from < 3) {
     merged.pet = merged.pet ? { ...merged.pet, outfit: merged.pet.outfit || { key: 'default' } } : merged.pet;
-    merged.schemaVersion = SCHEMA_VERSION;
+  }
+  if (from < 4) {
+    merged.profile = { ...merged.profile, body: merged.profile.body && typeof merged.profile.body === 'object' ? merged.profile.body : {} };
+  }
+  if (from < 5) {
+    merged.focusSettings = { ...base.focusSettings, ...(source.focusSettings || {}) };
+    merged.focusHistory = Array.isArray(source.focusHistory) ? source.focusHistory : [];
+  }
+  if (from < 6) {
+    merged.focusRuntime = source.focusRuntime && typeof source.focusRuntime === 'object' ? source.focusRuntime : null;
+  }
+  if (from < 7) {
+    merged.focusIntent = typeof source.focusIntent === 'string' ? source.focusIntent.slice(0, 40) : '';
+    merged.focusAutoStart = Boolean(source.focusAutoStart);
+    merged.focusSound = source.focusSound !== false;
+    merged.focusTheme = ['paper', 'dark', 'mono'].includes(source.focusTheme) ? source.focusTheme : 'paper';
+  }
+  if (from < 8) {
+    merged.musicVolume = Number.isFinite(Number(source.musicVolume)) ? Math.min(1, Math.max(0, Number(source.musicVolume))) : 0.8;
+    merged.musicEmbed = typeof source.musicEmbed === 'string' ? source.musicEmbed : '';
+  }
+  if (from < 9) {
+    merged.planTemplates = Array.isArray(source.planTemplates) ? source.planTemplates : [];
+    merged.generatedPlan = source.generatedPlan && typeof source.generatedPlan === 'object' ? source.generatedPlan : null;
+  }
+  if (from < 10) {
+    merged.bodyLogs = Array.isArray(source.bodyLogs) ? source.bodyLogs : [];
+    merged.lastMusicId = typeof source.lastMusicId === 'string' ? source.lastMusicId : null;
+    merged.musicDuck = source.musicDuck !== false;
+  }
+  if (from < 11) {
+    merged.focusGoal = [2, 4, 6, 8].includes(Number(source.focusGoal)) ? Number(source.focusGoal) : 4;
+    merged.musicShuffle = Boolean(source.musicShuffle);
+    merged.musicRepeat = ['off', 'all', 'one'].includes(source.musicRepeat) ? source.musicRepeat : 'off';
   }
   merged.schemaVersion = SCHEMA_VERSION;
   return merged;
@@ -7823,6 +10707,14 @@ function daysBetween(a, b) {
 function uid(prefix = 'id') {
   return `${prefix}_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 7)}`;
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -8082,6 +10974,88 @@ function handSVG(active = null, size = 210) {
 Object.assign(module.exports, { svgEl, coachSVG, handSVG, petSVG, petMini });
 };
 
+__defs["js/training-intel.js"] = function (module, exports, __require) {
+/** 训练智能（P25）：周组数目标 + deload 建议，纯函数 */
+const { MUSCLE_GROUPS } = __require("js/analytics.js");
+const { getExercise } = __require("data/exercises.js");
+
+const BASE_TARGETS = {
+  chest: [8, 20],
+  back: [8, 20],
+  legs: [10, 22],
+  shoulders: [6, 16],
+  arms: [4, 12],
+  core: [4, 12],
+};
+
+function mondayKey(date) {
+  const d = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  d.setDate(d.getDate() - ((d.getDay() + 6) % 7));
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
+const LEVEL_MULT = { beginner: 0.7, intermediate: 1, advanced: 1.2 };
+const GOAL_MULT = { muscle: 1.1, fatloss: 0.9, strength: 1, endurance: 0.95 };
+
+function weeklySetsByGroup(setLogs = [], now = Date.now()) {
+  const start = mondayKey(new Date(now));
+  const out = Object.fromEntries(MUSCLE_GROUPS.map((g) => [g.key, 0]));
+  for (const log of setLogs) {
+    const date = String(log.date || '');
+    if (date < start) continue;
+    const muscles = getExercise(log.exerciseId)?.muscles || [];
+    for (const g of MUSCLE_GROUPS) {
+      if (g.muscles.some((m) => muscles.includes(m))) out[g.key] += 1;
+    }
+  }
+  return out;
+}
+
+function weeklyTargets(profile = {}) {
+  const lm = LEVEL_MULT[profile.level] || 1;
+  const gm = GOAL_MULT[profile.goal] || 1;
+  return MUSCLE_GROUPS.map((g) => {
+    const base = BASE_TARGETS[g.key] || [6, 16];
+    return {
+      key: g.key,
+      label: g.label,
+      min: Math.max(3, Math.round(base[0] * lm * gm)),
+      max: Math.max(6, Math.round(base[1] * lm * gm)),
+    };
+  });
+}
+
+function volumeStatus(setLogs = [], profile = {}, now = Date.now()) {
+  const sets = weeklySetsByGroup(setLogs, now);
+  return weeklyTargets(profile).map((t) => {
+    const n = sets[t.key] || 0;
+    return { ...t, sets: n, status: n < t.min ? 'low' : n > t.max ? 'high' : 'ok' };
+  });
+}
+
+/** 近 14 天平均 RPE 偏高 + 训练量不低 → 建议 deload */
+function deloadAdvice(setLogs = [], state = {}, now = Date.now()) {
+  const since = now - 14 * 86400000;
+  const recent = setLogs.filter((l) => {
+    const t = new Date(`${l.date}T00:00:00`).getTime();
+    return Number.isFinite(t) && t >= since;
+  });
+  const rated = recent.filter((l) => Number(l.rpe) > 0);
+  const avgRpe = rated.length ? Math.round((rated.reduce((s, l) => s + Number(l.rpe), 0) / rated.length) * 10) / 10 : null;
+  const sessions = Object.keys(state.sessions || {}).filter((d) => new Date(`${d}T00:00:00`).getTime() >= since).length;
+  if (avgRpe != null && avgRpe >= 8.7 && recent.length >= 8 && sessions >= 2) {
+    return { needDeload: true, avgRpe, reason: `近两周平均 RPE ${avgRpe}，训练量不低，建议本周减载 30–40% 或降一组。`, sessions };
+  }
+  if (avgRpe != null && avgRpe >= 8.4 && recent.length >= 12 && sessions >= 3) {
+    return { needDeload: true, avgRpe, reason: `近两周平均 RPE ${avgRpe}，强度持续偏高；下一周可安排减载。`, sessions };
+  }
+  return { needDeload: false, avgRpe, reason: '', sessions };
+}
+
+
+Object.assign(module.exports, { weeklySetsByGroup, weeklyTargets, volumeStatus, deloadAdvice });
+};
+
 __defs["js/training-log.js"] = function (module, exports, __require) {
 /**
  * 训练重量记录（P1）
@@ -8175,6 +11149,11 @@ function parseRest(rest) {
   return m ? parseInt(m[1], 10) : 60;
 }
 
+/** 最近 N 组（时间升序取尾部） */
+function recentSetsFor(setLogs = [], exerciseId, limit = 3) {
+  return historyFor(setLogs, exerciseId).slice(-limit).map((e) => ({ date: e.date, weight: e.weight, reps: e.reps, rpe: e.rpe }));
+}
+
 function removeSetLog(state, id) {
   ensureLogs(state);
   const before = state.setLogs.length;
@@ -8250,7 +11229,8 @@ function topExercises(setLogs = [], limit = 5) {
 }
 
 
-Object.assign(module.exports, { WEIGHT_MIN, WEIGHT_MAX, REPS_MIN, REPS_MAX, LOG_LIMIT, validateSet, e1rm, volumeOf, ensureLogs, pruneLogs, addSetLog, parseRest, removeSetLog, historyFor, bestSetFor, personalRecord, lastSetFor, trendFor, volumeFor, sessionSummary, topExercises });
+
+Object.assign(module.exports, { WEIGHT_MIN, WEIGHT_MAX, REPS_MIN, REPS_MAX, LOG_LIMIT, validateSet, e1rm, volumeOf, ensureLogs, pruneLogs, addSetLog, parseRest, recentSetsFor, removeSetLog, historyFor, bestSetFor, personalRecord, lastSetFor, trendFor, volumeFor, sessionSummary, topExercises });
 };
 
 __defs["js/ui.js"] = function (module, exports, __require) {
@@ -8482,6 +11462,350 @@ function petAdvice(coach, petId) {
 
 
 Object.assign(module.exports, { renderCoach });
+};
+
+__defs["js/views/custom-plan.js"] = function (module, exports, __require) {
+﻿/* 自定义计划编辑器 */
+const { esc } = __require("js/ui.js");
+const { MUSCLES } = __require("data/exercises.js");
+
+function renderCustomPlan(app) {
+  const plan = app.customDraft;
+  if (!plan) {
+    return `<div class="page"><div class="card"><h2>没有正在编辑的计划</h2><p class="muted">回到计划页重新开始。</p><button class="btn btn-primary mt" data-nav="plan">回计划</button></div></div>`;
+  }
+  return `
+  <div class="page custom-page">
+    <div class="page-head">
+      <div>
+        <span class="eyebrow">自己排计划</span>
+        <h1>你的计划，你说了算</h1>
+        <div class="sub">从 ${plan.days} 天开始；每天加动作、改组次和休息。保存后直接进训练。</div>
+      </div>
+      <div class="row">
+        <button class="btn btn-ghost btn-sm" data-act="custom-cancel">取消</button>
+        <button class="btn btn-primary btn-sm" data-act="custom-save">保存计划</button>
+      </div>
+    </div>
+
+    <div class="card custom-meta">
+      <label class="field"><span>计划名称</span><input class="input" data-custom="plan-title" value="${esc(plan.splitName || '自定义计划')}" maxlength="20" /></label>
+      <div class="custom-meta-actions">
+        <button class="btn btn-sm btn-ghost" data-act="custom-add-day">＋ 加一天</button>
+        <span class="tiny muted">每天至少 1 个动作；组数 1–10。</span>
+      </div>
+    </div>
+
+    <div class="card custom-template-row">
+      <div class="row wrap" style="gap:8px;align-items:center">
+        <button class="btn btn-sm btn-ghost" data-act="template-save">存为模板</button>
+        <button class="btn btn-sm btn-ghost" data-act="template-export">导出模板</button>
+        <button class="btn btn-sm btn-ghost" data-act="template-share">复制分享文案</button>
+        <label class="btn btn-sm btn-ghost">导入模板<input type="file" id="template-import" accept=".json,application/json" hidden /></label>
+        ${(app.state.planTemplates || []).length ? `<div class="template-cards">${(app.state.planTemplates || []).map((t) => {
+          const days = t.plan.sessions?.length || 0;
+          const items = (t.plan.sessions || []).reduce((sum, s) => sum + (s.items?.length || 0), 0);
+          return `<div class="template-card"><button class="template-main" data-act="template-load" data-id="${t.id}"><b>${esc(t.name)}</b><span>${days} 天 · ${items} 个动作</span></button><button class="template-del" data-act="template-delete" data-id="${t.id}" title="删除模板">×</button></div>`;
+        }).join('')}</div>` : '<span class="tiny muted">还没有模板，存一份以后直接载入。</span>'}
+      </div>
+    </div>
+
+    ${plan.sessions.map((s, si) => `
+    <div class="card custom-day">
+      <div class="custom-day-head">
+        <label class="field custom-day-title"><span>第 ${si + 1} 天</span>
+          <input class="input" data-custom="session-title" data-si="${si}" value="${esc(s.title)}" maxlength="20" />
+        </label>
+        <label class="field custom-day-min"><span>时长（分）</span>
+          <input class="input" type="number" min="10" max="120" step="5" data-custom="session-minutes" data-si="${si}" value="${s.minutes || plan.minutes || 45}" />
+        </label>
+        <div class="row" style="gap:6px">
+          <button class="btn btn-sm btn-ghost" data-act="custom-add-exercise" data-si="${si}">＋ 加动作</button>
+          <button class="btn btn-sm btn-ghost" data-act="custom-copy-day" data-si="${si}">复制这天</button>
+          ${plan.sessions.length > 1 ? `<button class="btn btn-sm btn-ghost" data-act="custom-remove-day" data-si="${si}" style="color:var(--cinnabar)">删这天</button>` : ''}
+        </div>
+      </div>
+      ${s.items?.length ? `<div class="custom-items">${s.items.map((it, ii) => `
+        <div class="custom-item" data-si="${si}" data-ii="${ii}">
+          <span class="drag-handle" title="拖动排序">⠿</span>
+          <div class="custom-item-name">
+            <b>${esc(it.name)}</b>
+            <span class="tiny muted">${(it.muscles || []).map((m) => MUSCLES[m]).filter(Boolean).join(' · ')}</span>
+          </div>
+          <label class="custom-mini"><span>组</span><input class="input" type="number" min="1" max="10" data-custom="item" data-field="sets" data-si="${si}" data-ii="${ii}" value="${it.sets}" /></label>
+          <label class="custom-mini"><span>次</span><input class="input" data-custom="item" data-field="reps" data-si="${si}" data-ii="${ii}" value="${esc(it.reps)}" /></label>
+          <label class="custom-mini"><span>休息</span><input class="input" data-custom="item" data-field="rest" data-si="${si}" data-ii="${ii}" value="${esc(it.rest)}" /></label>
+          <div class="custom-item-actions">
+            <button class="icon-btn" data-act="custom-move" data-si="${si}" data-ii="${ii}" data-dir="-1" title="上移">↑</button>
+            <button class="icon-btn" data-act="custom-move" data-si="${si}" data-ii="${ii}" data-dir="1" title="下移">↓</button>
+            <button class="icon-btn" data-act="custom-remove-exercise" data-si="${si}" data-ii="${ii}" title="移除" style="color:var(--cinnabar)">✕</button>
+          </div>
+        </div>`).join('')}</div>` : `<div class="custom-empty">这一天还没有动作。点「＋ 加动作」从动作库选。</div>`}
+    </div>`).join('')}
+
+    <div class="row" style="justify-content:flex-end;gap:10px;margin-top:16px">
+      <button class="btn btn-ghost" data-act="custom-cancel">取消</button>
+      <button class="btn btn-primary btn-lg" data-act="custom-save">保存计划</button>
+    </div>
+  </div>`;
+}
+
+
+
+Object.assign(module.exports, { renderCustomPlan });
+};
+
+__defs["js/views/exercise.js"] = function (module, exports, __require) {
+/* 动作详情页（P23） */
+const { esc } = __require("js/ui.js");
+const { exerciseDetail } = __require("js/exercise-detail.js");
+const { getArt } = __require("js/exercise-art.js");
+const { MUSCLES, EQUIPMENTS } = __require("data/exercises.js");
+
+function renderExercise(app) {
+  const d = exerciseDetail(app.exerciseDetailId, app.state.setLogs || []);
+  if (!d) {
+    return `<div class="page"><div class="card"><h2>动作不存在</h2><button class="btn btn-primary mt" data-act="exercise-back">返回训练</button></div></div>`;
+  }
+  const ex = d.exercise;
+  return `
+  <div class="page exercise-page">
+    <div class="page-head">
+      <div>
+        <span class="eyebrow">动作详情 · ${esc(ex.pattern)}</span>
+        <h1>${esc(ex.name)}</h1>
+        <div class="sub">${esc(d.cue)}</div>
+      </div>
+      <div class="row">
+        <button class="btn btn-primary btn-sm" data-act="exercise-back">返回训练</button>
+      </div>
+    </div>
+
+    <div class="ex-detail-grid">
+      <div class="card ex-detail-art">${getArt(ex.pattern)}</div>
+      <div class="card">
+        <div class="card-head"><span class="card-title">📌 动作要领</span></div>
+        <div class="ex-meta-row"><span>肌群</span><b>${(ex.muscles || []).map((m) => MUSCLES[m]).filter(Boolean).join(' · ')}</b></div>
+        <div class="ex-meta-row"><span>器械</span><b>${(ex.equipment || []).map((e) => EQUIPMENTS[e]?.label || e).join(' · ')}</b></div>
+        <div class="ex-meta-row"><span>难度</span><b>L${ex.level || 1}</b></div>
+        <div class="ex-meta-row"><span>累计</span><b>${d.sets} 组 · ${Math.round(d.volume).toLocaleString()}kg</b></div>
+        <div class="ex-mistakes">
+          <h4>常见错误</h4>
+          <ul>${d.mistakes.map((m) => `<li>${esc(m)}</li>`).join('')}</ul>
+        </div>
+        <div class="ex-alts">
+          <h4>替代动作</h4>
+          <div class="row wrap" style="gap:6px">${d.alternatives.map((a) => `<button class="pill ghost" data-act="exercise-detail" data-id="${a.id}">${esc(a.name)}</button>`).join('') || '<span class="tiny muted">暂无</span>'}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-2 mt">
+      <div class="card">
+        <div class="card-head"><span class="card-title">🏆 历史 PR</span></div>
+        ${d.pr ? `<div class="ex-pr"><b>${d.pr.weight}kg × ${d.pr.reps}</b><span>估算 1RM ${d.pr.e1rm}kg</span><span class="tiny muted">${esc(d.pr.date || '')}</span></div>` : '<div class="small muted">还没有记录。第一次记重量就是 PR。</div>'}
+      </div>
+      <div class="card">
+        <div class="card-head"><span class="card-title">📈 最近记录</span></div>
+        ${d.recent.length ? `<div class="ex-recent">${d.recent.map((r) => `<div><span>${esc(String(r.date).slice(5))}</span><b>${r.weight}kg × ${r.reps}</b>${r.rpe ? `<em>RPE ${r.rpe}</em>` : ''}</div>`).join('')}</div>` : '<div class="small muted">训练时点「记重量」，这里会有历史。</div>'}
+      </div>
+    </div>
+  </div>`;
+}
+
+
+Object.assign(module.exports, { renderExercise });
+};
+
+__defs["js/views/focus.js"] = function (module, exports, __require) {
+﻿/* 专注页：番茄钟（对标高星番茄钟的「计时器为主角」布局） */
+const { esc } = __require("js/ui.js");
+const { MODES, formatClock, progressOf, focusGoalProgress } = __require("js/pomodoro.js");
+const { detectEmbed } = __require("js/music.js");
+const { todayKey } = __require("js/store.js");
+
+const CIRC = 2 * Math.PI * 52;
+
+function last7(app) {
+  const out = [];
+  const base = new Date();
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(base);
+    d.setDate(d.getDate() - i);
+    const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    const count = (app.state.focusHistory || []).filter((h) => h.date === key).length;
+    out.push({ key, label: `${d.getMonth() + 1}/${d.getDate()}`, count });
+  }
+  return out;
+}
+
+function renderFocus(app) {
+  const t = app.focus;
+  const mode = MODES[t.mode] || MODES.focus;
+  const progress = progressOf(t);
+  const today = todayKey();
+  const todaySessions = (app.state.focusHistory || []).filter((h) => h.date === today);
+  const todayCount = todaySessions.length;
+  const todayMinutes = todaySessions.reduce((sum, h) => sum + (Number(h.minutes) || 0), 0);
+  const days = last7(app);
+  const max = Math.max(1, ...days.map((d) => d.count));
+  const weekCount = days.reduce((sum, d) => sum + d.count, 0);
+  const cycles = t.settings?.cycles || 4;
+  const cycleDone = (t.cycle || 0) % cycles;
+  const presets = { focus: [15, 25, 45], short: [5, 10], long: [15, 20, 30] };
+  const zen = Boolean(app.focusZen);
+  const theme = ['dark', 'mono'].includes(app.state.focusTheme) ? app.state.focusTheme : 'paper';
+  const intent = app.state.focusIntent || '';
+  const autoStart = Boolean(app.state.focusAutoStart);
+  const soundOn = app.state.focusSound !== false;
+  const embedInfo = detectEmbed(app.state.musicEmbed || '');
+  const goal = focusGoalProgress(app.state.focusHistory || [], today, app.state.focusGoal || 4);
+
+  return `
+  <div class="page focus-page theme-${theme} ${zen ? 'is-zen' : ''}">
+    <div class="focus-top">
+      <div>
+        <span class="eyebrow">专注 · 番茄钟</span>
+        <h1>先专注这一格</h1>
+        <div class="sub">${zen ? '沉浸模式：按 Esc 或点右上角退出。' : '25 分钟不看手机，比多练一组更难。休息也算训练的一部分。'}</div>
+      </div>
+      <div class="row wrap" style="gap:8px;justify-content:flex-end">
+        <span class="pill ghost">今日 ${todayCount}/${goal.goal} 个 · ${todayMinutes} 分钟</span>
+        <button class="btn btn-ghost btn-sm" data-act="focus-zen">${zen ? '退出沉浸' : '沉浸模式'}</button>
+      </div>
+    </div>
+
+    <div class="focus-layout">
+      <div class="focus-stage mode-${mode.key}">
+        <div class="focus-intent-wrap">
+          <input class="focus-intent" id="focus-intent" maxlength="40" value="${esc(intent)}"
+            placeholder="这一格做什么？例如：练腿 / 写周报 / 读 20 页" aria-label="这一格做什么" />
+        </div>
+        <div class="focus-stage-top">
+          <div class="focus-modes">
+            ${Object.values(MODES).map((m) => `<button class="focus-mode ${t.mode === m.key ? 'is-on' : ''}" data-act="focus-mode" data-mode="${m.key}">
+              <i style="background:${m.color}"></i>${m.label}
+            </button>`).join('')}
+          </div>
+          <div class="focus-cycle" id="focus-cycle" title="每 ${cycles} 个专注后长休">
+            ${Array.from({ length: cycles }, (_, i) => `<span class="focus-dot ${i < cycleDone ? 'is-on' : ''}"></span>`).join('')}
+            <span class="tiny muted">${cycleDone}/${cycles}</span>
+          </div>
+        </div>
+
+        <div class="focus-dial">
+          <svg viewBox="0 0 120 120" class="focus-ring" aria-hidden="true">
+            <circle cx="60" cy="60" r="52" class="ring-bg"></circle>
+            <circle id="focus-ring" cx="60" cy="60" r="52" class="ring-fg" transform="rotate(-90 60 60)"
+              stroke-dasharray="${CIRC.toFixed(1)}" stroke-dashoffset="${(CIRC * (1 - progress)).toFixed(1)}"></circle>
+          </svg>
+          <div class="focus-clock-wrap">
+            <div class="focus-clock" id="focus-clock">${formatClock(t.left)}</div>
+            <div class="focus-mode-label" id="focus-status">${t.running ? `${mode.label}中 · 别碰手机` : t.left === 0 ? '这一格结束' : '准备好就开始'}</div>
+          </div>
+        </div>
+
+        <div class="focus-actions">
+          <button class="focus-side-btn" data-act="focus-reset" title="重置这一格" aria-label="重置">↺</button>
+          <button class="focus-main-btn" id="focus-toggle" data-act="${t.running ? 'focus-pause' : 'focus-start'}"
+            aria-label="${t.running ? '暂停' : '开始'}">${t.running ? '❚❚' : '▶'}</button>
+          <button class="focus-side-btn" data-act="focus-skip" title="跳过这一格" aria-label="跳过">⏭</button>
+        </div>
+        <div class="tiny muted focus-hint">空格开始/暂停 · R 重置 · S 跳过 · 刷新后自动恢复</div>
+      </div>
+
+      <aside class="focus-side">
+        <div class="card focus-stat-card">
+          <div class="card-head"><span class="card-title">📅 近 7 天</span><span class="pill ghost">${weekCount} 个</span></div>
+          <div class="focus-bars" role="img" aria-label="近 7 天完成的番茄数">
+            ${days.map((d) => `<div class="focus-bar-col" title="${d.key} · ${d.count} 个">
+              <i style="height:${Math.max(4, Math.round((d.count / max) * 100))}%"></i>
+              <span>${d.label}</span>
+            </div>`).join('')}
+          </div>
+          <div class="static-row"><span>今日目标</span><b>${goal.count}/${goal.goal} 个</b></div>
+          <div class="focus-goal-bar"><i style="width:${goal.pct}%"></i></div>
+          <div class="static-row"><span>今日专注</span><b>${todayMinutes} 分钟</b></div>
+          <div class="static-row"><span>本周完成</span><b>${weekCount} 个番茄</b></div>
+          <div class="tiny muted mt-s">每个番茄 = 一次完整专注；跳过不计入。</div>
+        </div>
+
+        <details class="card focus-settings">
+          <summary>⚙️ 时长与设置</summary>
+          <div class="focus-settings-body">
+            ${['focus', 'short', 'long'].map((k) => `<div class="focus-preset-row">
+              <span>${MODES[k].label}</span>
+              <div class="row" style="gap:6px">
+                ${presets[k].map((m) => `<button class="seg-opt tiny ${t.settings[k] === m ? 'is-on' : ''}" data-act="focus-preset" data-mode="${k}" data-min="${m}">${m} 分</button>`).join('')}
+              </div>
+            </div>`).join('')}
+            <label class="focus-option"><input type="checkbox" id="focus-auto-start" ${autoStart ? 'checked' : ''} /> 自动开始下一段</label>
+            <label class="focus-option"><input type="checkbox" id="focus-sound" ${soundOn ? 'checked' : ''} /> 完成提示音</label>
+            <label class="focus-option focus-theme-row">主题
+              <select class="select" id="focus-theme">
+                <option value="paper" ${theme === 'paper' ? 'selected' : ''}>纸感</option>
+                <option value="dark" ${theme === 'dark' ? 'selected' : ''}>深色</option>
+                <option value="mono" ${theme === 'mono' ? 'selected' : ''}>黑白</option>
+              </select>
+            </label>
+            <label class="focus-option">每日目标 <select class="select" id="focus-goal">${[2, 4, 6, 8].map((n) => `<option value="${n}" ${Number(app.state.focusGoal) === n ? 'selected' : ''}>${n} 个</option>`).join('')}</select></label>
+            <div class="tiny muted mt-s">每 ${cycles} 个专注后自动进入长休。改时长会重置当前模式。</div>
+          </div>
+        </details>
+
+        <details class="card music-card" open>
+          <summary class="music-summary">🎵 音乐 <span class="tiny muted">本地 / 平台</span></summary>
+          <div class="card-head">
+            <span class="card-title">🎵 音乐</span>
+            <button class="btn btn-sm btn-ghost" data-act="music-clear" style="color:var(--cinnabar)">清空本地</button>
+          </div>
+          <div class="music-import-row">
+            <label class="btn btn-sm btn-ghost">导入本地音乐
+              <input type="file" id="music-import" accept="audio/*,.mp3,.m4a,.wav,.ogg,.flac" multiple hidden />
+            </label>
+            <label class="btn btn-sm btn-ghost">导入 M3U/PLS
+              <input type="file" id="music-m3u" accept=".m3u,.m3u8,.pls" hidden />
+            </label>
+          </div>
+          <div class="music-embed-row">
+            <input class="input" id="music-embed-input" placeholder="粘贴 Spotify / Apple Music / YouTube 歌单链接" value="${esc(app.state.musicEmbed || '')}" />
+            <button class="btn btn-sm btn-primary" data-act="music-embed">嵌入</button>
+          </div>
+          <div class="music-search-row">
+            <select class="select" id="music-provider" aria-label="音乐平台">
+              <option value="qq">QQ 音乐</option>
+              <option value="netease">网易云音乐</option>
+              <option value="spotify">Spotify</option>
+              <option value="apple">Apple Music</option>
+              <option value="youtube">YouTube</option>
+            </select>
+            <input class="input" id="music-search-input" placeholder="搜歌名，去平台听" />
+            <button class="btn btn-sm btn-ghost" data-act="music-open-search">打开</button>
+          </div>
+          ${embedInfo ? `<div class="music-embed">
+            <iframe src="${esc(embedInfo.embedUrl)}" title="${esc(embedInfo.label)} 播放器" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe>
+            <button class="btn btn-sm btn-ghost" data-act="music-embed-clear">移除嵌入</button>
+          </div>` : ''}
+          <input class="input" id="music-filter" placeholder="搜索本地音乐" aria-label="搜索本地音乐" />
+          <div class="music-list" id="music-list"><span class="tiny muted">正在读取本地音乐…</span></div>
+          <div class="tiny muted mt-s" id="music-status"></div>
+          <div class="tiny muted mt-s">可把音频文件拖进这张卡片导入。本地文件只存这台设备，不上传；官方播放器受平台版权与登录限制。</div>
+        </details>
+
+        <div class="card tinted-ochre">
+          <div class="card-head"><span class="card-title">🖐️ 谭师说</span></div>
+          <p class="small" style="line-height:1.8;margin:0">${esc(app.coach.style === 'warm' ? '专注不是把自己逼紧，是给一件事留出完整的时间。25 分钟就够。' : app.coach.style === 'science' ? '专注时长是变量，完成次数是数据。先跑完 4 个番茄，再谈效率。' : '手机放远点。25 分钟你都坐不住，别跟我谈自律。')}</p>
+        </div>
+      </aside>
+    </div>
+  </div>`;
+}
+
+
+
+
+
+Object.assign(module.exports, { renderFocus });
 };
 
 __defs["js/views/home.js"] = function (module, exports, __require) {
@@ -9012,9 +12336,10 @@ Object.assign(module.exports, { renderPet, renderAdopt });
 };
 
 __defs["js/views/plan.js"] = function (module, exports, __require) {
-/* 计划页：生成器 + 计划详情 */
+﻿/* 计划页：生成器 + 计划详情 */
 const { $, $$, esc, percent } = __require("js/ui.js");
 const { GOALS, LEVELS, INJURIES, EQUIPMENT_OPTIONS, analyzePlan, planStats, suggestSwap } = __require("js/plan-engine.js");
+const { bodySummary, ACTIVITY_LEVELS } = __require("js/body-metrics.js");
 const { buildCycle, weekIndexFor } = __require("js/periodization.js");
 const { MUSCLES, getExercise } = __require("data/exercises.js");
 const { PET_BY_ID, directionOverride, DIRECTION_LABEL } = __require("data/pets.js");
@@ -9029,6 +12354,7 @@ function renderPlan(app) {
 /* ================= 生成器 ================= */
 function renderBuilder(app) {
   const p = app.state.profile;
+  const bs = bodySummary(p);
   const pet = p.petId ? PET_BY_ID[p.petId] : null;
   const over = pet ? directionOverride(pet, p.goal) : null;
   const coach = app.coach;
@@ -9099,8 +12425,37 @@ function renderBuilder(app) {
           </div>
         </section>
 
+        <section class="builder-step anno-target" data-anno="body">
+          <div class="bs-head"><span class="bs-num">6</span><h3>身体档案</h3><span class="muted">可选；只用于热量/宏量目标，不改训练动作</span></div>
+          <div class="body-grid">
+            ${bodyField(p,'heightCm', '身高', 'cm', 'number', '175')}
+            ${bodyField(p,'weightKg', '体重', 'kg', 'number', '70')}
+            ${bodyField(p,'age', '年龄', '岁', 'number', '25')}
+            <label class="field"><span>性别</span>
+              <select class="select" data-body="sex">
+                <option value="male" ${p.body?.sex !== 'female' ? 'selected' : ''}>男</option>
+                <option value="female" ${p.body?.sex === 'female' ? 'selected' : ''}>女</option>
+              </select>
+            </label>
+            <label class="field"><span>日常活动</span>
+              <select class="select" data-body="activity">
+                ${Object.entries(ACTIVITY_LEVELS).map(([k, v]) => `<option value="${k}" ${p.body?.activity === k ? 'selected' : ''}>${v.label}</option>`).join('')}
+              </select>
+            </label>
+            ${bodyField(p,'bodyFatPct', '体脂率（可选）', '%', 'number', '18')}
+            ${bodyField(p,'waistCm', '腰围（可选）', 'cm', 'number', '80')}
+            ${bodyField(p,'neckCm', '颈围（可选）', 'cm', 'number', '38')}
+            ${bodyField(p,'hipCm', '臀围（女，可选）', 'cm', 'number', '95')}
+          </div>
+          <div class="body-targets" id="body-targets">
+            ${bs.ok ? `<span><b>BMI ${bs.bmi}</b> ${bs.bmiLabel}</span><span>TDEE <b>${bs.tdee}</b> kcal</span><span>目标 <b>${bs.calories}</b> kcal</span><span>蛋白 <b>${bs.protein}</b> g</span><span>碳水 <b>${bs.carbs}</b> g</span><span>脂肪 <b>${bs.fat}</b> g</span>${bs.bodyFat ? `<span>体脂约 <b>${bs.bodyFat}%</b></span>` : ''}` : `<span class="muted">填身高/体重/年龄后显示热量与宏量目标${bs.missing?.length ? `（缺${bs.missing.join('、')}）` : ''}</span>`}
+          </div>
+          <div class="field-hint">估算值，非医疗建议。体脂率优先用体脂秤；也可填围度用 Navy 公式估算。训练组数由目标/水平/频率决定。</div>
+        </section>
+
         <div class="row wrap" style="gap:10px">
           <button class="btn btn-primary btn-lg" data-act="generate-plan">${esc(coach.name)}，排吧 →</button>
+          <button class="btn btn-ghost" data-act="custom-plan-empty">自己写一份</button>
           <button class="btn btn-ghost" data-act="open-finger" data-zone="plan">🖐️ 先看看能怎么改</button>
         </div>
       </div>
@@ -9145,6 +12500,7 @@ function renderPlanned(app) {
   const session = plan.sessions[activeIdx];
   const pet = plan.petId ? PET_BY_ID[plan.petId] : null;
   const coachName = coach.name;
+  const bs = bodySummary(profile);
 
   return `
   <div class="page">
@@ -9159,9 +12515,12 @@ function renderPlanned(app) {
           ${pet ? `<span class="pill ochre">🐾 ${pet.name} · ${pet.directionName}</span>` : ''}
           ${plan.injuries.length ? `<span class="pill red">避开 ${plan.injuries.map((i) => INJURIES[i]?.label).join('/')}</span>` : ''}
         </div>
+        ${bs.ok ? `<div class="body-targets mt-s"><span>按身体档案：目标热量 <b>${bs.calories}</b> kcal</span><span>蛋白 <b>${bs.protein}</b> g</span><span>碳水 <b>${bs.carbs}</b> g</span><span>脂肪 <b>${bs.fat}</b> g</span></div>` : ''}
       </div>
       <div class="plan-actions">
         <button class="btn btn-ghost btn-sm" data-act="open-finger" data-zone="plan">🖐️ 让${esc(coachName)}体检</button>
+        ${s.generatedPlan && plan.custom ? '<button class="btn btn-ghost btn-sm" data-act="compare-plans">对比自动版</button>' : ''}
+        <button class="btn btn-ghost btn-sm" data-act="custom-plan">编辑计划</button>
         <button class="btn btn-ghost btn-sm" data-act="goto-builder">重新生成</button>
         <button class="btn btn-primary btn-sm" data-act="start-today">开始训练</button>
       </div>
@@ -9300,6 +12659,17 @@ function exRow(app, it, i, sessionIndex) {
   </div>`;
 }
 
+function bodyField(p, key, label, unit, type = 'number', placeholder = '') {
+  const v = p.body?.[key] ?? '';
+  return `<label class="field"><span>${label}</span>
+    <div class="input-unit">
+      <input class="input" type="${type}" inputmode="decimal" data-body="${key}" value="${v}" placeholder="${placeholder}" />
+      <em>${unit}</em>
+    </div>
+  </label>`;
+}
+
+
 
 Object.assign(module.exports, { renderPlan, renderBuilder });
 };
@@ -9314,6 +12684,11 @@ const { coachSVG } = __require("js/svg.js");
 const { petSummary, petLine } = __require("js/pet.js");
 const { backupStatus } = __require("js/backup.js");
 const { weeklyMuscleVolume, prTimeline, adherenceTrend } = __require("js/analytics.js");
+const { bodySummary } = __require("js/body-metrics.js");
+const { bodyTrend, trendDelta } = __require("js/body-log.js");
+const { weeklyLoop } = __require("js/data-loop.js");
+const { volumeStatus, deloadAdvice } = __require("js/training-intel.js");
+const { PHOTO_ANGLES } = __require("js/photo-store.js");
 
 function renderProgress(app) {
   const s = app.state;
@@ -9332,6 +12707,13 @@ function renderProgress(app) {
   const volume = weeklyMuscleVolume(setLogs, { weeks: 8 });
   const prs = prTimeline(setLogs, { limit: 4 });
   const adh = adherenceTrend(s, { weeks: 8 });
+  const bs = bodySummary(s.profile);
+  const bodyRows = bodyTrend(s.bodyLogs || [], 10);
+  const bodyDelta = trendDelta(s.bodyLogs || []);
+  const loop = weeklyLoop(s, { weeks: 8 });
+  const intel = volumeStatus(setLogs, s.profile);
+  const deload = deloadAdvice(setLogs, s);
+  const today = todayKey();
   const backupText = !s.backup?.lastExportAt
     ? `已经攒了 ${backup.sessionsSince} 次训练，还没导出过备份。浏览器数据说没就没，导一份。`
     : backup.reason === 'sessions'
@@ -9427,8 +12809,77 @@ function renderProgress(app) {
     </div>
 
     <div class="card section">
+      <div class="card-head"><span class="card-title">🧬 身体档案</span><button class="btn btn-sm btn-ghost" data-nav="plan">去填写/修改</button></div>
+      ${bs.ok ? `<div class="body-targets">
+        <span>BMI <b>${bs.bmi}</b> ${bs.bmiLabel}</span>
+        <span>BMR <b>${bs.bmr}</b> kcal</span>
+        <span>TDEE <b>${bs.tdee}</b> kcal</span>
+        <span>目标热量 <b>${bs.calories}</b> kcal</span>
+        <span>蛋白 <b>${bs.protein}</b> g</span>
+        <span>碳水 <b>${bs.carbs}</b> g</span>
+        <span>脂肪 <b>${bs.fat}</b> g</span>
+        ${bs.bodyFat ? `<span>体脂约 <b>${bs.bodyFat}%</b></span>` : ''}
+      </div><div class="tiny muted mt-s">${bs.note} 身体数据用于热量/宏量目标，不直接改变训练动作与组数。</div>` : `<div class="small muted">还没填身体档案。去计划页填写身高/体重/年龄后，这里会显示 BMI、TDEE 与宏量目标。</div>`}
+      <div class="body-log-form">
+        <input class="input" type="date" id="body-log-date" value="${today}" aria-label="记录日期" />
+        <input class="input" type="number" id="body-log-weight" min="30" max="300" step="0.1" placeholder="体重 kg" aria-label="体重" />
+        <input class="input" type="number" id="body-log-fat" min="1" max="70" step="0.1" placeholder="体脂 %（可选）" aria-label="体脂率" />
+        <input class="input" type="number" id="body-log-waist" min="30" max="200" step="0.1" placeholder="腰围 cm（可选）" aria-label="腰围" />
+        <button class="btn btn-sm btn-primary" data-act="body-log">记录</button>
+      </div>
+      ${bodyRows.length ? `<div class="body-trend" aria-label="体重趋势">${bodyRows.map((r) => `<div class="bt-col"><i style="height:${Math.max(8, Math.round((r.weight / Math.max(...bodyRows.map((x) => x.weight), 1)) * 100))}%"></i><span>${r.date.slice(5)}</span><em>${r.weight}</em></div>`).join('')}</div>
+      ${bodyDelta ? `<div class="tiny muted">${bodyDelta.days} 次记录：体重 ${bodyDelta.weight > 0 ? '+' : ''}${bodyDelta.weight}kg${bodyDelta.bodyFat != null ? ` · 体脂 ${bodyDelta.bodyFat > 0 ? '+' : ''}${bodyDelta.bodyFat}%` : ''}${bodyDelta.waist != null ? ` · 腰围 ${bodyDelta.waist > 0 ? '+' : ''}${bodyDelta.waist}cm` : ''}</div>` : ''}` : '<div class="tiny muted mt-s">记录体重后，这里会显示趋势。</div>'}
+    </div>
+
+    <div class="card section" id="photo-card">
+      <div class="card-head">
+        <span class="card-title">📷 进度照片</span>
+        <button class="btn btn-sm btn-ghost" data-act="photo-clear" style="color:var(--cinnabar)">清空照片</button>
+      </div>
+      <div class="photo-privacy">🔒 照片只存在这台设备的浏览器里，不上传服务器；换设备或清缓存会丢。导出 JSON 不含照片。点照片上的「对比」选两张并排看。</div>
+      <div class="photo-controls">
+        <label class="btn btn-sm btn-primary">添加照片
+          <input type="file" id="photo-input" accept="image/*" hidden />
+        </label>
+        <select class="select" id="photo-angle">${PHOTO_ANGLES.map((a) => `<option value="${a.key}">${a.label}</option>`).join('')}</select>
+        <input class="input" type="date" id="photo-date" />
+        <span class="tiny muted" id="photo-status"></span>
+      </div>
+      <div class="photo-grid" id="photo-grid"><span class="small muted">正在读取本地照片…</span></div>
+    </div>
+
+    <div class="card section">
+      <div class="card-head"><span class="card-title">🧠 训练智能</span><span class="pill ghost">本周组数目标</span></div>
+      ${deload.needDeload ? `<div class="intel-deload">⚠️ ${esc(deload.reason)}</div>` : ''}
+      <div class="intel-rows">
+        ${intel.map((r) => `<div class="intel-row">
+          <span class="intel-label">${r.label}</span>
+          <div class="intel-bar"><i class="${r.status}" style="width:${Math.min(100, Math.round((r.sets / Math.max(1, r.max)) * 100))}%"></i></div>
+          <span class="intel-num ${r.status}">${r.sets}<em>/${r.min}–${r.max} 组</em></span>
+        </div>`).join('')}
+      </div>
+      <div class="tiny muted mt-s">目标按目标/水平自动估算；低于下限补量，高于上限注意恢复。</div>
+    </div>
+
+    <div class="card section">
+      <div class="card-head"><span class="card-title">🔁 数据闭环</span><span class="pill ghost">训练量 × 体重</span></div>
+      <p class="small" style="line-height:1.8;margin:0 0 10px">${esc(loop.insight)}</p>
+      <div class="loop-chart" aria-label="近 8 周训练容量与体重">
+        ${loop.rows.map((r) => {
+          const max = Math.max(1, ...loop.rows.map((x) => x.volume));
+          return `<div class="loop-col" title="${r.key} · ${Math.round(r.volume)}kg · 体重 ${r.weight ?? '—'}kg">
+            <div class="loop-bar-wrap"><i style="height:${Math.max(3, Math.round((r.volume / max) * 100))}%"></i></div>
+            <em>${r.weight != null ? r.weight : '—'}</em>
+            <span>${r.label}</span>
+          </div>`;
+        }).join('')}
+      </div>
+      <div class="row" style="justify-content:flex-end;margin-top:8px"><button class="btn btn-sm btn-ghost" data-act="share-week">分享本周</button></div>
+    </div>
+
+    <div class="card section">
       <div class="card-head"><span class="card-title">📊 肌群容量</span><span class="pill ghost">近 8 周 · kg</span></div>
-      ${volume.max ? `<div class="volume-chart">${volume.weeks.map((w) => `<div class="vol-col ${w.total ? '' : 'is-empty'}">
+      ${volume.max ? `<div class="volume-chart" role="img" aria-label="近 8 周肌群容量堆叠图">${volume.weeks.map((w) => `<div class="vol-col ${w.total ? '' : 'is-empty'}">
         <span class="vol-total">${w.total ? (w.total / 1000).toFixed(1) + 'k' : ''}</span>
         <div class="vol-stack">${volume.groups.map((g) => {
           const v = w.values[g.key];
@@ -9450,7 +12901,7 @@ function renderProgress(app) {
 
       <div class="card">
         <div class="card-head"><span class="card-title">📅 依从性</span><span class="pill ghost">计划 vs 实际</span></div>
-        <div class="adh-chart">${adh.weeks.map((w) => `<div class="adh-col">
+        <div class="adh-chart" role="img" aria-label="近 8 周计划与实际完成对比">${adh.weeks.map((w) => `<div class="adh-col">
           <div class="adh-bars"><i class="adh-plan" style="height:100%"></i><i class="adh-actual" style="height:${Math.round(w.ratio * 100)}%"></i></div>
           <span class="adh-label">${w.label}</span>
         </div>`).join('')}</div>
@@ -9480,9 +12931,12 @@ function renderProgress(app) {
 
     <div class="card flat mt-l">
       <div class="row-between wrap">
-        <div class="small muted">数据存在你自己的浏览器里（localStorage），不上传服务器。换浏览器或清缓存会丢，重要的话导出。</div>
-        <div class="row" style="gap:8px">
+        <div class="small muted">数据存在你自己的浏览器里（localStorage），不上传服务器。换浏览器或清缓存会丢，重要的话导出。JSON 只含文字数据，<b>不含照片与音乐</b>，请分别导出。</div>
+        <div class="row wrap" style="gap:8px">
+          <button class="btn btn-sm btn-primary" data-act="export-all">完整备份 ZIP</button>
           <button class="btn btn-sm btn-ghost" data-act="export-data">导出 JSON</button>
+          <button class="btn btn-sm btn-ghost" data-act="export-photos">导出照片</button>
+          <button class="btn btn-sm btn-ghost" data-act="export-music">导出音乐</button>
           <button class="btn btn-sm btn-ghost" data-act="reset-data" style="color:var(--cinnabar)">清空全部数据</button>
         </div>
       </div>
@@ -9543,18 +12997,20 @@ function weeklyReview(app, logs) {
 }
 
 
+
 Object.assign(module.exports, { renderProgress });
 };
 
 __defs["js/views/train.js"] = function (module, exports, __require) {
-/* 训练页：执行模式 */
+﻿/* 训练页：执行模式 */
 const { $, esc, percent } = __require("js/ui.js");
 const { GOALS } = __require("js/plan-engine.js");
 const { MUSCLES } = __require("data/exercises.js");
 const { petSummary, petLine } = __require("js/pet.js");
 const { MOODS } = __require("data/pets.js");
 const { petMini } = __require("js/svg.js");
-const { parseRest } = __require("js/training-log.js");
+const { parseRest, recentSetsFor } = __require("js/training-log.js");
+const { warmupSets } = __require("js/warmup.js");
 
 function renderTrain(app) {
   const s = app.state;
@@ -9583,6 +13039,7 @@ function renderTrain(app) {
       </div>
       <div class="row wrap" style="margin-left:auto">
         ${plan.sessions.map((sn, i) => `<button class="pill ${i === idx ? 'gold' : 'ghost'}" data-act="switch-day" data-idx="${i}" style="cursor:pointer">D${i + 1}</button>`).join('')}
+        <button class="btn btn-primary btn-sm" data-act="workout-focus">专注训练</button>
       </div>
     </div>
 
@@ -9668,6 +13125,9 @@ function renderTrain(app) {
 function exerciseBlock(app, it, i, doneMap, sessionIndex) {
   const doneSets = doneMap[it.id] || 0;
   const last = app.historyForItem ? app.historyForItem(it.id).last : null;
+  const recent = recentSetsFor(app.state.setLogs || [], it.id, 3);
+  const lastWeight = recent.length ? recent[recent.length - 1].weight : null;
+  const warmups = lastWeight ? warmupSets(lastWeight) : [];
   const isCurrent = !!app.state.activeSession && !app.state.activeSession.finished && doneSets < it.sets && isFirstIncomplete(it, doneMap, app.state.plan.sessions[sessionIndex]);
   return `
   <div class="exercise-card ${doneSets >= it.sets ? 'is-done' : ''} ${isCurrent ? 'is-current' : ''}" id="ex-${it.id}">
@@ -9685,12 +13145,15 @@ function exerciseBlock(app, it, i, doneMap, sessionIndex) {
     <div class="ec-progress">
       ${Array.from({ length: it.sets }, (_, k) => `<button class="set-dot ${k < doneSets ? 'is-done' : ''}" data-act="toggle-set" data-item="${it.id}" data-set="${k}" title="第 ${k + 1} 组">${k < doneSets ? '' : k + 1}</button>`).join('')}
     </div>
+    ${recent.length ? `<div class="last-sets">${recent.map((s) => `<span>${esc(s.date.slice(5))} ${s.weight}kg×${s.reps}${s.rpe ? ` · RPE ${s.rpe}` : ''}</span>`).join('')}</div>` : ''}
+    ${warmups.length ? `<details class="warmup-box"><summary>热身组 · 按 ${lastWeight}kg</summary><div class="warmup-chips">${warmups.map((w) => `<span>${w.weight}kg × ${w.reps}</span>`).join('')}</div></details>` : ''}
     <div class="ec-actions">
       <button class="btn btn-sm ${doneSets >= it.sets ? 'btn-ghost' : 'btn-primary'}" data-act="complete-set" data-item="${it.id}" ${doneSets >= it.sets ? 'disabled' : ''}>完成一组</button>
       <button class="btn btn-sm btn-ghost" data-act="log-set" data-item="${it.id}" ${doneSets >= it.sets ? 'disabled' : ''}>记重量</button>
       <button class="btn btn-sm btn-ghost" data-act="start-timer" data-sec="${parseRest(it.rest)}">休息 ${parseRest(it.rest)}s</button>
       <button class="btn btn-sm btn-ghost" data-act="swap" data-session="${sessionIndex}" data-item="${it.id}">换动作</button>
       <button class="btn btn-sm btn-ghost" data-act="show-cue" data-item="${it.id}">要点</button>
+      <button class="btn btn-sm btn-ghost" data-act="exercise-detail" data-id="${it.id}">详情</button>
       ${last ? `<span class="tiny muted">上次 ${last.weight}kg × ${last.reps}</span>` : ''}
       <span class="tiny muted" style="margin-left:auto">${esc(it.cue)}</span>
     </div>
@@ -9712,7 +13175,141 @@ function fmtSec(sec) {
 }
 
 
+
+
 Object.assign(module.exports, { renderTrain, fmtSec });
+};
+
+__defs["js/warmup.js"] = function (module, exports, __require) {
+/** 热身组（P21）：按主项重量生成递增热身组，纯函数 */
+function warmupSets(workingWeight, { bar = 20, plates = 2.5 } = {}) {
+  const w = Number(workingWeight);
+  if (!Number.isFinite(w) || w <= bar) return [];
+  const round = (v) => Math.max(bar, Math.round(v / plates) * plates);
+  const pcts = [
+    { pct: 0.4, reps: 8 },
+    { pct: 0.6, reps: 5 },
+    { pct: 0.8, reps: 3 },
+  ];
+  const out = [];
+  for (const p of pcts) {
+    const weight = round(w * p.pct);
+    if (weight >= w) continue;
+    if (out.length && out[out.length - 1].weight === weight) continue;
+    out.push({ pct: Math.round(p.pct * 100), weight, reps: p.reps });
+  }
+  return out;
+}
+
+function warmupText(sets) {
+  return sets.map((s) => `${s.weight}kg×${s.reps}`).join(' · ');
+}
+
+
+Object.assign(module.exports, { warmupSets, warmupText });
+};
+
+__defs["js/zip.js"] = function (module, exports, __require) {
+/** 极简 ZIP 写入（store，不压缩），用于完整备份，纯函数 */
+const CRC_TABLE = (() => {
+  const table = new Uint32Array(256);
+  for (let i = 0; i < 256; i++) {
+    let c = i;
+    for (let k = 0; k < 8; k++) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1;
+    table[i] = c >>> 0;
+  }
+  return table;
+})();
+
+function crc32(bytes) {
+  let c = 0xffffffff;
+  for (let i = 0; i < bytes.length; i++) c = CRC_TABLE[(c ^ bytes[i]) & 0xff] ^ (c >>> 8);
+  return (c ^ 0xffffffff) >>> 0;
+}
+
+function utf8(str) {
+  return new TextEncoder().encode(str);
+}
+
+function dosTime(d = new Date()) {
+  const time = (d.getHours() << 11) | (d.getMinutes() << 5) | Math.floor(d.getSeconds() / 2);
+  const date = ((d.getFullYear() - 1980) << 9) | ((d.getMonth() + 1) << 5) | d.getDate();
+  return { time, date };
+}
+
+/**
+ * @param {{name:string, data:Uint8Array|string}[]} entries
+ * @returns {Uint8Array}
+ */
+function createZip(entries = [], now = new Date()) {
+  const { time, date } = dosTime(now);
+  const locals = [];
+  const centrals = [];
+  let offset = 0;
+  for (const entry of entries) {
+    const name = utf8(entry.name);
+    const data = typeof entry.data === 'string' ? utf8(entry.data) : entry.data;
+    const crc = crc32(data);
+    const local = new Uint8Array(30 + name.length + data.length);
+    const lv = new DataView(local.buffer);
+    lv.setUint32(0, 0x04034b50, true);
+    lv.setUint16(4, 20, true);
+    lv.setUint16(6, 0x0800, true);
+    lv.setUint16(8, 0, true);
+    lv.setUint16(10, time, true);
+    lv.setUint16(12, date, true);
+    lv.setUint32(14, crc, true);
+    lv.setUint32(18, data.length, true);
+    lv.setUint32(22, data.length, true);
+    lv.setUint16(26, name.length, true);
+    lv.setUint16(28, 0, true);
+    local.set(name, 30);
+    local.set(data, 30 + name.length);
+    locals.push(local);
+
+    const central = new Uint8Array(46 + name.length);
+    const cv = new DataView(central.buffer);
+    cv.setUint32(0, 0x02014b50, true);
+    cv.setUint16(4, 20, true);
+    cv.setUint16(6, 20, true);
+    cv.setUint16(8, 0x0800, true);
+    cv.setUint16(10, 0, true);
+    cv.setUint16(12, time, true);
+    cv.setUint16(14, date, true);
+    cv.setUint32(16, crc, true);
+    cv.setUint32(20, data.length, true);
+    cv.setUint32(24, data.length, true);
+    cv.setUint16(28, name.length, true);
+    cv.setUint16(30, 0, true);
+    cv.setUint16(32, 0, true);
+    cv.setUint16(34, 0, true);
+    cv.setUint16(36, 0, true);
+    cv.setUint32(38, 0, true);
+    cv.setUint32(42, offset, true);
+    central.set(name, 46);
+    centrals.push(central);
+    offset += local.length;
+  }
+  const centralSize = centrals.reduce((sum, c) => sum + c.length, 0);
+  const end = new Uint8Array(22);
+  const ev = new DataView(end.buffer);
+  ev.setUint32(0, 0x06054b50, true);
+  ev.setUint16(8, entries.length, true);
+  ev.setUint16(10, entries.length, true);
+  ev.setUint32(12, centralSize, true);
+  ev.setUint32(16, offset, true);
+  const total = offset + centralSize + end.length;
+  const out = new Uint8Array(total);
+  let pos = 0;
+  for (const part of [...locals, ...centrals, end]) {
+    out.set(part, pos);
+    pos += part.length;
+  }
+  return out;
+}
+
+
+Object.assign(module.exports, { crc32, createZip });
 };
 
 __require("js/app.js");
@@ -9720,3 +13317,8 @@ __require("js/app.js");
 </script>
 </body>
 </html>
+
+
+
+
+
